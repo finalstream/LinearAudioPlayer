@@ -1,0 +1,35 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<Data>
+  <Item>
+    <DisplayValue>ALL MUSIC</DisplayValue>
+    <Value>ORDER BY PL.ADDDATETIME DESC, ABS(PL.TRACK), PL.ID #LIMIT#</Value>
+  </Item>
+  <Item>
+    <DisplayValue>再生中</DisplayValue>
+    <Value>INNER JOIN (SELECT ID,SORT FROM PLAYINGLIST) PLAYING ON PL.ID=PLAYING.ID ORDER BY PLAYING.SORT</Value>
+  </Item>
+  <Item>
+    <DisplayValue>再生履歴</DisplayValue>
+    <Value>AND LASTPLAYDATE IS NOT NULL ORDER BY LASTPLAYDATE DESC #LIMIT#</Value>
+  </Item>
+  <Item>
+    <DisplayValue>再生頻度が高いもの</DisplayValue>
+    <Value>AND PLAYCOUNT &gt; 2 ORDER BY  PLAYCOUNT / ROUND(JULIANDAY(DATETIME('NOW', 'LOCALTIME')) - JULIANDAY(DATETIME(ADDDATE))) DESC #LIMIT#</Value>
+  </Item>
+  <Item>
+    <DisplayValue>お気に入り候補</DisplayValue>
+    <Value>AND RATING &lt;&gt; 9 ORDER BY  PLAYCOUNT / ROUND(JULIANDAY(DATETIME('NOW', 'LOCALTIME')) - JULIANDAY(DATETIME(ADDDATE))) DESC #LIMIT#</Value>
+  </Item>
+  <Item>
+    <DisplayValue>最近再生していないもの</DisplayValue>
+    <Value>AND LASTPLAYDATE IS NOT NULL AND PLAYCOUNT &gt; 0 ORDER BY LASTPLAYDATE #LIMIT#</Value>
+  </Item>
+  <Item>
+    <DisplayValue>未再生</DisplayValue>
+    <Value>AND LASTPLAYDATE IS NULL ORDER BY ADDDATETIME DESC,ABS(PL.TRACK), PL.ID</Value>
+  </Item>
+  <Item>
+    <DisplayValue>存在しないもの</DisplayValue>
+    <Value>AND GETFILESIZE(FILEPATH,'') = 0 ORDER BY PL.ID DESC</Value>
+  </Item>
+</Data>

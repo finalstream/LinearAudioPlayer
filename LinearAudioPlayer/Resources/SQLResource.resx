@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SQL001" xml:space="preserve">
+    <value>SELECT 
+  PL.ID,
+  FILEPATH,
+  null,
+  TITLE,
+  ARTIST,
+  ALBUM,
+  TRACK,
+  LENGTH,
+  BITRATE,
+  GENRE,
+  YEAR,
+  LASTPLAYDATE,
+  DATE,
+  RATING,
+  TAG,
+  PLAYCOUNT,
+  NOTFOUND,
+  OPTION
+FROM PLAYLIST PL</value>
+    <comment>PLAYLIST取得ベースSQL</comment>
+  </data>
+  <data name="SQL002" xml:space="preserve">
+    <value>SELECT 
+  COUNT(ID) 
+FROM PLAYLIST 
+WHERE FILEPATH = :FilePath
+AND OPTION = :Option</value>
+    <comment>すでに存在するかチェックする(第一段階)</comment>
+  </data>
+  <data name="SQL003" xml:space="preserve">
+    <value>INSERT INTO PLAYLIST(FILEPATH, TITLE, ARTIST, ALBUM, TRACK, LENGTH, GENRE, RATING, PLAYCOUNT, YEAR, BITRATE, DATE, SORT , NOTFOUND, OPTION, TAG, ADDDATE, LASTPLAYDATE, ADDDATETIME,  FILESIZE) 
+VALUES (:FilePath, :Title, :Artist, :Album, :Track, :Time, :Genre, :Rating, :PlayCount, :Year, :Bitrate, :Date, null, :NotFound, :Option, null, :AddDate, null, :AddDateTime, :FileSize)</value>
+    <comment>プレイリストにレコードを挿入するSQL</comment>
+  </data>
+  <data name="SQL004" xml:space="preserve">
+    <value>SELECT last_insert_rowid() AS LASTROWID</value>
+    <comment>LASTROWIDを取得</comment>
+  </data>
+  <data name="SQL005" xml:space="preserve">
+    <value>UPDATE PLAYLIST 
+SET
+TITLE = :Title ,
+PLAYCOUNT = :PlayCount ,
+RATING = :Rating ,
+DATE = :Date,
+ADDDATE = :AddDate,
+ADDDATETIME = :AddDateTime,
+NOTFOUND = :NotFound
+WHERE ID = :Id</value>
+    <comment>プレイリストのベース情報更新</comment>
+  </data>
+  <data name="SQL007" xml:space="preserve">
+    <value>UPDATE PLAYLIST 
+SET
+TITLE = :Title ,
+ARTIST = :Artist, 
+BITRATE = :Bitrate,
+ALBUM = :Album,
+TRACK = :Track,
+GENRE = :Genre,
+YEAR = :Year,
+LENGTH = :Time,
+NOTFOUND = :NotFound,
+DATE = :Date,
+LASTPLAYDATE = :LastPlayDate
+WHERE ID = :Id</value>
+    <comment>プレイリスト詳細情報更新</comment>
+  </data>
+  <data name="SQL008" xml:space="preserve">
+    <value>UPDATE PLAYLIST
+SET TAG = :Tag
+WHERE ID = :Id</value>
+    <comment>タグ情報更新</comment>
+  </data>
+  <data name="SQL009" xml:space="preserve">
+    <value>UPDATE PLAYLIST 
+SET SORT = :Sort
+WHERE ID = :Id</value>
+    <comment>ソート情報更新</comment>
+  </data>
+  <data name="SQL010" xml:space="preserve">
+    <value>DELETE FROM PLAYLIST</value>
+    <comment>プレイリスト削除</comment>
+  </data>
+  <data name="SQL012" xml:space="preserve">
+    <value>SELECT #condMode# , count(*)
+FROM PLAYLIST PL
+WHERE #condMode# IS NOT NULL
+AND #RATING#
+#FILTERING#
+GROUP BY #condMode#
+HAVING COUNT(*) &gt; #condCount#</value>
+    <comment>コンディションリスト生成</comment>
+  </data>
+  <data name="SQL013" xml:space="preserve">
+    <value>SELECT ID
+FROM PLAYLIST
+WHERE #RATING#
+ORDER BY RANDOM() LIMIT 1</value>
+    <comment>ランダム再生用取得</comment>
+  </data>
+  <data name="SQL014" xml:space="preserve">
+    <value>SELECT TAG
+FROM PLAYLIST
+WHERE TAG IS NOT NULL</value>
+    <comment>タグリストを取得</comment>
+  </data>
+  <data name="SQL015" xml:space="preserve">
+    <value>SELECT COUNT(*) FROM PLAYLIST WHERE ID = :Id</value>
+    <comment>IDが存在するか確認</comment>
+  </data>
+  <data name="SQL016" xml:space="preserve">
+    <value>SELECT sum(round((julianday('00:' || length)-julianday('00:00:00')) * 86400))
+FROM PLAYLIST PL</value>
+    <comment>再生時間の合計を取得(sec)</comment>
+  </data>
+  <data name="SQL017" xml:space="preserve">
+    <value>SELECT 
+  PLAYCOUNT 
+FROM PLAYLIST 
+WHERE ID = :Id</value>
+    <comment>再生回数取得</comment>
+  </data>
+  <data name="SQL018" xml:space="preserve">
+    <value>UPDATE PLAYLIST 
+SET FILEPATH = :NewFilePath
+WHERE FILEPATH = :OldFilePath</value>
+    <comment>アーカイブ変換時のDB更新</comment>
+  </data>
+  <data name="SQL019" xml:space="preserve">
+    <value>SELECT 
+  FILEPATH,
+  OPTION
+FROM PLAYLIST 
+WHERE ID = :Id</value>
+    <comment>IDからFILEPATHとOPTIONを取得</comment>
+  </data>
+  <data name="SQL020" xml:space="preserve">
+    <value>SELECT 
+  GETDIRPATH(FILEPATH),
+  count(*)
+FROM PLAYLIST 
+GROUP BY GETDIRPATH(FILEPATH)
+order by 2 desc</value>
+    <comment>ファイルパスをディレクトリ別に集計</comment>
+  </data>
+  <data name="SQL021" xml:space="preserve">
+    <value>UPDATE PLAYLIST
+SET FILEPATH = REPLACE(FILEPATH,:BeforeString,:AfterString)
+,NOTFOUND = 0
+WHERE FILEPATH LIKE :BeforeLikeString</value>
+    <comment>ファイルパス更新</comment>
+  </data>
+  <data name="SQL022" xml:space="preserve">
+    <value>UPDATE PLAYLIST 
+SET
+PLAYCOUNT = :PlayCount
+WHERE ID = :Id</value>
+    <comment>再生回数更新</comment>
+  </data>
+  <data name="SQL023" xml:space="preserve">
+    <value>UPDATE PLAYLIST 
+SET
+TITLE = :Title ,
+ARTIST = :Artist, 
+BITRATE = :Bitrate,
+ALBUM = :Album,
+TRACK = :Track,
+GENRE = :Genre,
+YEAR = :Year,
+LENGTH = :Time,
+NOTFOUND = :NotFound,
+DATE = :Date,
+DESCRIPTION = null,
+FILESIZE = GETFILESIZE(:FilePath,:Option)
+WHERE ID = :Id</value>
+    <comment>タグ情報更新</comment>
+  </data>
+  <data name="SQL024" xml:space="preserve">
+    <value>UPDATE PLAYLIST 
+SET
+NOTFOUND = :NotFound
+WHERE ID = :Id</value>
+    <comment>NOTFOUND更新</comment>
+  </data>
+  <data name="SQL025" xml:space="preserve">
+    <value>UPDATE PLAYLIST
+SET FILEPATH = :FilePath,
+OPTION = :Option,
+NOTFOUND = 0
+WHERE Id = :Id</value>
+    <comment>ファイルパスが異なる同じファイルがドロップされたときはFilepathとOptionを更新</comment>
+  </data>
+  <data name="SQL026" xml:space="preserve">
+    <value>SELECT 
+  ID,
+  FILEPATH,
+  OPTION,
+  TRACK,
+  GENRE
+FROM PLAYLIST 
+WHERE ARTIST = :Artist
+AND ALBUM = :Album</value>
+    <comment>アルバムタグ一括更新対象取得SQL</comment>
+  </data>
+  <data name="SQL027" xml:space="preserve">
+    <value>UPDATE PLAYLIST 
+SET
+TITLE = :Title ,
+ARTIST = :Artist, 
+ALBUM = :Album,
+TRACK = :Track,
+GENRE = :Genre,
+YEAR = :Year,
+FILESIZE = GETFILESIZE(:FilePath,:Option)
+WHERE ID = :Id</value>
+    <comment>タグ更新機能で更新したときのデータベース更新</comment>
+  </data>
+  <data name="SQL028" xml:space="preserve">
+    <value>UPDATE PLAYLIST
+SET FILEPATH = :NewFilePath
+WHERE FILEPATH = :OldFilePath</value>
+    <comment>ファイルパスを指定してファイルパス更新</comment>
+  </data>
+  <data name="SQL029" xml:space="preserve">
+    <value>SELECT *
+FROM ( #SQL# ) 
+ORDER BY random()</value>
+    <comment>シャッフル用SQL</comment>
+  </data>
+  <data name="SQL030" xml:space="preserve">
+    <value>SELECT 
+  TITLE,
+  ARTIST
+FROM PLAYLIST 
+WHERE ID = :Id</value>
+    <comment>IDからタイトルとアーティストを取得</comment>
+  </data>
+  <data name="SQL031" xml:space="preserve">
+    <value>DELETE FROM PLAYINGLIST</value>
+    <comment>再生中リスト削除</comment>
+  </data>
+  <data name="SQL032" xml:space="preserve">
+    <value>INSERT INTO PLAYINGLIST(ID, SORT) VALUES (:Id, :Sort)</value>
+    <comment>再生中リスト追加</comment>
+  </data>
+  <data name="SQL033" xml:space="preserve">
+    <value>UPDATE PLAYINGLIST SET SORT = SORT + 1 WHERE SORT &gt; 1</value>
+    <comment>割り込み追加用SQL</comment>
+  </data>
+  <data name="SQL034" xml:space="preserve">
+    <value>SELECT COUNT(*) FROM PLAYINGLIST</value>
+    <comment>再生中リスト件数取得</comment>
+  </data>
+  <data name="SQL035" xml:space="preserve">
+    <value>SELECT ID FROM PLAYINGLIST WHERE SORT = 1</value>
+    <comment>次に再生するIDを取得(リスト更新時)</comment>
+  </data>
+  <data name="SQL036" xml:space="preserve">
+    <value>UPDATE PLAYINGLIST SET SORT = SORT -1</value>
+    <comment>次のID取得したときに更新する用1</comment>
+  </data>
+  <data name="SQL037" xml:space="preserve">
+    <value>UPDATE PLAYINGLIST SET SORT = :Sort WHERE SORT = 0</value>
+    <comment>次のID取得したときに更新する用2</comment>
+  </data>
+  <data name="SQL038" xml:space="preserve">
+    <value>SELECT 
+  FILEPATH,
+  OPTION,
+  LENGTH,
+  RATING
+FROM PLAYLIST 
+WHERE ID = :Id</value>
+    <comment>再生前にIDから情報取得する</comment>
+  </data>
+  <data name="SQL039" xml:space="preserve">
+    <value>SELECT ID FROM PLAYINGLIST WHERE SORT = 2</value>
+    <comment>次に再生するIDを取得(NEXT表示用)</comment>
+  </data>
+  <data name="SQL040" xml:space="preserve">
+    <value>SELECT TITLE || ARTIST || FILESIZE FROM PLAYLIST GROUP BY TITLE || ARTIST || FILESIZE</value>
+    <comment>登録されているファイル重複キーリスト取得(重複チェック用)</comment>
+  </data>
+  <data name="SQL041" xml:space="preserve">
+    <value>SELECT FILEPATH || OPTION FROM PLAYLIST GROUP BY FILEPATH || OPTION</value>
+    <comment>登録されているファイルパス、オプションリスト取得(重複チェック用)</comment>
+  </data>
+  <data name="SQL042" xml:space="preserve">
+    <value>SELECT ID, FILEPATH, OPTION FROM PLAYLIST WHERE TITLE = :Title AND ARTIST = :Artist AND FILESIZE = :FileSize ORDER BY ID</value>
+    <comment>同じファイルのものを取得する</comment>
+  </data>
+  <data name="SQL043" xml:space="preserve">
+    <value>SELECT 
+  FILEPATH,
+  TITLE,
+  ARTIST,
+  LENGTH
+FROM PLAYLIST
+WHERE OPTION = "" OR OPTION IS NULL
+ORDER BY ID ASC</value>
+    <comment>M3U(アーカイブ以外)出力用</comment>
+  </data>
+  <data name="SQL044" xml:space="preserve">
+    <value>UPDATE PLAYLIST SET SORT = :Sort WHERE ID = :Id</value>
+    <comment>ソートを更新(ARTIST)</comment>
+  </data>
+  <data name="SQL045" xml:space="preserve">
+    <value>SELECT *
+FROM (SELECT 
+  ID,
+  TITLE
+FROM PLAYLIST
+WHERE #RATING#
+AND ID &lt;&gt; :Id
+AND ARTIST = :Artist)
+ORDER BY random() LIMIT #LIMIT#</value>
+    <comment>同じアーティストの曲をランダムで取得</comment>
+  </data>
+  <data name="SQL046" xml:space="preserve">
+    <value>SELECT DESCRIPTION
+FROM PLAYLIST
+WHERE ARTIST = :Artist
+AND ALBUM = :Album
+ORDER BY ID ASC
+LIMIT 1</value>
+    <comment>アルバムの説明を取得（アーティストとアルバムでIDの一番古いものに格納していある）</comment>
+  </data>
+  <data name="SQL047" xml:space="preserve">
+    <value>UPDATE PLAYLIST
+SET DESCRIPTION = :Description
+WHERE ID = (SELECT MIN(ID) FROM PLAYLIST WHERE ARTIST = :Artist AND ALBUM = :Album)</value>
+    <comment>アルバムの説明を更新。</comment>
+  </data>
+  <data name="SQL048" xml:space="preserve">
+    <value>SELECT
+ ID,
+ FILEPATH,
+ OPTION,
+ TRACK,
+ GENRE
+FROM PLAYLIST
+WHERE ADDDATETIME = (SELECT ADDDATETIME FROM PLAYLIST WHERE ID = :Id)</value>
+    <comment>アルバム一括タグ更新用SQL</comment>
+  </data>
+  <data name="SQL049" xml:space="preserve">
+    <value>SELECT ID
+FROM PLAYLIST
+WHERE LASTPLAYDATE &lt; :LastPlayDate
+ORDER BY LASTPLAYDATE DESC LIMIT 1</value>
+    <comment>1つ前の再生IDを取得</comment>
+  </data>
+  <data name="SQL050" xml:space="preserve">
+    <value>SELECT SORT FROM PLAYINGLIST WHERE ID = :Id</value>
+    <comment>1つ前の再生用SORT取得</comment>
+  </data>
+  <data name="SQL051" xml:space="preserve">
+    <value>SELECT ID
+FROM PLAYINGLIST
+WHERE SORT &lt; :Sort
+ORDER BY SORT DESC LIMIT 1</value>
+    <comment>1つ前の再生用ID取得</comment>
+  </data>
+  <data name="SQL052" xml:space="preserve">
+    <value>SELECT ID FROM PLAYINGLIST WHERE SORT = (SELECT MAX(SORT) FROM PLAYINGLIST)</value>
+    <comment>1つ前の再生用SORT取得(MAX)</comment>
+  </data>
+</root>

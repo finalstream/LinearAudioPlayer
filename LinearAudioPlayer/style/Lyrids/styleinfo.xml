@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<StyleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Lyrids</Name>
+  <Designer>FINALSTREAM</Designer>
+  <Version>Version 1.2</Version>
+  <Comment>黒、白にオレンジのアクセントいれたスタイルです。</Comment>
+  <OutSideUnderRightLineColor>-4671304</OutSideUnderRightLineColor>
+  <FormOutSideUnderRightLineColor />
+  <InSideUnderRightLineColor>-3092272</InSideUnderRightLineColor>
+  <FormInSideUnderRightLineColor />
+  <OutSideBottomLeftLineColor>-2236963</OutSideBottomLeftLineColor>
+  <FormOutSideBottomLeftLineColor />
+  <InSideBottomLeftLineColor>-1</InSideBottomLeftLineColor>
+  <FormInSideBottomLeftLineColor />
+  <MainTitleFontConfig>
+    <FontName>メイリオ</FontName>
+    <FontSize>9</FontSize>
+    <FontStyle>Regular</FontStyle>
+  </MainTitleFontConfig>
+  <MainDisplayFontConfig>
+    <FontName>Tahoma</FontName>
+    <FontSize>9</FontSize>
+    <FontStyle>Regular</FontStyle>
+  </MainDisplayFontConfig>
+  <PlaylistFontConfig>
+    <FontName>メイリオ</FontName>
+    <FontSize>9</FontSize>
+    <FontStyle>Regular</FontStyle>
+  </PlaylistFontConfig>
+  <DisplayBorderStyle>Fixed3D</DisplayBorderStyle>
+  <ComboBoxStyle>DropDown</ComboBoxStyle>
+  <DefaultColorProfile>Lyrids.xml</DefaultColorProfile>
+</StyleConfig>
