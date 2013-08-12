@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Diagnostics;
@@ -50,6 +51,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         public static int SubChannel = 1;
         public const int SPECTRUMSIZE = 128;
         private PlayingListController playingListController = null;
+        
         
         public MedleyInfo MedleyInfo = new MedleyInfo();
 
@@ -114,6 +116,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
             this._playEngine.init();
 
+            
         }
 
         /// <summary>
@@ -619,6 +622,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     } catch(Exception ex)
                     {
                         LinearAudioPlayer.Logger.TraceEvent(TraceEventType.Warning, 0, ex.Message + " " + gi.PictureUrl);
+                        gi.IsNoPicture = true;
                     }
                 }
 
@@ -1476,13 +1480,13 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     0, fex.ToString() +"\n" + fex.InnerException.Message);
                     LinearAudioPlayer.Logger.Flush();
                 }
-                
-                gi.Picture = Image.FromFile(LinearGlobal.StyleDirectory + "\\nocover.png");
+
+                gi.Picture = LinearAudioPlayer.StyleController.NoPictureImage;
                 gi.IsNoPicture = true;
 
             } else if (gi.Picture == null)
             {
-                gi.Picture = Image.FromFile(LinearGlobal.StyleDirectory + "\\nocover.png");
+                gi.Picture = LinearAudioPlayer.StyleController.NoPictureImage;
                 gi.IsNoPicture = true;
             }
 
@@ -1610,7 +1614,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             }
             catch (Exception)
             {
-                sqltran.Rollback();
+                if (sqltran.Connection.State != ConnectionState.Closed)
+                {
+                    sqltran.Rollback();
+                }
                 //MessageUtils.showMessage(MessageBoxIcon.Error,
                 //    MessageResource.E0002 + "\n" + ex.Message);
             }

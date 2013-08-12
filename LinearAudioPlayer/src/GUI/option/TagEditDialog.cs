@@ -177,7 +177,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
                 FileInfoList.Add(tagEdit);
 
-                if (gi.Picture == null)
+                if (gi.Picture == null || gi.IsNoPicture)
                 {
                     Thread t = new Thread(new ParameterizedThreadStart(getArtworkUrl));
                     t.IsBackground = true;
@@ -218,7 +218,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             else
             {
                 isArtworkLoadComplete = true;
-                lblArtworkType.Text = "FILE";
+                lblArtworkType.Text = "NONE";
                 picArtwork.Image = gi.Picture;
             }
         }

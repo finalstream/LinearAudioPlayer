@@ -311,7 +311,7 @@
             this.lblArtworkType.Name = "lblArtworkType";
             this.lblArtworkType.Size = new System.Drawing.Size(39, 14);
             this.lblArtworkType.TabIndex = 21;
-            this.lblArtworkType.Text = "XXXX";
+            this.lblArtworkType.Text = "NONE";
             this.lblArtworkType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // checkArtworkSave
@@ -406,7 +406,7 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.allAlbumTrackUpdateToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(209, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(209, 26);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // allAlbumTrackUpdateToolStripMenuItem

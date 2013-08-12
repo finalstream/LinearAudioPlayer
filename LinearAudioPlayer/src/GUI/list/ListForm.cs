@@ -1079,18 +1079,19 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 //画像を縮小表示
                 float alpha = artworkCount * 0.1F;
 
+                /*
                 if (isNoPicture)
                 {
                     g.Clear(LinearGlobal.ColorConfig.FormBackgroundColor);
                     artworkBeforeImage = null;
-                }
+                }*/
 
                 Image img;
                 if (artworkBeforeImage != null)
                 {
 
                     img = ImageUtils.GetCompositeAlphaImage(artworkBeforeImage,
-                                                      artworkImage, alpha);
+                                                      artworkImage, alpha, isNoPicture, LinearGlobal.ColorConfig.FormBackgroundColor);
                 }
                 else
                 {
