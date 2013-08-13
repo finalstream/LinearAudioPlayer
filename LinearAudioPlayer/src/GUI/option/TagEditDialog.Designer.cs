@@ -59,11 +59,6 @@
             this.lblArtworkType = new System.Windows.Forms.Label();
             this.checkArtworkSave = new System.Windows.Forms.CheckBox();
             this.albumView = new System.Windows.Forms.DataGridView();
-            this.columArtist = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columAlbum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columRelease = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnURL = new System.Windows.Forms.DataGridViewLinkColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.allAlbumTrackUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allAlbumTrackUpdateTrackNoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,6 +74,11 @@
             this.buttonReset = new System.Windows.Forms.Button();
             this.checkTagSearchShow = new System.Windows.Forms.CheckBox();
             this.btnRename = new System.Windows.Forms.Button();
+            this.columArtist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columAlbum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columRelease = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnURL = new System.Windows.Forms.DataGridViewLinkColumn();
             ((System.ComponentModel.ISupportInitialize)(this.picArtwork)).BeginInit();
             this.contextMenuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.albumView)).BeginInit();
@@ -343,7 +343,6 @@
             this.albumView.Location = new System.Drawing.Point(14, 232);
             this.albumView.MultiSelect = false;
             this.albumView.Name = "albumView";
-            this.albumView.ReadOnly = true;
             this.albumView.RowHeadersVisible = false;
             this.albumView.RowTemplate.Height = 21;
             this.albumView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -355,51 +354,6 @@
             this.albumView.TabIndex = 24;
             this.albumView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.albumView_CellContentClick);
             this.albumView.SelectionChanged += new System.EventHandler(this.albumView_SelectionChanged);
-            // 
-            // columArtist
-            // 
-            this.columArtist.DataPropertyName = "Artist";
-            this.columArtist.HeaderText = "Artist";
-            this.columArtist.Name = "columArtist";
-            this.columArtist.ReadOnly = true;
-            // 
-            // columAlbum
-            // 
-            this.columAlbum.DataPropertyName = "Title";
-            this.columAlbum.HeaderText = "Album";
-            this.columAlbum.Name = "columAlbum";
-            this.columAlbum.ReadOnly = true;
-            this.columAlbum.Width = 200;
-            // 
-            // columRelease
-            // 
-            this.columRelease.DataPropertyName = "ReleaseDate";
-            this.columRelease.HeaderText = "Release";
-            this.columRelease.Name = "columRelease";
-            this.columRelease.ReadOnly = true;
-            // 
-            // columLabel
-            // 
-            this.columLabel.DataPropertyName = "Label";
-            this.columLabel.HeaderText = "Label";
-            this.columLabel.Name = "columLabel";
-            this.columLabel.ReadOnly = true;
-            // 
-            // columnURL
-            // 
-            this.columnURL.ActiveLinkColor = System.Drawing.Color.Silver;
-            this.columnURL.HeaderText = "";
-            this.columnURL.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.columnURL.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.columnURL.Name = "columnURL";
-            this.columnURL.ReadOnly = true;
-            this.columnURL.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnURL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.columnURL.Text = "■";
-            this.columnURL.TrackVisitedState = false;
-            this.columnURL.UseColumnTextForLinkValue = true;
-            this.columnURL.VisitedLinkColor = System.Drawing.Color.Silver;
-            this.columnURL.Width = 30;
             // 
             // contextMenuStrip1
             // 
@@ -476,7 +430,6 @@
             this.trackView.Location = new System.Drawing.Point(121, 316);
             this.trackView.MultiSelect = false;
             this.trackView.Name = "trackView";
-            this.trackView.ReadOnly = true;
             this.trackView.RowHeadersVisible = false;
             this.trackView.RowTemplate.Height = 21;
             this.trackView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -493,7 +446,6 @@
             this.columnDiscNumber.DataPropertyName = "DiscNumber";
             this.columnDiscNumber.HeaderText = "DiscNo";
             this.columnDiscNumber.Name = "columnDiscNumber";
-            this.columnDiscNumber.ReadOnly = true;
             this.columnDiscNumber.Width = 70;
             // 
             // columnTrackNumber
@@ -501,7 +453,6 @@
             this.columnTrackNumber.DataPropertyName = "TrackNumber";
             this.columnTrackNumber.HeaderText = "TrackNo";
             this.columnTrackNumber.Name = "columnTrackNumber";
-            this.columnTrackNumber.ReadOnly = true;
             this.columnTrackNumber.Width = 70;
             // 
             // columnTrackName
@@ -509,7 +460,6 @@
             this.columnTrackName.DataPropertyName = "TrackName";
             this.columnTrackName.HeaderText = "TrackName";
             this.columnTrackName.Name = "columnTrackName";
-            this.columnTrackName.ReadOnly = true;
             this.columnTrackName.Width = 250;
             // 
             // picAmazonImage
@@ -553,6 +503,48 @@
             this.btnRename.Text = "RENAME";
             this.btnRename.UseVisualStyleBackColor = true;
             this.btnRename.Click += new System.EventHandler(this.btnRename_Click);
+            // 
+            // columArtist
+            // 
+            this.columArtist.DataPropertyName = "Artist";
+            this.columArtist.HeaderText = "Artist";
+            this.columArtist.Name = "columArtist";
+            // 
+            // columAlbum
+            // 
+            this.columAlbum.DataPropertyName = "Title";
+            this.columAlbum.HeaderText = "Album";
+            this.columAlbum.Name = "columAlbum";
+            this.columAlbum.Width = 220;
+            // 
+            // columRelease
+            // 
+            this.columRelease.DataPropertyName = "ReleaseDate";
+            this.columRelease.HeaderText = "Release";
+            this.columRelease.Name = "columRelease";
+            this.columRelease.Width = 70;
+            // 
+            // columLabel
+            // 
+            this.columLabel.DataPropertyName = "Label";
+            this.columLabel.HeaderText = "Label";
+            this.columLabel.Name = "columLabel";
+            this.columLabel.Width = 110;
+            // 
+            // columnURL
+            // 
+            this.columnURL.ActiveLinkColor = System.Drawing.Color.Silver;
+            this.columnURL.HeaderText = "Link";
+            this.columnURL.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.columnURL.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.columnURL.Name = "columnURL";
+            this.columnURL.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnURL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.columnURL.Text = "■";
+            this.columnURL.TrackVisitedState = false;
+            this.columnURL.UseColumnTextForLinkValue = true;
+            this.columnURL.VisitedLinkColor = System.Drawing.Color.Silver;
+            this.columnURL.Width = 30;
             // 
             // TagEditDialog
             // 
@@ -645,11 +637,6 @@
         private System.Windows.Forms.PictureBox picAmazonImage;
         private System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.CheckBox checkTagSearchShow;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columArtist;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columAlbum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columRelease;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columLabel;
-        private System.Windows.Forms.DataGridViewLinkColumn columnURL;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem allAlbumTrackUpdateToolStripMenuItem;
         private System.Windows.Forms.Button btnRename;
@@ -660,5 +647,10 @@
         private System.Windows.Forms.ToolStripMenuItem clearArtworkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allAlbumTrackUpdateTrackNoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allAlbumTrackUpdateFilePathToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columArtist;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columAlbum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columRelease;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columLabel;
+        private System.Windows.Forms.DataGridViewLinkColumn columnURL;
     }
 }
