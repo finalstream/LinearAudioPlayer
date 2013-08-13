@@ -251,6 +251,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             setting.PlayerConfig.ResumeId = LinearGlobal.CurrentPlayItemInfo.Id;
             setting.PlayerConfig.ResumePosition = LinearGlobal.LinearConfig.PlayerConfig.ResumePosition;
             setting.PlayerConfig.ResumePlay = LinearGlobal.LinearConfig.PlayerConfig.ResumePlay;
+            setting.PlayerConfig.IsAutoUpdate = LinearGlobal.LinearConfig.PlayerConfig.IsAutoUpdate;
             // 除外キーワード
             setting.PlayerConfig.ExclusionKeywords = LinearGlobal.LinearConfig.PlayerConfig.ExclusionKeywords;
             setting.PlayerConfig.TempDirectory = LinearGlobal.LinearConfig.PlayerConfig.TempDirectory;

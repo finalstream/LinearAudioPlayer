@@ -120,6 +120,7 @@
             this.columnAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReStart = new System.Windows.Forms.Button();
+            this.checkAutoUpdate = new System.Windows.Forms.CheckBox();
             this.tabSetting.SuspendLayout();
             this.tabOption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPlayCountUpRatio)).BeginInit();
@@ -162,6 +163,7 @@
             // 
             // tabOption
             // 
+            this.tabOption.Controls.Add(this.checkAutoUpdate);
             this.tabOption.Controls.Add(this.checkGetNetworkArtwork);
             this.tabOption.Controls.Add(this.checkFontBold);
             this.tabOption.Controls.Add(this.label14);
@@ -181,7 +183,7 @@
             // checkGetNetworkArtwork
             // 
             this.checkGetNetworkArtwork.AutoSize = true;
-            this.checkGetNetworkArtwork.Location = new System.Drawing.Point(16, 59);
+            this.checkGetNetworkArtwork.Location = new System.Drawing.Point(14, 80);
             this.checkGetNetworkArtwork.Name = "checkGetNetworkArtwork";
             this.checkGetNetworkArtwork.Size = new System.Drawing.Size(214, 16);
             this.checkGetNetworkArtwork.TabIndex = 16;
@@ -192,7 +194,7 @@
             // checkFontBold
             // 
             this.checkFontBold.AutoSize = true;
-            this.checkFontBold.Location = new System.Drawing.Point(16, 37);
+            this.checkFontBold.Location = new System.Drawing.Point(14, 58);
             this.checkFontBold.Name = "checkFontBold";
             this.checkFontBold.Size = new System.Drawing.Size(221, 16);
             this.checkFontBold.TabIndex = 15;
@@ -316,7 +318,7 @@
             // checkResumePlay
             // 
             this.checkResumePlay.AutoSize = true;
-            this.checkResumePlay.Location = new System.Drawing.Point(16, 15);
+            this.checkResumePlay.Location = new System.Drawing.Point(14, 36);
             this.checkResumePlay.Name = "checkResumePlay";
             this.checkResumePlay.Size = new System.Drawing.Size(95, 16);
             this.checkResumePlay.TabIndex = 0;
@@ -1123,6 +1125,17 @@
             this.btnReStart.UseVisualStyleBackColor = true;
             this.btnReStart.Click += new System.EventHandler(this.btnReStart_Click);
             // 
+            // checkAutoUpdate
+            // 
+            this.checkAutoUpdate.AutoSize = true;
+            this.checkAutoUpdate.Location = new System.Drawing.Point(14, 14);
+            this.checkAutoUpdate.Name = "checkAutoUpdate";
+            this.checkAutoUpdate.Size = new System.Drawing.Size(172, 16);
+            this.checkAutoUpdate.TabIndex = 17;
+            this.checkAutoUpdate.Text = "起動時にアップデートチェックする";
+            this.checkAutoUpdate.UseVisualStyleBackColor = true;
+            this.checkAutoUpdate.CheckedChanged += new System.EventHandler(this.checkAutoUpdate_CheckedChanged);
+            // 
             // ConfigForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1273,5 +1286,6 @@
         private System.Windows.Forms.ComboBox comboTargetDatabase;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.CheckBox checkSoundNormalize;
+        private System.Windows.Forms.CheckBox checkAutoUpdate;
     }
 }

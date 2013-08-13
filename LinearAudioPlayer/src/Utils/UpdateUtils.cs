@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using FINALSTREAM.Commons.Database;
 using FINALSTREAM.Commons.Forms;
+using FINALSTREAM.Commons.Network;
 using FINALSTREAM.Commons.Utils;
 using System.Data.SQLite;
 using System.Diagnostics;
+using FINALSTREAM.LinearAudioPlayer.Info;
 
 namespace FINALSTREAM.LinearAudioPlayer.Utils
 {
@@ -225,6 +230,66 @@ namespace FINALSTREAM.LinearAudioPlayer.Utils
                 Application.DoEvents();
             }
             waitDialog.Close();
+        }
+
+        /// <summary>
+        /// アップデート確認メッセージを表示する。
+        /// </summary>
+        public static void showUpdateConfirmMessage(string newFileVersion)
+        {
+                if (MessageUtils.showQuestionMessage("Linear Audio Playerの最新バージョンが見つかりました。\nいますぐver." + newFileVersion + "にアップデートしますか？\nアップデート後、再起動します。") == DialogResult.OK)
+                {
+                    LinearGlobal.IsUpdateNewVersion = true;
+                    //アプリケーションを終了する
+                    Application.Exit();
+                }
+        }
+
+        /// <summary>
+        /// 最新バージョンがリリースされているかチェックする
+        /// </summary>
+        /// <returns></returns>
+        public static UpdateInfo checkSoftwareUpdate()
+        {
+            UpdateInfo updateInfo = new UpdateInfo();
+
+            try
+            {
+
+                WebResponse res = new WebManager().request("http://www.finalstream.net/dl/download.php?dl=lap");
+
+                updateInfo.NewFileVersion = Path.GetFileNameWithoutExtension(res.ResponseUri.ToString());
+                updateInfo.NewFileVersion = updateInfo.NewFileVersion.Substring(updateInfo.NewFileVersion.Length - 5, 5);
+
+                string nowVersion = LinearGlobal.ApplicationVersion.Substring(LinearGlobal.ApplicationVersion.Length - 5, 5);
+
+                if (updateInfo.NewFileVersion.CompareTo(nowVersion) > 0)
+                {
+                    updateInfo.CheckResultMessage = "新しいバージョン(ver." + updateInfo.NewFileVersion + ")がリリースされています。";
+                    updateInfo.CheckResultMessageColor = Color.Crimson;
+                    updateInfo.IsReleaseNewVersion = true;
+                }
+                else if (updateInfo.NewFileVersion.CompareTo(nowVersion) == 0)
+                {
+                    updateInfo.CheckResultMessage = "最新バージョンのLinear Audio Playerを使用しています。";
+                }
+                else
+                {
+                    updateInfo.CheckResultMessage = "開発中バージョンのLinear Audio Playerを使用しています。";
+                    updateInfo.CheckResultMessageColor = Color.MediumBlue;
+                }
+
+
+
+            }
+            catch
+            {
+                updateInfo.CheckResultMessage = "最新バージョンチェックに失敗しました。";
+            }
+
+
+            return updateInfo;
+
         }
 
     }

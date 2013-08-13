@@ -34,6 +34,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
 
         public int SortMode { get; set; }
         public bool IsLinkLibrary { get; set; }
+        public bool IsAutoUpdate { get; set; }
 
         /// <summary>
         /// 除外するプラグイン
@@ -174,7 +175,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             RestCount = 0;
             RestMaxCount = -1;
             this.AudioFileAutoRegistInfo = new AudioFileRegistInfo();
-            
+            IsAutoUpdate = true;
         }
 
     }

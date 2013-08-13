@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Threading;
 using System.Windows.Forms;
 using FINALSTREAM.Commons.Controls;
 using FINALSTREAM.Commons.Database;
@@ -15,6 +16,7 @@ using FINALSTREAM.LinearAudioPlayer.GUI.option;
 using FINALSTREAM.LinearAudioPlayer.Info;
 using FINALSTREAM.LinearAudioPlayer.Resources;
 using FINALSTREAM.LinearAudioPlayer.Setting;
+using FINALSTREAM.LinearAudioPlayer.Utils;
 using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace FINALSTREAM.LinearAudioPlayer.GUI
@@ -603,7 +605,26 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 switchViewPlaylist();
             }
 
+            if (LinearGlobal.LinearConfig.PlayerConfig.IsAutoUpdate)
+            {
+                Thread t = new Thread(new ThreadStart(checkUpdate));
+                t.IsBackground = true;
+                t.Start();
+            }
         }
+
+        delegate void ShowMessageDelegate(string newFileVersion);
+
+        private void checkUpdate()
+        {
+            UpdateInfo updateInfo = UpdateUtils.checkSoftwareUpdate();
+
+            if (updateInfo.IsReleaseNewVersion)
+            {
+                this.BeginInvoke(new ShowMessageDelegate(UpdateUtils.showUpdateConfirmMessage), updateInfo.NewFileVersion);
+            }
+        }
+
 
         private void MainForm_Resize(object sender, EventArgs e)
         {

@@ -12,6 +12,8 @@ using FINALSTREAM.Commons.Utils;
 using FINALSTREAM.LinearAudioPlayer.Core;
 using System.Net;
 using System.IO;
+using FINALSTREAM.LinearAudioPlayer.Info;
+using FINALSTREAM.LinearAudioPlayer.Utils;
 
 namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 {
@@ -24,9 +26,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 
         //  デリゲートを定義。
 
-        delegate void UpdateTextDelegate(string message, Color color);
+        delegate void UpdateTextDelegate(UpdateInfo updateInfo);
 
-        delegate void ShowMessageDelegate();
+        delegate void ShowMessageDelegate(string newFileVersion);
 
         #endregion
 
@@ -110,72 +112,23 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         void checkUpdate()
         {
 
-            String message = "";
-            Color messageColor = Color.FromArgb(0, 64, 64, 64);
-            _isReleaseNewVersion = false;
-            newFileVersion = "";
-            try
+            var updateInfo = UpdateUtils.checkSoftwareUpdate();
+
+            this.BeginInvoke(new UpdateTextDelegate(updateText), updateInfo);
+
+            if (updateInfo.IsReleaseNewVersion)
             {
-
-                WebResponse res = new WebManager().request("http://www.finalstream.net/dl/download.php?dl=lap");
-
-                newFileVersion = Path.GetFileNameWithoutExtension(res.ResponseUri.ToString());
-                newFileVersion = newFileVersion.Substring(newFileVersion.Length - 5, 5);
-
-                string nowVersion = LinearGlobal.ApplicationVersion.Substring(LinearGlobal.ApplicationVersion.Length - 5, 5);
-
-                if (newFileVersion.CompareTo(nowVersion) > 0)
-                {
-                    message = "新しいバージョン(ver." + newFileVersion + ")がリリースされています。";
-                    messageColor = Color.Crimson;
-                    _isReleaseNewVersion = true;
-                }
-                else if (newFileVersion.CompareTo(nowVersion) == 0)
-                {
-                    message = "最新バージョンのLinear Audio Playerを使用しています。";
-                }
-                else
-                {
-                    message = "開発中バージョンのLinear Audio Playerを使用しています。";
-                    messageColor = Color.MediumBlue;
-                }
-
-
-
+                this.BeginInvoke(new ShowMessageDelegate(UpdateUtils.showUpdateConfirmMessage), updateInfo.NewFileVersion);
             }
-            catch
-            {
-                message = "最新バージョンチェックに失敗しました。";
-            }
-
-            this.BeginInvoke(new UpdateTextDelegate(updateText), new object[]
-                                                                     {
-                                                                         message, messageColor
-                                                                     }
-                );
-
-            this.BeginInvoke(new ShowMessageDelegate(showMessage), null);
-
 
         }
 
-        private void updateText(string message, Color color)
+        private void updateText(UpdateInfo updateInfo)
         {
-            lblUpdateCheck.Text = message;
-            lblUpdateCheck.ForeColor = color;
+            lblUpdateCheck.Text = updateInfo.CheckResultMessage;
+            lblUpdateCheck.ForeColor = updateInfo.CheckResultMessageColor;
         }
 
-        private void showMessage()
-        {
-            if (_isReleaseNewVersion)
-            {
-                if (MessageUtils.showQuestionMessage(this, "最新バージョンが見つかりました。\nいますぐver." + newFileVersion + "にアップデートしますか？\nアップデート後、再起動します。") == DialogResult.OK)
-                {
-                    LinearGlobal.IsUpdateNewVersion = true;
-                    //アプリケーションを終了する
-                    Application.Exit();
-                }
-            }
-        }
+        
     }
 }

@@ -98,7 +98,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             this.Size = new Size(400, 396);
 
             this.checkResumePlay.Checked = linearConfig.PlayerConfig.ResumePlay;
-
+            this.checkAutoUpdate.Checked = linearConfig.PlayerConfig.IsAutoUpdate;
             this.txtExclusionKeywords.Text = String.Join(",", linearConfig.PlayerConfig.ExclusionKeywords);
 
             this.txtTitleTemplete.Text = linearConfig.ViewConfig.TitleTemplete;
@@ -704,6 +704,11 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             {
                 LinearAudioPlayer.PlayController.applyNormalize(checkSoundNormalize.Checked);
             }
+        }
+
+        private void checkAutoUpdate_CheckedChanged(object sender, EventArgs e)
+        {
+            LinearGlobal.LinearConfig.PlayerConfig.IsAutoUpdate = checkAutoUpdate.Checked;
         }
 
         

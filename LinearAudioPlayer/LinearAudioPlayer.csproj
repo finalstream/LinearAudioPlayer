@@ -183,6 +183,7 @@
     <Compile Include="src\Info\PlayItemInfo.cs" />
     <Compile Include="src\Info\TagEditFileInfo.cs" />
     <Compile Include="src\Info\AnyGridItemInfo.cs" />
+    <Compile Include="src\Info\UpdateInfo.cs" />
     <Compile Include="src\LinearConst.cs" />
     <Compile Include="src\Core\PlayerController.cs" />
     <Compile Include="src\Database\SQLBuilder.cs" />
