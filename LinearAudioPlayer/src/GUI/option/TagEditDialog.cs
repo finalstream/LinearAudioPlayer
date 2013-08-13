@@ -412,29 +412,23 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             }
             
         }
-        delegate void SaveTagDelegate();
+        delegate void SaveTagDelegate(Dictionary<long, Tag> saveTagResult);
 
         private void saveTagCall()
         {
-            if (LinearAudioPlayer.PlayController.saveTag())
+            var saveTagResult = LinearAudioPlayer.PlayController.saveTag();
+            if (saveTagResult.Count > 0)
             {
                 if (LinearGlobal.MainForm.ListForm.InvokeRequired)
                 {
-                    LinearGlobal.MainForm.ListForm.BeginInvoke(new SaveTagDelegate(saveTagEnd));
+                    LinearGlobal.MainForm.ListForm.BeginInvoke(new SaveTagDelegate(LinearAudioPlayer.PlayController.saveTagEnd), saveTagResult);
                 }
                 else
                 {
-                    saveTagEnd();
+                    LinearAudioPlayer.PlayController.saveTagEnd(saveTagResult);
                 }
             }
             
-        }
-
-        private void saveTagEnd()
-        {
-            LinearGlobal.MainForm.ListForm.showToastMessage(MessageResource.I0002);
-            Debug.Print("AsyncTagEdit End.");
-            this.Close();
         }
 
         /// <summary>

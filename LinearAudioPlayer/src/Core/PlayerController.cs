@@ -762,7 +762,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         }
 
         delegate void afterPlayPluginDelegate(PlayItemInfo pii);
-        delegate void SaveTagEndDelegate();
+        delegate void SaveTagEndDelegate(Dictionary<long, Tag> saveTagResult);
 
         private void SaveTagThreadTask()
         {
@@ -771,15 +771,16 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 System.Threading.Thread.Sleep((int) (LinearGlobal.LinearConfig.SoundConfig.FadeDuration * 1000));
             }
 
-            if (saveTag())
+            var saveTagResult = saveTag();
+            if (saveTagResult.Count > 0)
             {
                 if (LinearGlobal.MainForm.ListForm.InvokeRequired)
                 {
-                    LinearGlobal.MainForm.ListForm.BeginInvoke(new SaveTagEndDelegate(saveTagEnd));
+                    LinearGlobal.MainForm.ListForm.BeginInvoke(new SaveTagEndDelegate(saveTagEnd), saveTagResult);
                 }
                 else
                 {
-                    saveTagEnd();
+                    saveTagEnd(saveTagResult);
                 }
             }
 
@@ -1495,10 +1496,9 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         /// <summary>
         /// タグ情報を保存する。
         /// </summary>
-        public bool saveTag()
+        public Dictionary<long, Tag> saveTag()
         {
-            bool result = false;
-            bool isUpdate = false;
+            Dictionary<long, Tag> result = new Dictionary<long, Tag>();
             List<DbParameter> paramList = new List<DbParameter>();
 
             SQLiteTransaction sqltran = null;
@@ -1575,7 +1575,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                         }
 
                         file.Save();
-                        isUpdate = true;
+                        
+                        result.Add(tagEditInfo.Id, file.Tag);
 
                         // 圧縮ファイルの場合は再圧縮する
                         if (!String.IsNullOrEmpty(tagEditInfo.Tag))
@@ -1607,10 +1608,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
                 sqltran.Commit();
 
-                if (isUpdate)
-                {
-                    result = true;
-                }
             }
             catch (Exception)
             {
@@ -1627,8 +1624,21 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
         }
 
-        private void saveTagEnd ()
+        public void saveTagEnd (Dictionary<long, Tag> saveTagResult)
         {
+            foreach (var tag in saveTagResult)
+            {
+                int rowNo = LinearAudioPlayer.GridController.Find((int)GridController.EnuGrid.ID, tag.Key.ToString());
+                if (rowNo != -1)
+                {
+                    LinearAudioPlayer.GridController.Grid[rowNo, (int) GridController.EnuGrid.TITLE].Value =
+                        tag.Value.Title;
+                    LinearAudioPlayer.GridController.Grid[rowNo, (int)GridController.EnuGrid.ARTIST].Value =
+                        tag.Value.FirstPerformer;
+                    LinearAudioPlayer.GridController.Grid[rowNo, (int)GridController.EnuGrid.ALBUM].Value =
+                        tag.Value.Album;
+                }
+            }
             LinearGlobal.MainForm.ListForm.showToastMessage(MessageResource.I0002);
             Debug.Print("AsyncTagEdit End.");
         }
