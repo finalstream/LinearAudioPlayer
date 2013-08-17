@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigForm));
             this.tabSetting = new System.Windows.Forms.TabControl();
             this.tabOption = new System.Windows.Forms.TabPage();
+            this.checkAutoUpdate = new System.Windows.Forms.CheckBox();
             this.checkGetNetworkArtwork = new System.Windows.Forms.CheckBox();
             this.checkFontBold = new System.Windows.Forms.CheckBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -120,7 +121,7 @@
             this.columnAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReStart = new System.Windows.Forms.Button();
-            this.checkAutoUpdate = new System.Windows.Forms.CheckBox();
+            this.btnExecAudioFileRegist = new System.Windows.Forms.Button();
             this.tabSetting.SuspendLayout();
             this.tabOption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPlayCountUpRatio)).BeginInit();
@@ -179,6 +180,17 @@
             this.tabOption.TabIndex = 0;
             this.tabOption.Text = "Option";
             this.tabOption.UseVisualStyleBackColor = true;
+            // 
+            // checkAutoUpdate
+            // 
+            this.checkAutoUpdate.AutoSize = true;
+            this.checkAutoUpdate.Location = new System.Drawing.Point(14, 14);
+            this.checkAutoUpdate.Name = "checkAutoUpdate";
+            this.checkAutoUpdate.Size = new System.Drawing.Size(172, 16);
+            this.checkAutoUpdate.TabIndex = 17;
+            this.checkAutoUpdate.Text = "起動時にアップデートチェックする";
+            this.checkAutoUpdate.UseVisualStyleBackColor = true;
+            this.checkAutoUpdate.CheckedChanged += new System.EventHandler(this.checkAutoUpdate_CheckedChanged);
             // 
             // checkGetNetworkArtwork
             // 
@@ -287,7 +299,7 @@
             this.groupBox1.Size = new System.Drawing.Size(347, 65);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "ドラッグ＆ドロップ時の動作";
+            this.groupBox1.Text = "オーディオファイル登録時の動作";
             // 
             // label4
             // 
@@ -340,6 +352,7 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.btnExecAudioFileRegist);
             this.groupBox8.Controls.Add(this.comboTargetDatabase);
             this.groupBox8.Controls.Add(this.label21);
             this.groupBox8.Controls.Add(this.label20);
@@ -1125,16 +1138,15 @@
             this.btnReStart.UseVisualStyleBackColor = true;
             this.btnReStart.Click += new System.EventHandler(this.btnReStart_Click);
             // 
-            // checkAutoUpdate
+            // btnExecAudioFileRegist
             // 
-            this.checkAutoUpdate.AutoSize = true;
-            this.checkAutoUpdate.Location = new System.Drawing.Point(14, 14);
-            this.checkAutoUpdate.Name = "checkAutoUpdate";
-            this.checkAutoUpdate.Size = new System.Drawing.Size(172, 16);
-            this.checkAutoUpdate.TabIndex = 17;
-            this.checkAutoUpdate.Text = "起動時にアップデートチェックする";
-            this.checkAutoUpdate.UseVisualStyleBackColor = true;
-            this.checkAutoUpdate.CheckedChanged += new System.EventHandler(this.checkAutoUpdate_CheckedChanged);
+            this.btnExecAudioFileRegist.Location = new System.Drawing.Point(275, 11);
+            this.btnExecAudioFileRegist.Name = "btnExecAudioFileRegist";
+            this.btnExecAudioFileRegist.Size = new System.Drawing.Size(75, 23);
+            this.btnExecAudioFileRegist.TabIndex = 15;
+            this.btnExecAudioFileRegist.Text = "手動実行";
+            this.btnExecAudioFileRegist.UseVisualStyleBackColor = true;
+            this.btnExecAudioFileRegist.Click += new System.EventHandler(this.btnExecAudioFileRegist_Click);
             // 
             // ConfigForm
             // 
@@ -1287,5 +1299,6 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.CheckBox checkSoundNormalize;
         private System.Windows.Forms.CheckBox checkAutoUpdate;
+        private System.Windows.Forms.Button btnExecAudioFileRegist;
     }
 }

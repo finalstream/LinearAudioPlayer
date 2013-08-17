@@ -115,45 +115,16 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             // 自動登録スレッド開始
             if (LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.IsEnable
-                && LinearGlobal.LinearConfig.PlayerConfig.SelectDatabase.Equals(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.TargetDatabase)
-                && !DirectoryUtils.isEmptyDirectory(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory))
+                && LinearGlobal.LinearConfig.PlayerConfig.SelectDatabase.Equals(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.TargetDatabase))
             {
 
-                LinearAudioPlayer.AutoAudioFileRegistThread = new Thread(new ThreadStart(AutoAudioFileRegistThreadTask));
-                LinearAudioPlayer.AutoAudioFileRegistThread.IsBackground = true;
-                LinearAudioPlayer.AutoAudioFileRegistThread.Start();
+                LinearAudioPlayer.PlayController.executeAutoAudioFileRegist();
+                
             }
 
         }
 
-        delegate void AutoAudioFileRegistEndDelegate();
-
-        private void AutoAudioFileRegistThreadTask()
-        {
-            ListFunction listFunc = new ListFunction();
-            listFunc.addGridFromList(
-                new string[] { LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory },
-                ListFunction.RegistMode.AUTOREGIST);
-
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke(new AutoAudioFileRegistEndDelegate(AutoAudioFileRegistEnd));
-            }
-            else
-            {
-                AutoAudioFileRegistEnd();
-            }
-
-        }
-
-        private void AutoAudioFileRegistEnd()
-        {
-            if (LinearGlobal.MainForm != null && LinearGlobal.MainForm.ListForm != null)
-            {
-                this.showToastMessage(MessageResource.I0007);
-                Debug.WriteLine("Comlete! AutoRegist");
-            }
-        }
+        
 
         /// <summary>
         /// サイズ変更したとき

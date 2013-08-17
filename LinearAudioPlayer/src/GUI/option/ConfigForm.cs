@@ -711,6 +711,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             LinearGlobal.LinearConfig.PlayerConfig.IsAutoUpdate = checkAutoUpdate.Checked;
         }
 
+        private void btnExecAudioFileRegist_Click(object sender, EventArgs e)
+        {
+
+            LinearAudioPlayer.PlayController.executeAutoAudioFileRegist();
+
+        }
+
         
 
 

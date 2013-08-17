@@ -1852,12 +1852,58 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
             }
 
-            
-            
+        }
 
+        /// <summary>
+        /// オーディオファイル自動登録
+        /// </summary>
+        public void executeAutoAudioFileRegist()
+        {
 
-
+            if (!DirectoryUtils.isEmptyDirectory(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory))
+            {
+                if (LinearAudioPlayer.AutoAudioFileRegistThread == null
+                    ||
+                    (LinearAudioPlayer.AutoAudioFileRegistThread != null &&
+                     !LinearAudioPlayer.AutoAudioFileRegistThread.IsAlive))
+                {
+                    LinearAudioPlayer.AutoAudioFileRegistThread =
+                        new Thread(new ThreadStart(AutoAudioFileRegistThreadTask));
+                    LinearAudioPlayer.AutoAudioFileRegistThread.IsBackground = true;
+                    LinearAudioPlayer.AutoAudioFileRegistThread.Start();
+                }
+            }
 
         }
+
+        delegate void AutoAudioFileRegistEndDelegate();
+
+        private void AutoAudioFileRegistThreadTask()
+        {
+            ListFunction listFunc = new ListFunction();
+            listFunc.addGridFromList(
+                new string[] { LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory },
+                ListFunction.RegistMode.AUTOREGIST);
+
+            if (LinearGlobal.MainForm.ListForm.InvokeRequired)
+            {
+                LinearGlobal.MainForm.ListForm.BeginInvoke(new AutoAudioFileRegistEndDelegate(AutoAudioFileRegistEnd));
+            }
+            else
+            {
+                AutoAudioFileRegistEnd();
+            }
+
+        }
+
+        private void AutoAudioFileRegistEnd()
+        {
+            if (LinearGlobal.MainForm != null && LinearGlobal.MainForm.ListForm != null)
+            {
+                LinearGlobal.MainForm.ListForm.showToastMessage(MessageResource.I0007);
+                Debug.WriteLine("Comlete! AutoRegist");
+            }
+        }
+
     }
 }
