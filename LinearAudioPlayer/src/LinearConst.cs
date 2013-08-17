@@ -51,6 +51,8 @@ namespace FINALSTREAM.LinearAudioPlayer
         public const string MIGEMO_DICTIONARY_NAME = "\\lib\\migemo\\dict\\migemo-dict";
         public const string MIGEMO_USERDICTIONARY_NAME = "\\lib\\migemo\\dict\\user-dict";
 
+        public const string TITLE_VOLUME_VIEW_FORMAT = " (volume: {0}%)";
+
         /// <summary>
         /// LINEARデータベースファイル名
         /// </summary>

@@ -511,6 +511,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 picVolumeSwitch.Left = picVolumeSwitch.Left +e.X;
                 LinearGlobal.Volume = picVolumeSwitch.Left;
                 LinearAudioPlayer.PlayController.setVolume(LinearGlobal.Volume);
+                LinearGlobal.MainForm.setTitle(LinearAudioPlayer.PlayController.createTitle() + String.Format(LinearConst.TITLE_VOLUME_VIEW_FORMAT, LinearGlobal.Volume));
                 Debug.WriteLine("Left:" + picVolumeSwitch.Left + " , X:" + e.X);
             }
         }
@@ -518,6 +519,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private void picVolumeSwitch_MouseUp(object sender, MouseEventArgs e)
         {
             Cursor.Clip = Rectangle.Empty;
+            LinearGlobal.MainForm.setTitle(LinearAudioPlayer.PlayController.createTitle());
         }
 
 

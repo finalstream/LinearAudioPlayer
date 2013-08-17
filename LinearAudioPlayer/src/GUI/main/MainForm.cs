@@ -1820,7 +1820,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 }
                 LinearGlobal.Volume = vol;
                 LinearGlobal.MainForm.ListForm.setVolume();
-                this.lblTitle.Text = LinearAudioPlayer.PlayController.createTitle() + " (volume: " + LinearGlobal.Volume + "%)";
+                this.lblTitle.Text = LinearAudioPlayer.PlayController.createTitle() + String.Format(LinearConst.TITLE_VOLUME_VIEW_FORMAT, LinearGlobal.Volume);
 
             }
             else if (keyData == Keys.Down)
@@ -1832,7 +1832,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 }
                 LinearGlobal.Volume = vol;
                 LinearGlobal.MainForm.ListForm.setVolume();
-                this.lblTitle.Text = LinearAudioPlayer.PlayController.createTitle() + " (volume: " + LinearGlobal.Volume + "%)";
+                this.lblTitle.Text = LinearAudioPlayer.PlayController.createTitle() + String.Format(LinearConst.TITLE_VOLUME_VIEW_FORMAT, LinearGlobal.Volume);
             }
             
             return true;
