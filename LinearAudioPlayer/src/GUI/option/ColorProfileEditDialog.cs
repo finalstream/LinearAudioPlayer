@@ -23,6 +23,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         {
             InitializeComponent();
             txtBaseName.Text = basename;
+            txtColorProfileName.Text = basename + "Customize";
         }
 
         private void ColorProfileEditDialog_Load(object sender, EventArgs e)

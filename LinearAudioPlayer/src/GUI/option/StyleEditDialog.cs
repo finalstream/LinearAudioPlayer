@@ -15,6 +15,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         {
             InitializeComponent();
             txtBaseName.Text = basename;
+            txtStyleName.Text = basename + "Customize";
         }
 
         private void StyleEditDialog_Load(object sender, EventArgs e)

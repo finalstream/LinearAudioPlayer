@@ -503,7 +503,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         private void btnColorProfileEditor_Click(object sender, EventArgs e)
         {
             ColorProfileEditDialog ced
-                = new ColorProfileEditDialog(colorProfileList.Text);
+                = new ColorProfileEditDialog(Path.GetFileNameWithoutExtension(colorProfileList.Text));
             ced.Show(this);
         }
 
