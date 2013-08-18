@@ -256,7 +256,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Utils
             try
             {
 
-                WebResponse res = new WebManager().request("http://www.finalstream.net/dl/download.php?dl=lap");
+                WebResponse res = new WebManager().request("http://www.finalstream.net/dl/download.php?dl=lap-checkupdate");
 
                 updateInfo.NewFileVersion = Path.GetFileNameWithoutExtension(res.ResponseUri.ToString());
                 updateInfo.NewFileVersion = updateInfo.NewFileVersion.Substring(updateInfo.NewFileVersion.Length - 5, 5);
