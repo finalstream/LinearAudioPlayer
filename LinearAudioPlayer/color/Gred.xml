@@ -3,14 +3,14 @@
   <FormBackgroundColor>-986896</FormBackgroundColor>
   <DisplayBackgroundColor>-986896</DisplayBackgroundColor>
   <DisplayBorderColor>-2894893</DisplayBorderColor>
-  <FirstRowBackgroundColor>-1579033</FirstRowBackgroundColor>
-  <SecondRowBackgroundColor>-2894893</SecondRowBackgroundColor>
+  <FirstRowBackgroundColor>-657931</FirstRowBackgroundColor>
+  <SecondRowBackgroundColor>-1</SecondRowBackgroundColor>
   <FontColor>-12566464</FontColor>
-  <SelectRowColor>1189021721</SelectRowColor>
+  <SelectRowColor>1020855822</SelectRowColor>
   <PlayingColor>-2554354</PlayingColor>
   <NoPlayColor>-16777216</NoPlayColor>
   <BitRateColor>-40121</BitRateColor>
-  <PlayTimeColor>-2554354</PlayTimeColor>
+  <PlayTimeColor>-2354116</PlayTimeColor>
   <PlayModeColor>-12566464</PlayModeColor>
   <HeaderBackgroundColor>-1</HeaderBackgroundColor>
   <HeaderFontColor>-939524096</HeaderFontColor>
@@ -39,6 +39,6 @@
   <SpectrumLevelLowLevelColor>-3602424</SpectrumLevelLowLevelColor>
   <NotificationHeaderColor>-2554354</NotificationHeaderColor>
   <NotificationFontColor>-16777216</NotificationFontColor>
-  <NotificationBodyFirstColor>-2302756</NotificationBodyFirstColor>
+  <NotificationBodyFirstColor>-986896</NotificationBodyFirstColor>
   <NotificationBodySecondColor>16777215</NotificationBodySecondColor>
 </ColorConfigXml>
