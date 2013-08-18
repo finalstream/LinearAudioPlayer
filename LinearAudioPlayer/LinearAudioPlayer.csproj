@@ -322,13 +322,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="color\Gred.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="color\KURO2.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="color\Lyrids.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="color\readme.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -469,7 +469,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="style\GRed\styleinfo.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="style\GRed\tag.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -568,7 +568,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="style\KURO2\styleinfo.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="style\KURO2\tag.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -667,7 +667,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="style\Lyrids\styleinfo.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="style\Lyrids\tag.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

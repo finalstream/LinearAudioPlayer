@@ -1289,7 +1289,11 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
         public void showToastMessage(string message)
         {
-            ToastManager.Show(LinearGlobal.MainForm.ListForm, message, LinearGlobal.ColorConfig.PlayingColor, 3000);
+            ToastManager.Show(LinearGlobal.MainForm.ListForm, message,
+                              LinearGlobal.ColorConfig.PlayingColor,
+                              LinearGlobal.ColorConfig.FirstRowBackgroundColor,
+                              LinearGlobal.ColorConfig.FontColor,
+                3000);
         }
 
         /*

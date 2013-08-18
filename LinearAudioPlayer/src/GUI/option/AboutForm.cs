@@ -19,8 +19,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 {
     public partial class AboutForm : Form
     {
-        private bool _isReleaseNewVersion;
-        private string newFileVersion;
 
         #region delegate
 
