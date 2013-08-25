@@ -26,7 +26,7 @@
   </Item>
   <Item>
     <DisplayValue>未再生</DisplayValue>
-    <Value>AND LASTPLAYDATE IS NULL ORDER BY ADDDATETIME DESC,ABS(PL.TRACK), PL.ID</Value>
+    <Value>AND LASTPLAYDATE IS NULL ORDER BY ADDDATETIME DESC, PL.ALBUM, ABS(PL.TRACK), PL.ID</Value>
   </Item>
   <Item>
     <DisplayValue>存在しないもの</DisplayValue>
