@@ -377,6 +377,7 @@
     <Content Include="plugin\Finalstream.LinearAudioPlayer.Plugin.LastFm.dll" />
     <Content Include="sql\default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="style\GRed\audio.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

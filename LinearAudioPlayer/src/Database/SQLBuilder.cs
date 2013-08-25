@@ -25,7 +25,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Database
         private const string INNERJOIN_STRING = " INNER JOIN ";
 
         // TODO:ソート(SORT)の使い方を再考する。
-        private const string ORDERBY_STRING = " ORDER BY PL.ADDDATETIME DESC, ABS(PL.TRACK), PL.ID";
+        private const string ORDERBY_STRING = " ORDER BY PL.ADDDATETIME DESC, PL.ALBUM, ABS(PL.TRACK), PL.ID";
         private const string ORDERBY_STRING_ORIGINAL_SORT = " ORDER BY PL.SORT, PL.ADDDATETIME DESC, ABS(PL.TRACK), PL.ID";
 
         private const string PLAYLIST_TABLE_NAME = " PLAYLIST ";

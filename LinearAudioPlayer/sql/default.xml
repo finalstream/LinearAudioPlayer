@@ -2,7 +2,7 @@
 <Data>
   <Item>
     <DisplayValue>ALL MUSIC</DisplayValue>
-    <Value>ORDER BY PL.ADDDATETIME DESC, ABS(PL.TRACK), PL.ID #LIMIT#</Value>
+    <Value>ORDER BY PL.ADDDATETIME DESC, PL.ALBUM, ABS(PL.TRACK), PL.ID #LIMIT#</Value>
   </Item>
   <Item>
     <DisplayValue>再生中</DisplayValue>
