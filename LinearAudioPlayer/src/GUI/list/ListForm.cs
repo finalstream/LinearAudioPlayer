@@ -178,17 +178,22 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             this.picLinkLibrary.Location = new Point(lblMedley.Location.X + lblMedley.Width, yStartPosition);
             this.lblLinkLibrary.Location = new Point(picLinkLibrary.Location.X + picLinkLibrary.Width +2, yStartPosition);
-            this.picSearch.Location = new Point(this.lblLinkLibrary.Location.X + this.lblLinkLibrary.Width +5, yStartPosition);
+
+
+            this.picSearch.Location = new Point(this.lblLinkLibrary.Location.X + this.lblLinkLibrary.Width + 5, yStartPosition);
+            //this.picSearch.Location = new Point(this.lblLinkLibrary.Location.X + this.lblLinkLibrary.Width +5, yStartPosition);
 
             this.filteringBox.Location = new Point(this.picSearch.Location.X + this.picSearch.Width + 4, diffYComboPosition + diffYFilteringBox);
+            this.picTag.Location = new Point(filteringBox.Location.X + filteringBox.Width + 5, yStartPosition);
 
-            this.gridInfo.Location = new Point(filteringBox.Location.X + filteringBox.Width + 5, yStartPosition);
+            this.gridInfo.Location = new Point(this.picTag.Location.X + this.picTag.Width + 14, yStartPosition);
+            //this.gridInfo.Location = new Point(filteringBox.Location.X + filteringBox.Width + 5, yStartPosition);
             //this.gridInfo.Location = new Point(lblShuffle.Location.X + lblShuffle.Width + 5, yStartPosition);
             this.gridInfo.Size = new Size(this.Width - this.picDatabase.Width - this.databaseList.Width - this.picPlaylistMode.Width - this.picShuffle.Width -this.picMedley.Width -this.picLinkLibrary.Width - this.lblShuffle.Width - this.lblMedley.Width - this.filteringBox.Width - this.picSearch.Width - this.lblLinkLibrary.Width - this.picTag.Width - this.lblPlaylistMode.Width - this.picClose.Width - this.picLimit.Width - 72, this.filteringBox.Height);
 
-            this.picTag.Location = new Point(this.gridInfo.Location.X + this.gridInfo.Width + 7, yStartPosition);
-            this.picClose.Location = new Point(this.picTag.Location.X + this.picTag.Width + 14, yStartPosition);
-
+            //this.picTag.Location = new Point(this.gridInfo.Location.X + this.gridInfo.Width + 7, yStartPosition);
+            //this.picClose.Location = new Point(this.picTag.Location.X + this.picTag.Width + 14, yStartPosition);
+            this.picClose.Location = new Point(this.gridInfo.Location.X + this.gridInfo.Width + 7, yStartPosition);
             //this.picSearch.Location = new Point(this.gridInfo.Location.X + this.gridInfo.Width + 5, yStartPosition);
             //this.lblQuickFilter.Location = new Point(this.picSearch.Location.X + this.picSearch.Width, yStartPosition);
             //this.filteringBox.Location = new Point(this.lblQuickFilter.Location.X + this.lblQuickFilter.Width + 2, diffYComboPosition + diffYFilteringBox);
@@ -1731,7 +1736,20 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
         void tsmi_Click(object sender, EventArgs e)
         {
+            ListFunction lf = new ListFunction();
 
+            string tag;
+
+            if (((ToolStripMenuItem)sender).Tag == null)
+            {
+                tag = String.Empty;
+            }
+            else
+            {
+                tag = ((ToolStripMenuItem)sender).Tag.ToString();
+            }
+
+            lf.updateTag(this.grid, tag);
         }
 
         #endregion
@@ -2821,6 +2839,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 System.Threading.Thread.Sleep(100);
             }
         }
+
     }
 
     

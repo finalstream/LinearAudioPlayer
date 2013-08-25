@@ -457,7 +457,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.cleardatabaseToolStripMenuItem,
             this.deleteDatabase});
             this.databaseContextMenuStrip.Name = "databaseContextMenuStrip";
-            this.databaseContextMenuStrip.Size = new System.Drawing.Size(209, 192);
+            this.databaseContextMenuStrip.Size = new System.Drawing.Size(209, 170);
             // 
             // createNewDatabase
             // 
@@ -565,7 +565,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             // tagContextMenuStrip
             // 
             this.tagContextMenuStrip.Name = "tagContextMenuStrip";
-            this.tagContextMenuStrip.Size = new System.Drawing.Size(61, 4);
+            this.tagContextMenuStrip.Size = new System.Drawing.Size(153, 26);
             // 
             // dragContextMenuStrip
             // 
