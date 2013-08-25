@@ -26,6 +26,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 {
     public partial class TagEditDialog : Form
     {
+        private bool beforeCheckArtwork = false;
 
         #region Enum
 
@@ -189,6 +190,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                     isArtworkLoadComplete = true;
                     lblArtworkType.Text = "FILE";
                     picArtwork.Image = gi.Picture;
+                    checkArtworkSave.Checked = true;
+                    beforeCheckArtwork = true;
                 }
             }
 
@@ -337,7 +340,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 && txtTrackNo.Text.Equals(gi.Track.ToString())
                 && txtGenre.Text.Equals(gi.Genre)
                 && txtYear.Text.Equals(gi.Year)
-                && checkArtworkSave.Checked == false)
+                && checkArtworkSave.Checked == beforeCheckArtwork)
             {
                 _result = false;
                 this.Close();
@@ -394,7 +397,14 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                         tagEditInfo.Track = int.Parse(txtTrackNo.Text);
                         tagEditInfo.Genre = txtGenre.Text;
                         tagEditInfo.Year = txtYear.Text;
-                        tagEditInfo.Picture = new Bitmap(picArtwork.Image);
+                        if (checkArtworkSave.Checked)
+                        {
+                            tagEditInfo.Picture = new Bitmap(picArtwork.Image);
+                        }
+                        else
+                        {
+                            tagEditInfo.Picture = null;
+                        }
 
                         tagEditInfo.Selection = (int)EnumMode.SINGLE;
                     }
@@ -1042,6 +1052,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             {
                 lblArtworkType.Text = "FILE";
                 picArtwork.Image = gi.Picture;
+                checkArtworkSave.Checked = true;
+                beforeCheckArtwork = true;
             }
         }
 

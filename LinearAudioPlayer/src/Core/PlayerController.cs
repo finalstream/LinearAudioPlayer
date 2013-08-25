@@ -1552,6 +1552,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                 file.Tag.Pictures = new IPicture[] { new Picture(bv) };
 
                             }
+                            else
+                            {
+                                file.Tag.Pictures = null;
+                            }
                         }
                         else
                         {
