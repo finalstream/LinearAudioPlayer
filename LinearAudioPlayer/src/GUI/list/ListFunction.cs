@@ -124,7 +124,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                     //IList<string> dirFiles = FileUtils.getFilePathList(filepath, SearchOption.AllDirectories);
 
                     // ディレクトリ自身
-                    if (!LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory.Equals(filepath))
+                    if (!filepath.Equals(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory))
                     {
                         fileInfo = new string[3];
                         fileInfo[0] = filepath;
@@ -584,7 +584,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             foreach (var trashDir in trashDirList)
             {
-                if (!LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory.Equals(trashDir))
+                if (!trashDir.Equals(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory))
                 {
                     if (Directory.Exists(trashDir))
                     {
