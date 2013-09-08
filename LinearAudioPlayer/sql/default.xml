@@ -18,7 +18,7 @@
   </Item>
   <Item>
     <DisplayValue>お気に入り候補</DisplayValue>
-    <Value>AND RATING &lt;&gt; 9 ORDER BY  PLAYCOUNT / ROUND(JULIANDAY(DATETIME('NOW', 'LOCALTIME')) - JULIANDAY(DATETIME(ADDDATE))) DESC #LIMIT#</Value>
+    <Value>AND RATING &lt;&gt; 9 AND PLAYCOUNT &gt; 2 ORDER BY  PLAYCOUNT / ROUND(JULIANDAY(DATETIME('NOW', 'LOCALTIME')) - JULIANDAY(DATETIME(ADDDATE))) DESC #LIMIT#</Value>
   </Item>
   <Item>
     <DisplayValue>最近再生していないもの</DisplayValue>
