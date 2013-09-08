@@ -161,7 +161,7 @@
     <value>選択した{0}件のファイルを削除してゴミ箱に移動します。よろしいですか？</value>
   </data>
   <data name="Q0004" xml:space="preserve">
-    <value>選択した{0}件のアイテムをリストから削除します。よろしいですか？</value>
+    <value>選択した{0}件のアイテムをライブラリから削除します。(ファイルは削除されません)よろしいですか？</value>
   </data>
   <data name="Q0005" xml:space="preserve">
     <value>"{0}"データベースからすべてのデータを削除します。よろしいですか？</value>

@@ -182,7 +182,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.toolStripMenuItem1,
             this.SortToolStripMenuItem});
             this.playlistContextMenuStrip.Name = "contextMenuStrip";
-            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 248);
+            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 270);
             this.playlistContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.playlistContextMenuStrip_Opening);
             // 
             // toolStripMenuItem2
@@ -325,7 +325,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.階層を保持ToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(208, 22);
-            this.toolStripMenuItem1.Text = "エクスポート";
+            this.toolStripMenuItem1.Text = "ファイルエクスポート";
             // 
             // ディレクトリ直下ToolStripMenuItem
             // 
@@ -565,7 +565,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             // tagContextMenuStrip
             // 
             this.tagContextMenuStrip.Name = "tagContextMenuStrip";
-            this.tagContextMenuStrip.Size = new System.Drawing.Size(153, 26);
+            this.tagContextMenuStrip.Size = new System.Drawing.Size(61, 4);
             // 
             // dragContextMenuStrip
             // 
