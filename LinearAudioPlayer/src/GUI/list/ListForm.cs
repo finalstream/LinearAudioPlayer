@@ -2127,11 +2127,11 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         {
             if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.MUSIC)
             {
-                addURLToolStripMenuItem.Visible = false;
+                addToolStripMenuItem.Visible = false;
             }
             else
             {
-                addURLToolStripMenuItem.Visible = true;
+                addToolStripMenuItem.Visible = true;
             }
 
             if (LinearGlobal.ClipboardStack.Count == 0)
