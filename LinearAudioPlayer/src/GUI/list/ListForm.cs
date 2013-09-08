@@ -2563,8 +2563,11 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 "ライブラリにインポートするm3u形式のファイルを選択してください。",
                 "M3Uファイル(*.m3u;*.m3u8)|*.m3u;*.m3u8");
             
-            ListFunction lf = new ListFunction();
-            lf.addGridFromM3u(m3uFilePath);
+            if (!String.IsNullOrEmpty(m3uFilePath))
+            {
+                ListFunction lf = new ListFunction();
+                lf.addGridFromM3u(m3uFilePath);
+            }
         }
 
         private void exportWithoutArchiveToolStripMenuItem_Click(object sender, EventArgs e)
