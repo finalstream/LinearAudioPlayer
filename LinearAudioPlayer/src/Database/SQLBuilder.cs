@@ -132,13 +132,15 @@ namespace FINALSTREAM.LinearAudioPlayer.Database
                         sb.Append(AND_STRING);
                         if (!String.IsNullOrEmpty(conditionItem.Value))
                         {
-                            sb.Append(filteringMode.ToString() + " LIKE '%" + escapeSQL(conditionItem.Value) + "%'");
+                            sb.Append("ISMATCHTAG(TAG, '" + escapeSQL(conditionItem.Value) + "')");
                         }
                         else
                         {
+                            sb.Append("(");
                             sb.Append(filteringMode.ToString() + " = ''");
                             sb.Append(OR_STRING);
                             sb.Append(filteringMode.ToString() + " IS NULL");
+                            sb.Append(")");
                         }
                     }
                     break;

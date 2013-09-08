@@ -129,6 +129,7 @@
     <Compile Include="src\Database\IsMatchMigemoSQLiteFunction.cs" />
     <Compile Include="src\Database\GetFileHashSQLiteFunction.cs" />
     <Compile Include="src\Database\GetDirNameSQLiteFunction.cs" />
+    <Compile Include="src\Database\IsMatchTagSQLiteFunction.cs" />
     <Compile Include="src\Engine\BASSEngine.cs" />
     <Compile Include="src\Engine\IPlayEngine.cs" />
     <Compile Include="src\Exceptions\LinearAudioPlayerException.cs" />

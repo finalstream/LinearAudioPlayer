@@ -23,6 +23,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Utils
 
             SQLiteManager.Instance.registFunction(typeof(GetDirectoryPathSQLiteFunction));
             SQLiteManager.Instance.registFunction(typeof(IsMatchMigemoSQLiteFunction));
+            SQLiteManager.Instance.registFunction(typeof(IsMatchTagSQLiteFunction));
             //SQLiteManager.Instance.registFunction(typeof(GetFileHashSQLiteFunction));
             SQLiteManager.Instance.registFunction(typeof(GetFileSizeSQLiteFunction));
             SQLiteManager.Instance.registFunction(typeof(GetDirNameSQLiteFunction));
