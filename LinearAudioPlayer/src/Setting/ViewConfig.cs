@@ -34,6 +34,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         public Point StyleEditDialogLocation { get; set; }
         public bool isGetNetworkArtwork { get; set; }
         public int GroupListOrder { get; set; }
+        public int AlbumJudgeCount { get; set; }
 
 
         /// <summary>
@@ -154,6 +155,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             this.FontBold = false;
             this.isGetNetworkArtwork = true;
             this.GroupListOrder = (int) LinearEnum.EnumGroupListOrder.COUNT_DESC;
+            this.AlbumJudgeCount = 10;
         }
 
     }

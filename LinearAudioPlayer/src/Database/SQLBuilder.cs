@@ -314,11 +314,11 @@ namespace FINALSTREAM.LinearAudioPlayer.Database
 
             if (LinearEnum.FilteringMode.ALBUM.ToString().Equals(conditionModeName.ToUpper()))
             {
-                result = result.Replace("#condCount#", "9");
+                result = result.Replace("#condCount#", LinearGlobal.LinearConfig.ViewConfig.AlbumJudgeCount.ToString());
             }
             else
             {
-                result = result.Replace("#condCount#", "1");
+                result = result.Replace("#condCount#", "2");
             }
 
             if (LinearGlobal.LinearConfig.ViewConfig.GroupListOrder 

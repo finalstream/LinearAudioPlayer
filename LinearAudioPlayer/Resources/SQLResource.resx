@@ -210,7 +210,7 @@ WHERE #condMode# IS NOT NULL
 AND #RATING#
 #FILTERING#
 GROUP BY #condMode#
-HAVING COUNT(*) &gt; #condCount#</value>
+HAVING COUNT(*) &gt;= #condCount#</value>
     <comment>コンディションリスト生成</comment>
   </data>
   <data name="SQL013" xml:space="preserve">

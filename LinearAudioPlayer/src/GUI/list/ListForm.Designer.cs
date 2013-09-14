@@ -182,7 +182,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.toolStripMenuItem1,
             this.SortToolStripMenuItem});
             this.playlistContextMenuStrip.Name = "contextMenuStrip";
-            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 270);
+            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 248);
             this.playlistContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.playlistContextMenuStrip_Opening);
             // 
             // toolStripMenuItem2
@@ -801,7 +801,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.txtAlbumDescription.Location = new System.Drawing.Point(321, 132);
             this.txtAlbumDescription.Multiline = true;
             this.txtAlbumDescription.Name = "txtAlbumDescription";
-            this.txtAlbumDescription.ReadOnly = true;
             this.txtAlbumDescription.Size = new System.Drawing.Size(167, 31);
             this.txtAlbumDescription.TabIndex = 40;
             this.txtAlbumDescription.Visible = false;
