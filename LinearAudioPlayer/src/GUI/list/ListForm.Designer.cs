@@ -143,6 +143,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.playtimeShortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playtimeLongToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playtimeHalfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playlistContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeSwitch)).BeginInit();
@@ -457,7 +458,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.cleardatabaseToolStripMenuItem,
             this.deleteDatabase});
             this.databaseContextMenuStrip.Name = "databaseContextMenuStrip";
-            this.databaseContextMenuStrip.Size = new System.Drawing.Size(209, 170);
+            this.databaseContextMenuStrip.Size = new System.Drawing.Size(209, 192);
             // 
             // createNewDatabase
             // 
@@ -496,7 +497,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             // 
             this.toolStripMenuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importToolStripMenuItem,
-            this.exportWithoutArchiveToolStripMenuItem});
+            this.exportWithoutArchiveToolStripMenuItem,
+            this.exportPlaylistToolStripMenuItem});
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(208, 22);
             this.toolStripMenuItem4.Text = "ライブラリ";
@@ -504,15 +506,15 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.importToolStripMenuItem.Text = "インポート...";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
+            this.importToolStripMenuItem.Text = "データベースにインポート...";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // exportWithoutArchiveToolStripMenuItem
             // 
             this.exportWithoutArchiveToolStripMenuItem.Name = "exportWithoutArchiveToolStripMenuItem";
-            this.exportWithoutArchiveToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.exportWithoutArchiveToolStripMenuItem.Text = "エクスポート(アーカイブ以外)...";
+            this.exportWithoutArchiveToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
+            this.exportWithoutArchiveToolStripMenuItem.Text = "データベース内すべてエクスポート(アーカイブ以外)...";
             this.exportWithoutArchiveToolStripMenuItem.Click += new System.EventHandler(this.exportWithoutArchiveToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
@@ -1139,6 +1141,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.playtimeHalfToolStripMenuItem.Text = "ハーフ(50-70%)";
             this.playtimeHalfToolStripMenuItem.Click += new System.EventHandler(this.playtimeHalfToolStripMenuItem_Click);
             // 
+            // exportPlaylistToolStripMenuItem
+            // 
+            this.exportPlaylistToolStripMenuItem.Name = "exportPlaylistToolStripMenuItem";
+            this.exportPlaylistToolStripMenuItem.Size = new System.Drawing.Size(362, 22);
+            this.exportPlaylistToolStripMenuItem.Text = "リストに表示中のみエクスポート(アーカイブ以外)...";
+            this.exportPlaylistToolStripMenuItem.Click += new System.EventHandler(this.exportPlaylistToolStripMenuItem_Click);
+            // 
             // ListForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1328,6 +1337,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private ToolStripMenuItem playtimeShortToolStripMenuItem;
         private ToolStripMenuItem playtimeLongToolStripMenuItem;
         private ToolStripMenuItem playtimeHalfToolStripMenuItem;
+        private ToolStripMenuItem exportPlaylistToolStripMenuItem;
 
     }
 }

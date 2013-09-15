@@ -883,23 +883,20 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         }
 
         /// <summary>
-        /// m3u(アーカイブ以外）をエクスポートする
+        /// m3u8形式でエクスポートする
         /// </summary>
+        /// <param name="exportData">エクスポートデータ</param>
         /// <param name="outputFilePath"></param>
-       public void exportM3uWithoutArchive(string outputFilePath)
+        public void exportM3u(object[][] exportData, string outputFilePath)
         {
 
-
-           object[][] resultList = SQLiteManager.Instance.executeQueryNormal(SQLResource.SQL043);
-
-           //ファイルを上書きし、Shift JISで書き込む
            StreamWriter sw = new System.IO.StreamWriter(
                outputFilePath,
                false,
                Encoding.GetEncoding("utf-8"));
 
            sw.WriteLine("#EXTM3U");
-           foreach (var o in resultList)
+           foreach (var o in exportData)
            {
                string extinf = "#EXTINF:";
                string time = o[3].ToString();

@@ -2585,7 +2585,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             {
                 //OKボタンがクリックされたとき
                 ListFunction lf = new ListFunction();
-                lf.exportM3uWithoutArchive(sfd.FileName);
+                lf.exportM3u(SQLiteManager.Instance.executeQueryNormal(SQLResource.SQL043), sfd.FileName);
                 showToastMessage(MessageResource.I0003);
             }
         }
@@ -2840,6 +2840,42 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                     isEnd = true;
                 }
                 System.Threading.Thread.Sleep(100);
+            }
+        }
+
+        private void exportPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            //[ファイルの種類]ではじめに
+            //「すべてのファイル」が選択されているようにする
+            sfd.FilterIndex = 2;
+            //タイトルを設定する
+            sfd.Title = "エクスポートしたファイルの保存先を選択してください";
+            sfd.FileName = "linear_grid.m3u8";
+
+            //ダイアログを表示する
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                //OKボタンがクリックされたとき
+                ListFunction lf = new ListFunction();
+
+                List<object[]> gridList = new List<object[]>();
+                foreach (var rowInfo in LinearAudioPlayer.GridController.getAllRowsInfo())
+                {
+                    if (Grid[rowInfo.Index, (int)GridController.EnuGrid.OPTION].Value == null 
+                        || String.IsNullOrEmpty(Grid[rowInfo.Index, (int)GridController.EnuGrid.OPTION].Value.ToString()))
+                    {
+                        object[] rowData = new object[4];
+                        rowData[0] = Grid[rowInfo.Index, (int) GridController.EnuGrid.FILEPATH].Value;
+                        rowData[1] = Grid[rowInfo.Index, (int) GridController.EnuGrid.TITLE].Value;
+                        rowData[2] = Grid[rowInfo.Index, (int) GridController.EnuGrid.ARTIST].Value;
+                        rowData[3] = Grid[rowInfo.Index, (int) GridController.EnuGrid.TIME].Value;
+                        gridList.Add(rowData);
+                    }
+                }
+
+                lf.exportM3u(gridList.ToArray(), sfd.FileName);
+                showToastMessage(MessageResource.I0003);
             }
         }
 
