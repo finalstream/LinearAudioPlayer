@@ -232,6 +232,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             setting.ViewConfig.PIPViewDuration = LinearGlobal.LinearConfig.ViewConfig.PIPViewDuration;
             setting.ViewConfig.FontBold = LinearGlobal.LinearConfig.ViewConfig.FontBold;
             setting.ViewConfig.GroupListOrder = LinearGlobal.LinearConfig.ViewConfig.GroupListOrder;
+            setting.ViewConfig.AlbumJudgeCount = LinearGlobal.LinearConfig.ViewConfig.AlbumJudgeCount;
 
             // プレイヤー設定
             setting.PlayerConfig.PlayMode = (int)LinearGlobal.PlayMode;

@@ -225,11 +225,11 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             {
                 picArtwork.Visible = true;
                 txtAlbumDescription.Visible = true;
-                ltTitle.Visible = true;
+                //ltTitle.Visible = true;
                 labelTitle.Visible = true;
-                ltArtist.Visible = true;
+                //ltArtist.Visible = true;
                 labelArtist.Visible = true;
-                ltAlbum.Visible = true;
+                //ltAlbum.Visible = true;
                 labelAlbum.Visible = true;
                 ltLastfm.Visible = true;
                 labelLastfm.Visible = true;
@@ -1036,6 +1036,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
         public void setLinkLibrary(GridItemInfo gi, bool isSetAlbumDescription)
         {
+
+            ltTitle.Visible = true;
+            ltArtist.Visible = true;
+            ltAlbum.Visible = true;
             labelTitle.Text = gi.Title;
             labelArtist.Text = gi.Artist;
             labelAlbum.Text = gi.Album + " [" + gi.Year +  "]";

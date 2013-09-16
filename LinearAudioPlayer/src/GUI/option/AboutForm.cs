@@ -66,7 +66,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             mes += "\r\nIcon Product by Copyright © Jonas Rask\r\nhttp://jonasraskdesign.com/";
             mes += "\r\nIcon Product by Copyright © Laurent Baumann\r\nhttp://lbaumann.com/";
             mes += "\r\nIcon Product by Copyright © acidrums4\r\nhttp://acidrums4.deviantart.com/";
-            mes += "\r\n\r\nWebService:\r\nPowered by Google\r\nhttp://www.google.com/\r\nPowered by Amazon Japan\r\nhttp://www.amazon.co.jp/";
+            mes += "\r\n\r\nWebService:\r\nPowered by Google\r\nhttp://www.google.com/\r\nPowered by Amazon Japan\r\nhttp://www.amazon.co.jp/\r\nPowered by Yahoo! JAPAN\r\nhttp://www.yahoo.co.jp/";
             mes += "\r\n\r\nIncremental Search Engine by C/Migemo ver." + migemover.FileVersion +"\r\nCopyright © 2003-2007 MURAOKA Taro (KoRoN).\r\nhttp://code.google.com/p/cmigemo/";
             mes += "\r\n\r\nREST API by RestSharp ver." + restsharpver.FileVersion + "\r\nCopyright © RestSharp Project 2009-2012\r\nhttp://restsharp.org/";
             mes += "\r\n\r\n\r\nThank you All Developers & Users.";
