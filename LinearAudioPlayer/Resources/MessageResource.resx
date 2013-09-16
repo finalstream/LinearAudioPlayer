@@ -151,6 +151,9 @@
   <data name="I0007" xml:space="preserve">
     <value>オーディオファイルを登録しました。</value>
   </data>
+  <data name="I0008" xml:space="preserve">
+    <value>アルバム説明を更新しました。</value>
+  </data>
   <data name="Q0001" xml:space="preserve">
     <value>{0}を削除してもよろしいですか？</value>
   </data>

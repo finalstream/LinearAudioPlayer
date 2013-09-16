@@ -639,12 +639,17 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     gi.AlbumDescription = (string) result;
                 }
 
+                YahooHelper.getShoppingDescription("\"" + gi.Album + "\"" + " " + "\"" + gi.Artist + "\"");
+                YahooHelper.getShoppingDescription(gi.Album);
                 if (String.IsNullOrEmpty(gi.AlbumDescription))
                 {
                     // DBになかったらGoogle Shopping Apiから取得
                     // アルバムとアーティストで
-                    gi.AlbumDescription =
-                        GoogleHelper.getShoppingDescription("\"" + gi.Album + "\"" + " " + "\"" + gi.Artist + "\"");
+                    if (!String.IsNullOrEmpty(gi.Album) || !String.IsNullOrEmpty(gi.Artist))
+                    {
+                        gi.AlbumDescription =
+                            GoogleHelper.getShoppingDescription("\"" + gi.Album + "\"" + " " + "\"" + gi.Artist + "\"");
+                    }
 
                     if (String.IsNullOrEmpty(gi.AlbumDescription))
                     {
@@ -682,6 +687,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             {
                 gi.AlbumDescription = LinearGlobal.MainForm.ListForm.getAlbumDescription();
             }
+
+            LinearGlobal.CurrentPlayItemInfo.AlbumDescription = gi.AlbumDescription;
 
             if (LinearGlobal.MainForm.ListForm.InvokeRequired)
             {

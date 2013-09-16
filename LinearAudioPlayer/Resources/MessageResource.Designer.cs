@@ -160,6 +160,15 @@ namespace FINALSTREAM.LinearAudioPlayer.Resources {
         }
         
         /// <summary>
+        ///   アルバム説明を更新しました。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string I0008 {
+            get {
+                return ResourceManager.GetString("I0008", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   {0}を削除してもよろしいですか？ に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Q0001 {

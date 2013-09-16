@@ -678,5 +678,22 @@ namespace FINALSTREAM.LinearAudioPlayer.Resources {
                 return ResourceManager.GetString("SQL052", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   UPDATE PLAYLIST
+        ///SET DESCRIPTION = :Description
+        ///WHERE ID = (
+        ///SELECT ID
+        ///FROM PLAYLIST
+        ///WHERE ARTIST = :Artist
+        ///AND ALBUM = :Album
+        ///ORDER BY ID ASC
+        ///LIMIT 1) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SQL053 {
+            get {
+                return ResourceManager.GetString("SQL053", resourceCulture);
+            }
+        }
     }
 }

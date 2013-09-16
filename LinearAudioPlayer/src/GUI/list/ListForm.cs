@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
+using System.Data.OleDb;
 using System.Data.SQLite;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -240,14 +241,14 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 this.picArtwork.Size = new Size(150, 150);
                 ltTitle.Location = new Point(this.picArtwork.Location.X + this.picArtwork.Width + 20, this.picArtwork.Location.Y);
                 labelTitle.Location = new Point(ltTitle.Location.X + ltTitle.Width, ltTitle.Location.Y);
-                ltArtist.Location = new Point(ltTitle.Location.X, this.ltTitle.Location.Y + ltTitle.Height + 5);
+                ltArtist.Location = new Point(ltTitle.Location.X, this.ltTitle.Location.Y + ltTitle.Height + 4);
                 labelArtist.Location = new Point(ltArtist.Location.X + ltArtist.Width, ltArtist.Location.Y);
-                ltAlbum.Location = new Point(ltArtist.Location.X - 2, this.ltArtist.Location.Y + ltArtist.Height + 5);
+                ltAlbum.Location = new Point(ltArtist.Location.X - 2, this.ltArtist.Location.Y + ltArtist.Height + 4);
                 labelAlbum.Location = new Point(ltAlbum.Location.X + ltAlbum.Width, ltAlbum.Location.Y);
-                ltLastfm.Location = new Point(ltAlbum.Location.X - 7, this.ltAlbum.Location.Y + ltAlbum.Height + 5);
+                ltLastfm.Location = new Point(ltAlbum.Location.X - 7, this.ltAlbum.Location.Y + ltAlbum.Height + 4);
                 labelLastfm.Location = new Point(ltLastfm.Location.X + ltLastfm.Width, ltLastfm.Location.Y);
-                this.txtAlbumDescription.Size = new Size(this.Width - this.picArtwork.Width - gridFiltering.Width - gridLink.Width - 30, 45);
-                this.txtAlbumDescription.Location = new Point(this.picArtwork.Location.X + this.picArtwork.Width + 5, this.picArtwork.Location.Y + 105);
+                this.txtAlbumDescription.Size = new Size(this.Width - this.picArtwork.Width - gridFiltering.Width - gridLink.Width - 30, 57);
+                this.txtAlbumDescription.Location = new Point(this.picArtwork.Location.X + this.picArtwork.Width + 5, this.picArtwork.Location.Y + 95);
                 this.grid.Location = new Point(this.grid.Location.X, this.grid.Location.Y + 160);
                 this.grid.Size = new Size(this.grid.Size.Width, this.grid.Size.Height - 160);
                 labelTitle.Width = txtAlbumDescription.Width - ltTitle.Width - 20;
@@ -1042,7 +1043,15 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             {
                 txtAlbumDescription.Text = gi.AlbumDescription;
             }
-            labelLastfm.Text = "";
+            ltLastfm.Text = "  Info     : ";
+
+            // TODO:同じ所がある
+            string ext = "";
+            if (!String.IsNullOrEmpty(Path.GetExtension(gi.FilePath)))
+            {
+                ext = Path.GetExtension(gi.FilePath).ToUpper().Substring(1);
+            }
+            labelLastfm.Text = gi.Time + "   " + ext + "   " + gi.Bitrate + " kbps   " + gi.PlayCount + " plays";
         }
 
         public void refreshArtwork(bool isNoPicture)
@@ -2876,6 +2885,23 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
                 lf.exportM3u(gridList.ToArray(), sfd.FileName);
                 showToastMessage(MessageResource.I0003);
+            }
+        }
+
+        private void txtAlbumDescription_Leave(object sender, EventArgs e)
+        {
+
+            if (!LinearGlobal.CurrentPlayItemInfo.AlbumDescription.Equals(getAlbumDescription()))
+            {
+
+                List<DbParameter> paramList = new List<DbParameter>();
+                paramList.Add(new SQLiteParameter("Artist", LinearGlobal.CurrentPlayItemInfo.Artist));
+                paramList.Add(new SQLiteParameter("Album", LinearGlobal.CurrentPlayItemInfo.Album));
+                paramList.Add(new SQLiteParameter("Description", txtAlbumDescription.Text));
+
+                SQLiteManager.Instance.executeNonQuery(SQLResource.SQL053, paramList);
+
+                showToastMessage(MessageResource.I0008);
             }
         }
 

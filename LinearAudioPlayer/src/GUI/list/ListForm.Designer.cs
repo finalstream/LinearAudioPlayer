@@ -79,6 +79,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportWithoutArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.cleardatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteDatabase = new System.Windows.Forms.ToolStripMenuItem();
@@ -143,7 +144,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.playtimeShortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playtimeLongToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playtimeHalfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playlistContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeSwitch)).BeginInit();
@@ -458,7 +458,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.cleardatabaseToolStripMenuItem,
             this.deleteDatabase});
             this.databaseContextMenuStrip.Name = "databaseContextMenuStrip";
-            this.databaseContextMenuStrip.Size = new System.Drawing.Size(209, 192);
+            this.databaseContextMenuStrip.Size = new System.Drawing.Size(209, 170);
             // 
             // createNewDatabase
             // 
@@ -516,6 +516,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.exportWithoutArchiveToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
             this.exportWithoutArchiveToolStripMenuItem.Text = "データベース内すべてエクスポート(アーカイブ以外)...";
             this.exportWithoutArchiveToolStripMenuItem.Click += new System.EventHandler(this.exportWithoutArchiveToolStripMenuItem_Click);
+            // 
+            // exportPlaylistToolStripMenuItem
+            // 
+            this.exportPlaylistToolStripMenuItem.Name = "exportPlaylistToolStripMenuItem";
+            this.exportPlaylistToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
+            this.exportPlaylistToolStripMenuItem.Text = "リストに表示中のみエクスポート(アーカイブ以外)...";
+            this.exportPlaylistToolStripMenuItem.Click += new System.EventHandler(this.exportPlaylistToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -806,6 +813,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.txtAlbumDescription.Size = new System.Drawing.Size(167, 31);
             this.txtAlbumDescription.TabIndex = 40;
             this.txtAlbumDescription.Visible = false;
+            this.txtAlbumDescription.Leave += new System.EventHandler(this.txtAlbumDescription_Leave);
             this.txtAlbumDescription.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.txtAlbumDescription_MouseWheel);
             // 
             // ltArtist
@@ -1140,13 +1148,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.playtimeHalfToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.playtimeHalfToolStripMenuItem.Text = "ハーフ(50-70%)";
             this.playtimeHalfToolStripMenuItem.Click += new System.EventHandler(this.playtimeHalfToolStripMenuItem_Click);
-            // 
-            // exportPlaylistToolStripMenuItem
-            // 
-            this.exportPlaylistToolStripMenuItem.Name = "exportPlaylistToolStripMenuItem";
-            this.exportPlaylistToolStripMenuItem.Size = new System.Drawing.Size(362, 22);
-            this.exportPlaylistToolStripMenuItem.Text = "リストに表示中のみエクスポート(アーカイブ以外)...";
-            this.exportPlaylistToolStripMenuItem.Click += new System.EventHandler(this.exportPlaylistToolStripMenuItem_Click);
             // 
             // ListForm
             // 

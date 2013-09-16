@@ -22,6 +22,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         public int Rating { set; get; }
         public long PlayCountUpSecond { set; get; }
         public string LastPlayDate { set; get; }
+        public string AlbumDescription { set; get; }
 
         public override string ToString()
         {

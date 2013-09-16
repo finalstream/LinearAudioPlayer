@@ -486,4 +486,16 @@ ORDER BY SORT DESC LIMIT 1</value>
     <value>SELECT ID FROM PLAYINGLIST WHERE SORT = (SELECT MAX(SORT) FROM PLAYINGLIST)</value>
     <comment>1つ前の再生用SORT取得(MAX)</comment>
   </data>
+  <data name="SQL053" xml:space="preserve">
+    <value>UPDATE PLAYLIST
+SET DESCRIPTION = :Description
+WHERE ID = (
+SELECT ID
+FROM PLAYLIST
+WHERE ARTIST = :Artist
+AND ALBUM = :Album
+ORDER BY ID ASC
+LIMIT 1)</value>
+    <comment>アルバム説明更新用SQL</comment>
+  </data>
 </root>
