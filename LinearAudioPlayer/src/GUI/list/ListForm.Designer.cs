@@ -823,9 +823,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.ltArtist.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.ltArtist.Location = new System.Drawing.Point(324, 67);
             this.ltArtist.Name = "ltArtist";
-            this.ltArtist.Size = new System.Drawing.Size(65, 20);
+            this.ltArtist.Size = new System.Drawing.Size(64, 20);
             this.ltArtist.TabIndex = 41;
-            this.ltArtist.Text = "Artist  : ";
+            this.ltArtist.Text = " Artist   ";
             this.ltArtist.Visible = false;
             // 
             // labelArtist
@@ -845,9 +845,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.ltTitle.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.ltTitle.Location = new System.Drawing.Point(324, 47);
             this.ltTitle.Name = "ltTitle";
-            this.ltTitle.Size = new System.Drawing.Size(65, 20);
+            this.ltTitle.Size = new System.Drawing.Size(64, 20);
             this.ltTitle.TabIndex = 43;
-            this.ltTitle.Text = "Title    : ";
+            this.ltTitle.Text = "   Title   ";
             this.ltTitle.Visible = false;
             // 
             // labelAlbum
@@ -867,9 +867,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.ltAlbum.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.ltAlbum.Location = new System.Drawing.Point(322, 87);
             this.ltAlbum.Name = "ltAlbum";
-            this.ltAlbum.Size = new System.Drawing.Size(67, 20);
+            this.ltAlbum.Size = new System.Drawing.Size(66, 20);
             this.ltAlbum.TabIndex = 45;
-            this.ltAlbum.Text = "Album : ";
+            this.ltAlbum.Text = "Album   ";
             this.ltAlbum.Visible = false;
             // 
             // ltLastfm

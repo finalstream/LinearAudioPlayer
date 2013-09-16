@@ -1038,12 +1038,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         {
             labelTitle.Text = gi.Title;
             labelArtist.Text = gi.Artist;
-            labelAlbum.Text = gi.Album;
+            labelAlbum.Text = gi.Album + " [" + gi.Year +  "]";
+            labelAlbum.Tag = gi.Album;
             if (isSetAlbumDescription)
             {
                 txtAlbumDescription.Text = gi.AlbumDescription;
             }
-            ltLastfm.Text = "  Info     : ";
+            ltLastfm.Text = "     Info    ";
 
             // TODO:同じ所がある
             string ext = "";
@@ -2680,7 +2681,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         {
             if (e.Button == MouseButtons.Left)
             {
-                filteringBox.Text = labelAlbum.Text;
+                filteringBox.Text = labelAlbum.Tag.ToString();
             }
         }
 

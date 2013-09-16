@@ -198,7 +198,7 @@ namespace Finalstream.LinearAudioPlayer.Plugin.Lastfm
 
         public string getLinkLibraryTitle()
         {
-            return "Last.fm : ";
+            return "Last.fm   ";
         }
 
         public string getLinkLibraryDescription(LinkLibraryInfo linkLibraryInfo)
