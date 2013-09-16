@@ -813,6 +813,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.txtAlbumDescription.Size = new System.Drawing.Size(167, 31);
             this.txtAlbumDescription.TabIndex = 40;
             this.txtAlbumDescription.Visible = false;
+            this.txtAlbumDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAlbumDescription_KeyDown);
             this.txtAlbumDescription.Leave += new System.EventHandler(this.txtAlbumDescription_Leave);
             this.txtAlbumDescription.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.txtAlbumDescription_MouseWheel);
             // 
@@ -1313,7 +1314,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private ToolStripMenuItem sortDefaultToolStripMenuItem;
         private ToolStripMenuItem sortManualToolStripMenuItem;
         private PictureBox picArtwork;
-        private TextBox txtAlbumDescription;
         private Label ltArtist;
         private Label labelArtist;
         private Label ltTitle;
@@ -1339,6 +1339,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private ToolStripMenuItem playtimeLongToolStripMenuItem;
         private ToolStripMenuItem playtimeHalfToolStripMenuItem;
         private ToolStripMenuItem exportPlaylistToolStripMenuItem;
+        private TextBox txtAlbumDescription;
 
     }
 }

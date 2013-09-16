@@ -1051,7 +1051,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             {
                 ext = Path.GetExtension(gi.FilePath).ToUpper().Substring(1);
             }
-            labelLastfm.Text = gi.Time + "   " + ext + "   " + gi.Bitrate + " kbps   " + gi.PlayCount + " plays";
+            labelLastfm.Text = gi.Time + "  " + ext + "  " + gi.Bitrate + " kbps  " + gi.PlayCount + " plays";
         }
 
         public void refreshArtwork(bool isNoPicture)
@@ -2902,6 +2902,14 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 SQLiteManager.Instance.executeNonQuery(SQLResource.SQL053, paramList);
 
                 showToastMessage(MessageResource.I0008);
+            }
+        }
+
+        private void txtAlbumDescription_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A && e.Control)
+            {
+                txtAlbumDescription.SelectAll();
             }
         }
 

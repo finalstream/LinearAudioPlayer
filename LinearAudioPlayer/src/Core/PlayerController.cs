@@ -626,7 +626,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     }
                 }
 
-                // Googleショッピングの説明を取得
+                // Yahooショッピングの説明を取得
                 gi.AlbumDescription = "";
 
                 // DBから探す
@@ -639,22 +639,20 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     gi.AlbumDescription = (string) result;
                 }
 
-                YahooHelper.getShoppingDescription("\"" + gi.Album + "\"" + " " + "\"" + gi.Artist + "\"");
-                YahooHelper.getShoppingDescription(gi.Album);
                 if (String.IsNullOrEmpty(gi.AlbumDescription))
                 {
-                    // DBになかったらGoogle Shopping Apiから取得
+                    // DBになかったらYahoo Shopping Apiから取得
                     // アルバムとアーティストで
                     if (!String.IsNullOrEmpty(gi.Album) || !String.IsNullOrEmpty(gi.Artist))
                     {
                         gi.AlbumDescription =
-                            GoogleHelper.getShoppingDescription("\"" + gi.Album + "\"" + " " + "\"" + gi.Artist + "\"");
+                            YahooHelper.getShoppingDescription("\"" + gi.Album + "\"" + " " + "\"" + gi.Artist + "\"");
                     }
 
                     if (String.IsNullOrEmpty(gi.AlbumDescription))
                     {
                         // アルバムだけで
-                        gi.AlbumDescription = GoogleHelper.getShoppingDescription(gi.Album);
+                        gi.AlbumDescription = YahooHelper.getShoppingDescription(gi.Album);
                     }
 
                     if (!String.IsNullOrEmpty(gi.AlbumDescription))
