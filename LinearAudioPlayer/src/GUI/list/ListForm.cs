@@ -1628,7 +1628,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                         }
                         else
                         {
-                            cii.DisplayValue = "<Empty>" + record[1].ToString();
+                            cii.DisplayValue = "<Empty> (" + record[1].ToString() + ")";
                             cii.Value = String.Empty;
                             LinearAudioPlayer.GroupGridController.addItem(cii);
                         }
