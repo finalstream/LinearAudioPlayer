@@ -248,7 +248,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 ltLastfm.Location = new Point(ltAlbum.Location.X - 7, this.ltAlbum.Location.Y + ltAlbum.Height + 4);
                 labelLastfm.Location = new Point(ltLastfm.Location.X + ltLastfm.Width, ltLastfm.Location.Y);
                 this.txtAlbumDescription.Size = new Size(this.Width - this.picArtwork.Width - gridFiltering.Width - gridLink.Width - 30, 57);
-                this.txtAlbumDescription.Location = new Point(this.picArtwork.Location.X + this.picArtwork.Width + 5, this.picArtwork.Location.Y + 95);
+                this.txtAlbumDescription.Location = new Point(this.picArtwork.Location.X + this.picArtwork.Width + 5, this.picArtwork.Location.Y + 99);
                 this.grid.Location = new Point(this.grid.Location.X, this.grid.Location.Y + 160);
                 this.grid.Size = new Size(this.grid.Size.Width, this.grid.Size.Height - 160);
                 labelTitle.Width = txtAlbumDescription.Width - ltTitle.Width - 20;
