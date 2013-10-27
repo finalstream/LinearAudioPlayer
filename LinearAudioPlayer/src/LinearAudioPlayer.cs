@@ -260,17 +260,18 @@ namespace FINALSTREAM.LinearAudioPlayer
             // テンポラリディレクトリ削除
             DirectoryUtils.deleteDir(LinearGlobal.TempDirectory);
 
+            //init.dispose();
+            Dispose();
+
             if (LinearGlobal.IsUpdateNewVersion)
             {
+                System.Threading.Thread.Sleep(1000);
                 Process p = new Process();
                 // 管理者として実行
                 p.StartInfo.FileName = Application.StartupPath + "\\update\\LinearAudioPlayerUpdate.exe";
                 p.StartInfo.Arguments = "-u";
                 p.Start();
             }
-
-            //init.dispose();
-            Dispose();
         }
 
         static public void setVersionInfo()
