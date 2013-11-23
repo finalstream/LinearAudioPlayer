@@ -285,7 +285,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 
         private void btnReStart_Click(object sender, EventArgs e)
         {
-            Application.Restart();
+            Application.Exit();
+            System.Diagnostics.Process.Start(Application.ExecutablePath);
         }
 
         private void txtTitleTemplete_Leave(object sender, EventArgs e)
