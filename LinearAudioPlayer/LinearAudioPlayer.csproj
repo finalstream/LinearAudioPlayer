@@ -88,6 +88,9 @@
     <Reference Include="Microsoft.WindowsAPICodePack.Shell">
       <HintPath>..\..\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SgmlReaderDll">
       <HintPath>..\..\lib\SgmlReaderDll.dll</HintPath>
     </Reference>
@@ -740,7 +743,8 @@ move /Y "$(TargetDir)SevenZipSharp.dll" "$(TargetDir)lib\sevenzip"
 move /Y "$(TargetDir)taglib-sharp.dll" "$(TargetDir)lib\taglib"
 move /Y "$(TargetDir)Finalstream.Commons.dll" "$(TargetDir)lib\finalstream"
 move /Y "$(TargetDir)GAPI.dll" "$(TargetDir)lib\google"
-move /Y "$(TargetDir)RestSharp.dll" "$(TargetDir)lib\rest"</PostBuildEvent>
+move /Y "$(TargetDir)RestSharp.dll" "$(TargetDir)lib\rest"
+move /Y "$(TargetDir)Newtonsoft.Json.dll" "$(TargetDir)lib\json"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

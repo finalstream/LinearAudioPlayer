@@ -24,6 +24,7 @@ using FINALSTREAM.LinearAudioPlayer.Core;
 using FINALSTREAM.Commons.Archive;
 using FINALSTREAM.Commons.Exceptions;
 using FINALSTREAM.Commons.Info;
+using Newtonsoft.Json;
 using SourceGrid;
 
 namespace FINALSTREAM.LinearAudioPlayer.GUI

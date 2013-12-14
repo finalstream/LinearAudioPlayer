@@ -168,7 +168,15 @@ namespace FINALSTREAM.LinearAudioPlayer.Database
                         sb.Append(AND_STRING);
                         if (!String.IsNullOrEmpty(conditionItem.Value))
                         {
-                            sb.Append(filteringMode.ToString() + " = '" + escapeSQL(conditionItem.Value) + "'");
+                            if (filteringMode != LinearEnum.FilteringMode.GENRE)
+                            {
+                                sb.Append(filteringMode.ToString() + " = '" + escapeSQL(conditionItem.Value) + "'");
+                            }
+                            else
+                            {
+                                // ジャンルだけ大文字でマッチングする
+                                sb.Append("trim(upper(" + filteringMode.ToString() + ")) = '" + escapeSQL(conditionItem.Value) + "'");
+                            }
                         }
                         else
                         {
@@ -290,7 +298,19 @@ namespace FINALSTREAM.LinearAudioPlayer.Database
             }
 
             string ratingCondition = getRatingWhereString(playlistMode);
-            string result = SQLResource.SQL012.Replace("#condMode#", conditionModeName).Replace("#RATING#", ratingCondition);
+
+            string result = "";
+            if (condtionMode != LinearEnum.FilteringMode.GENRE)
+            {
+                result = SQLResource.SQL012.Replace("#condMode#", conditionModeName)
+                                           .Replace("#RATING#", ratingCondition);
+            }
+            else
+            {
+                // ジャンルだけすべて大文字でグループ化する
+                result = SQLResource.SQL012.Replace("#condMode#", "trim(upper(" + conditionModeName+ "))")
+                                           .Replace("#RATING#", ratingCondition);
+            }
 
             if (!String.IsNullOrEmpty(filterString))
             {
