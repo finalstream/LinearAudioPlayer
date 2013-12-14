@@ -2918,6 +2918,26 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             }
         }
 
+        private void adAllselectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtAlbumDescription.SelectAll();
+        }
+
+        private void adCopyToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(txtAlbumDescription.SelectedText);
+        }
+
+        private void adPasteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            txtAlbumDescription.SelectedText = Clipboard.GetText();
+        }
+
+        private void adAmazonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.amazon.co.jp/gp/search/?field-keywords=" + labelAlbum.Tag);
+        }
+
     }
 
     
