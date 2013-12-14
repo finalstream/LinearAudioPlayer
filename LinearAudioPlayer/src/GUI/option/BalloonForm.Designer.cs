@@ -53,7 +53,7 @@
             0});
             this.numFilteringCount.Location = new System.Drawing.Point(14, 45);
             this.numFilteringCount.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
