@@ -707,6 +707,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 string imageUrl = rotateGooleImageUrls[rotateIndex];
 
                 picArtwork.ImageLocation = imageUrl;
+                beforeCheckArtwork = false;
 
             }
             
@@ -855,6 +856,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             if (e.Button == MouseButtons.Left)
             {
                 picArtwork.Image = picAmazonImage.Image;
+                beforeCheckArtwork = false;
                 checkArtworkSave.Checked = true;
             }
         }
@@ -1010,6 +1012,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                     lblArtworkType.Text = "LOCAL";
                     picArtwork.Image = Image.FromFile(result);
                     checkArtworkSave.Checked = true;
+                    beforeCheckArtwork = false;
                 }
         }
 
