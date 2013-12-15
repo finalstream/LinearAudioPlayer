@@ -2,7 +2,7 @@
 <StyleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>KURO2</Name>
   <Designer>FINALSTREAM</Designer>
-  <Version>Version 1.2</Version>
+  <Version>Version 1.3</Version>
   <Comment>漆黒と青のスタイルです。</Comment>
   <DefaultColorProfile>KURO2.xml</DefaultColorProfile>
   <OutSideUnderRightLineColor>-14540254</OutSideUnderRightLineColor>
