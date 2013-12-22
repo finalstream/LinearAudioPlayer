@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using FINALSTREAM.Commons.Utils;
 using FINALSTREAM.LinearAudioPlayer.Grid;
 using FINALSTREAM.LinearAudioPlayer.Info;
@@ -75,7 +76,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Database
             if (!String.IsNullOrEmpty(filterString))
             {
                 sb.Append(AND_STRING);
-                if (filterString.Length < 3)
+                if (filterString.Length < 3 || !Regex.IsMatch(filterString, @"^[a-zA-Z0-9 \-]+$"))
                 {
                     sb.Append(
                         "IFNULL(TITLE,'') || IFNULL(ARTIST,'') || IFNULL(ALBUM,'') || IFNULL(TAG,'') LIKE '%" +
@@ -314,7 +315,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Database
 
             if (!String.IsNullOrEmpty(filterString))
             {
-                if (filterString.Length < 3)
+                if (filterString.Length < 3 || !Regex.IsMatch(filterString, @"^[a-zA-Z0-9 \-]+$"))
                 {
                     result = result.Replace("#FILTERING#", AND_STRING +
                         "IFNULL(" + conditionModeName + ",'') LIKE '%" +

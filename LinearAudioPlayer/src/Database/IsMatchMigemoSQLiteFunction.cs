@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using FINALSTREAM.Commons.Exceptions;
 using FINALSTREAM.Commons.Library.Migemo;
 
 namespace FINALSTREAM.LinearAudioPlayer.Database
@@ -27,14 +28,21 @@ namespace FINALSTREAM.LinearAudioPlayer.Database
         {
             bool result = false;
 
-
-            result = migemo.GetRegex(args[0].ToString()).IsMatch(args[1].ToString());
-
-
-
-            if (!result && usermigemo != null)
+            try
             {
-                result = usermigemo.GetRegex(args[0].ToString()).IsMatch(args[1].ToString());
+                result = migemo.GetRegex(args[0].ToString()).IsMatch(args[1].ToString());
+
+
+
+                if (!result && usermigemo != null)
+                {
+                    result = usermigemo.GetRegex(args[0].ToString()).IsMatch(args[1].ToString());
+                }
+            }
+            catch (ArgumentException)
+            {
+                // 正規表現の解析に失敗した
+                return false;
             }
 
 
