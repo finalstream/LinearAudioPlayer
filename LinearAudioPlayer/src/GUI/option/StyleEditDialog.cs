@@ -11,6 +11,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
     public partial class StyleEditDialog : Form
     {
 
+        public bool isCustomize { get; set; }
+
         public StyleEditDialog(string basename)
         {
             InitializeComponent();

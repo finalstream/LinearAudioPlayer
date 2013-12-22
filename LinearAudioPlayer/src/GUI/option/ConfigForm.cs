@@ -501,21 +501,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             LinearGlobal.LinearConfig.ViewConfig.FontBold = this.checkFontBold.Checked;
         }
 
-        private void btnColorProfileEditor_Click(object sender, EventArgs e)
-        {
-            ColorProfileEditDialog ced
-                = new ColorProfileEditDialog(Path.GetFileNameWithoutExtension(colorProfileList.Text));
-            ced.Show(this);
-        }
-
-        private void btnStyleEditor_Click(object sender, EventArgs e)
-        {
-            StyleEditDialog sed
-                = new StyleEditDialog(styleList.Text);
-            sed.Show(this);
-        }
-
-
         private void styleList_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -719,7 +704,39 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 
         }
 
-        
+        private void editToolStripMenuItem_MouseDown(object sender, MouseEventArgs e)
+        {
+            editStyle(e, false);
+        }
+
+        private void copyToolStripMenuItem_MouseDown(object sender, MouseEventArgs e)
+        {
+            editStyle(e, true);
+        }
+
+        private void editStyle(MouseEventArgs e,bool isCustomize)
+        {
+
+            if (e.Button == MouseButtons.Left)
+            {
+                if (styleList.Focused && !String.IsNullOrEmpty(styleList.Text))
+                {
+                    StyleEditDialog sed 
+                        = new StyleEditDialog(styleList.Text);
+                    sed.isCustomize = isCustomize;
+                    sed.Show(this);
+                }
+                else if (colorProfileList.Focused && !String.IsNullOrEmpty(colorProfileList.Text))
+                {
+                    ColorProfileEditDialog ced 
+                        = new ColorProfileEditDialog(Path.GetFileNameWithoutExtension(colorProfileList.Text));
+                    ced.isCustomize = isCustomize;
+                    ced.Show(this);
+                }
+            }
+            contextMenuStrip1.Close();
+
+        }
 
 
     }

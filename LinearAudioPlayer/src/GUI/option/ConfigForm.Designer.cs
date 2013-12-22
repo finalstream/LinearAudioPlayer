@@ -49,6 +49,7 @@
             this.checkResumePlay = new System.Windows.Forms.CheckBox();
             this.tabOption2 = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.btnExecAudioFileRegist = new System.Windows.Forms.Button();
             this.comboTargetDatabase = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -100,14 +101,15 @@
             this.numudFadeDuration = new System.Windows.Forms.NumericUpDown();
             this.tabStyle = new System.Windows.Forms.TabPage();
             this.checkRandomStyle = new System.Windows.Forms.CheckBox();
-            this.btnStyleEditor = new System.Windows.Forms.Button();
-            this.btnColorProfileEditor = new System.Windows.Forms.Button();
             this.btnImportStyle = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.labelStyleName = new System.Windows.Forms.Label();
             this.labelStyleInfo = new System.Windows.Forms.Label();
             this.styleList = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.削除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpColorProfile = new System.Windows.Forms.GroupBox();
             this.colorProfileList = new System.Windows.Forms.ListBox();
@@ -121,7 +123,6 @@
             this.columnAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReStart = new System.Windows.Forms.Button();
-            this.btnExecAudioFileRegist = new System.Windows.Forms.Button();
             this.tabSetting.SuspendLayout();
             this.tabOption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPlayCountUpRatio)).BeginInit();
@@ -369,6 +370,16 @@
             this.groupBox8.TabIndex = 4;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "オーディオファイル自動登録(起動時に実行)";
+            // 
+            // btnExecAudioFileRegist
+            // 
+            this.btnExecAudioFileRegist.Location = new System.Drawing.Point(275, 11);
+            this.btnExecAudioFileRegist.Name = "btnExecAudioFileRegist";
+            this.btnExecAudioFileRegist.Size = new System.Drawing.Size(75, 23);
+            this.btnExecAudioFileRegist.TabIndex = 15;
+            this.btnExecAudioFileRegist.Text = "手動実行";
+            this.btnExecAudioFileRegist.UseVisualStyleBackColor = true;
+            this.btnExecAudioFileRegist.Click += new System.EventHandler(this.btnExecAudioFileRegist_Click);
             // 
             // comboTargetDatabase
             // 
@@ -918,8 +929,6 @@
             // tabStyle
             // 
             this.tabStyle.Controls.Add(this.checkRandomStyle);
-            this.tabStyle.Controls.Add(this.btnStyleEditor);
-            this.tabStyle.Controls.Add(this.btnColorProfileEditor);
             this.tabStyle.Controls.Add(this.btnImportStyle);
             this.tabStyle.Controls.Add(this.groupBox6);
             this.tabStyle.Controls.Add(this.grpColorProfile);
@@ -941,31 +950,11 @@
             this.checkRandomStyle.UseVisualStyleBackColor = true;
             this.checkRandomStyle.CheckedChanged += new System.EventHandler(this.checkRandomStyle_CheckedChanged);
             // 
-            // btnStyleEditor
-            // 
-            this.btnStyleEditor.Location = new System.Drawing.Point(11, 272);
-            this.btnStyleEditor.Name = "btnStyleEditor";
-            this.btnStyleEditor.Size = new System.Drawing.Size(111, 19);
-            this.btnStyleEditor.TabIndex = 9;
-            this.btnStyleEditor.Text = "Style Editor";
-            this.btnStyleEditor.UseVisualStyleBackColor = true;
-            this.btnStyleEditor.Click += new System.EventHandler(this.btnStyleEditor_Click);
-            // 
-            // btnColorProfileEditor
-            // 
-            this.btnColorProfileEditor.Location = new System.Drawing.Point(128, 272);
-            this.btnColorProfileEditor.Name = "btnColorProfileEditor";
-            this.btnColorProfileEditor.Size = new System.Drawing.Size(111, 19);
-            this.btnColorProfileEditor.TabIndex = 8;
-            this.btnColorProfileEditor.Text = "Color Profile Editor";
-            this.btnColorProfileEditor.UseVisualStyleBackColor = true;
-            this.btnColorProfileEditor.Click += new System.EventHandler(this.btnColorProfileEditor_Click);
-            // 
             // btnImportStyle
             // 
-            this.btnImportStyle.Location = new System.Drawing.Point(245, 272);
+            this.btnImportStyle.Location = new System.Drawing.Point(11, 272);
             this.btnImportStyle.Name = "btnImportStyle";
-            this.btnImportStyle.Size = new System.Drawing.Size(102, 19);
+            this.btnImportStyle.Size = new System.Drawing.Size(336, 19);
             this.btnImportStyle.TabIndex = 7;
             this.btnImportStyle.Text = "Install Style";
             this.btnImportStyle.UseVisualStyleBackColor = true;
@@ -1014,9 +1003,31 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editToolStripMenuItem,
+            this.copyToolStripMenuItem,
+            this.toolStripSeparator1,
             this.削除ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 76);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.editToolStripMenuItem.Text = "編集";
+            this.editToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.editToolStripMenuItem_MouseDown);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.copyToolStripMenuItem.Text = "複製";
+            this.copyToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.copyToolStripMenuItem_MouseDown);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(97, 6);
             // 
             // 削除ToolStripMenuItem
             // 
@@ -1138,16 +1149,6 @@
             this.btnReStart.UseVisualStyleBackColor = true;
             this.btnReStart.Click += new System.EventHandler(this.btnReStart_Click);
             // 
-            // btnExecAudioFileRegist
-            // 
-            this.btnExecAudioFileRegist.Location = new System.Drawing.Point(275, 11);
-            this.btnExecAudioFileRegist.Name = "btnExecAudioFileRegist";
-            this.btnExecAudioFileRegist.Size = new System.Drawing.Size(75, 23);
-            this.btnExecAudioFileRegist.TabIndex = 15;
-            this.btnExecAudioFileRegist.Text = "手動実行";
-            this.btnExecAudioFileRegist.UseVisualStyleBackColor = true;
-            this.btnExecAudioFileRegist.Click += new System.EventHandler(this.btnExecAudioFileRegist_Click);
-            // 
             // ConfigForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1266,8 +1267,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.NumericUpDown numudPlayCountUpRatio;
         private System.Windows.Forms.CheckBox checkFontBold;
-        private System.Windows.Forms.Button btnColorProfileEditor;
-        private System.Windows.Forms.Button btnStyleEditor;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 削除ToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkRandomStyle;
@@ -1300,5 +1299,8 @@
         private System.Windows.Forms.CheckBox checkSoundNormalize;
         private System.Windows.Forms.CheckBox checkAutoUpdate;
         private System.Windows.Forms.Button btnExecAudioFileRegist;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

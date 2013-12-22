@@ -15,6 +15,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 {
     public partial class ColorProfileEditDialog : Form
     {
+        public bool isCustomize { get; set; }
         private bool isSupportAlpha = false;
         private ColorInfo colorInfo = new ColorInfo();
         private int keepColor;
