@@ -746,6 +746,45 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 
         }
 
+        private void buttonPackStyle_Click(object sender, EventArgs e)
+        {
+            StyleConfig styleConfig =
+                        LinearAudioPlayer.SettingManager.LoadStyleConfig(
+                             LinearGlobal.LinearConfig.ViewConfig.StyleName);
+
+            string packFileName = "LINEARS-" + styleConfig.Name + styleConfig.Version;
+            string packFilePath = Application.StartupPath + "\\" + packFileName + ".zip";
+
+            Dictionary<string, string> archiveDict = new Dictionary<string, string>();
+
+            string archiveIncludePath = packFileName;
+            // style 
+            archiveIncludePath += "\\style\\" + styleConfig.Name + "\\";
+
+            string styleDir = Application.StartupPath + LinearConst.STYLE_DIRECTORY_NAME +
+                              styleConfig.Name;
+
+            foreach (string filePath in Directory.GetFiles(styleDir))
+            {
+                archiveDict.Add(archiveIncludePath + Path.GetFileName(filePath), filePath);
+            }
+
+            // color
+
+            archiveIncludePath = packFileName;
+            archiveIncludePath += "\\color\\";
+
+            string colorProfileFile = Application.StartupPath + LinearConst.COLOR_DIRECTORY_NAME +
+                                      colorProfileList.Text;
+
+            archiveDict.Add(archiveIncludePath + Path.GetFileName(colorProfileFile), colorProfileFile);
+
+            SevenZipManager.Instance.compress(packFilePath, archiveDict);
+
+            MessageUtils.showMessage(MessageBoxIcon.Information, "スタイルのパッケージを作成しました。\n" + packFilePath);
+
+        }
+
 
     }
 }

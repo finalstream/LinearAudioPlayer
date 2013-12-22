@@ -91,7 +91,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             string baseDir = Application.StartupPath + LinearConst.STYLE_DIRECTORY_NAME +
                                 txtBaseName.Text + "\\";
             string newDir = Application.StartupPath + LinearConst.STYLE_DIRECTORY_NAME +
-                                LinearGlobal.LinearConfig.ViewConfig.StyleName + "\\";
+                                autoSaveStyleName + "\\";
             if (File.Exists(newDir + "background_miniface.png"))
             {
                 File.Delete(newDir + "background_miniface.png");

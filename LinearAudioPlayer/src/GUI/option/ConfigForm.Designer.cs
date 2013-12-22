@@ -123,6 +123,7 @@
             this.columnAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReStart = new System.Windows.Forms.Button();
+            this.buttonPackStyle = new System.Windows.Forms.Button();
             this.tabSetting.SuspendLayout();
             this.tabOption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPlayCountUpRatio)).BeginInit();
@@ -928,6 +929,7 @@
             // 
             // tabStyle
             // 
+            this.tabStyle.Controls.Add(this.buttonPackStyle);
             this.tabStyle.Controls.Add(this.checkRandomStyle);
             this.tabStyle.Controls.Add(this.btnImportStyle);
             this.tabStyle.Controls.Add(this.groupBox6);
@@ -954,7 +956,7 @@
             // 
             this.btnImportStyle.Location = new System.Drawing.Point(11, 272);
             this.btnImportStyle.Name = "btnImportStyle";
-            this.btnImportStyle.Size = new System.Drawing.Size(336, 19);
+            this.btnImportStyle.Size = new System.Drawing.Size(164, 19);
             this.btnImportStyle.TabIndex = 7;
             this.btnImportStyle.Text = "Install Style";
             this.btnImportStyle.UseVisualStyleBackColor = true;
@@ -1149,6 +1151,16 @@
             this.btnReStart.UseVisualStyleBackColor = true;
             this.btnReStart.Click += new System.EventHandler(this.btnReStart_Click);
             // 
+            // buttonPackStyle
+            // 
+            this.buttonPackStyle.Location = new System.Drawing.Point(181, 272);
+            this.buttonPackStyle.Name = "buttonPackStyle";
+            this.buttonPackStyle.Size = new System.Drawing.Size(168, 19);
+            this.buttonPackStyle.TabIndex = 11;
+            this.buttonPackStyle.Text = "Make Style Package";
+            this.buttonPackStyle.UseVisualStyleBackColor = true;
+            this.buttonPackStyle.Click += new System.EventHandler(this.buttonPackStyle_Click);
+            // 
             // ConfigForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1302,5 +1314,6 @@
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.Button buttonPackStyle;
     }
 }
