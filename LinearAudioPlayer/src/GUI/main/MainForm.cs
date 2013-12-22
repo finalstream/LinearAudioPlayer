@@ -632,8 +632,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             //loadStyle();
 
             // とりあえずサイズとか調整
-            int yDisplayPosition = 4;
-            int yDisplayTextPosition = -1;
+            int yDisplayPosition = 5;
+            int yDisplayTextPosition = -1; // -1
             int yDisplayTitlePosition = 0;
             // ディスプレイのY軸とコントロールのY軸の差
             int diffYDisplayPositionYControlPosition = 1;
@@ -664,7 +664,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             {
                 diffFormHeightDisplayHeight += 2;
                 yDisplayTextPosition += 3;
-                yDisplayTitlePosition = yDisplayTextPosition;
+                yDisplayTitlePosition = yDisplayTextPosition -1;
                 diffSpectrum = 4;
                 ypositionMiniprogressbar = 5;
                 ypositionRating = 0;
@@ -674,7 +674,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             {
                 diffFormHeightDisplayHeight += 2;
                 yDisplayTextPosition += 2;
-                yDisplayTitlePosition = yDisplayTextPosition;
+                yDisplayTitlePosition = yDisplayTextPosition -1;
                 diffSpectrum = 2;
                 ypositionMiniprogressbar = 5;
                 diffYDisplayPositionYControlPosition += 0;
