@@ -172,7 +172,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         /// <returns></returns>
         public bool SaveStyleConfig(string styleName)
         {
-            LinearGlobal.StyleConfig.Name = styleName;
+            //LinearGlobal.StyleConfig.Name = styleName;
             new XmlSerializer().save(LinearGlobal.StyleConfig, typeof(StyleConfig), Application.StartupPath + LinearConst.STYLE_DIRECTORY_NAME +
                                       styleName + "\\styleinfo.xml");
 

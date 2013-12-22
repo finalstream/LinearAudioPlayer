@@ -270,9 +270,12 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             DevAge.Drawing.VisualElements.ColumnHeader headerBackground = new DevAge.Drawing.VisualElements.ColumnHeader();
             headerBackground.BackColor = colorConfig.HeaderBackgroundColor;
             headerBackground.Border = DevAge.Drawing.RectangleBorder.NoBorder;
-           
-            //headerBackground.BackgroundColorStyle = BackgroundColorStyle.Solid;
-            //headerBackground.Style = ControlDrawStyle.Hot;
+
+            if (LinearGlobal.StyleConfig.GridHeaderStyle == StyleConfig.EnumGridHeaderStyle.Flat)
+            {
+                headerBackground.BackgroundColorStyle = BackgroundColorStyle.Solid;
+            }
+            //headerBackground.Style = ControlDrawStyle.Pressed;
 
             //headerBackground.Border = DevAge.Drawing.RectangleBorder.NoBorder;
             SourceGrid.Cells.Views.ColumnHeader headerView = new SourceGrid.Cells.Views.ColumnHeader();
@@ -288,7 +291,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             Grid[0, (int)EnuGrid.ID] = new SourceGrid.Cells.ColumnHeader(String.Empty);
             Grid[0, (int)EnuGrid.ID].Column.Width =
                 LinearGlobal.LinearConfig.ViewConfig.ColumnHeaderWidth[(int)EnuGrid.ID];
-            Grid[0, (int) EnuGrid.ID].Row.Height = 22;
+            Grid[0, (int) EnuGrid.ID].Row.Height = 20;
 
             // FilePath [Hidden] 
             Grid[0, (int)EnuGrid.FILEPATH] = new SourceGrid.Cells.ColumnHeader(String.Empty);
@@ -380,7 +383,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             // End
 
             // ヘッダビューをセット
-            this.setHeaderView(0, headerView);
+            if (LinearGlobal.StyleConfig.GridHeaderStyle != StyleConfig.EnumGridHeaderStyle.Windows)
+            {
+                this.setHeaderView(0, headerView);
+            }
         }
 
         protected override void setHeader()

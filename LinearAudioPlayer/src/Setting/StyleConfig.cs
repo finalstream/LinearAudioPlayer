@@ -13,7 +13,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         /// <summary>
         /// スタイル名
         /// </summary>
-        [Browsable(false)]
+        [Category("StyleInfo")]
+        [Description("スタイルの名前を指定します。")]
         public string Name { get; set; }
 
         /// <summary>
@@ -168,9 +169,21 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         [Description("スタイルのデフォルトカラープロファイルを指定します。")]
         public string DefaultColorProfile { get; set; }
 
+        [Category("Style")]
+        [Description("グリッドのヘッダのスタイルを指定します。")]
+        public EnumGridHeaderStyle GridHeaderStyle { get; set; }
+
+        public enum EnumGridHeaderStyle
+        {
+            Windows = 0,
+            Gradient = 1,
+            Flat  = 2 
+        }
+
         public StyleConfig()
         {
             Name = LinearConst.DEFAULT_STYLE;
+            GridHeaderStyle = EnumGridHeaderStyle.Gradient;
         }
     }
 }

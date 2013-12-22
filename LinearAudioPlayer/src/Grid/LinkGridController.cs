@@ -157,8 +157,13 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             DevAge.Drawing.VisualElements.ColumnHeader headerBackground = new DevAge.Drawing.VisualElements.ColumnHeader();
             headerBackground.BackColor = colorConfig.HeaderBackgroundColor;
             headerBackground.Border = DevAge.Drawing.RectangleBorder.NoBorder;
-            
+
+            if (LinearGlobal.StyleConfig.GridHeaderStyle == StyleConfig.EnumGridHeaderStyle.Flat)
+            {
+                headerBackground.BackgroundColorStyle = BackgroundColorStyle.Solid;
+            }
             SourceGrid.Cells.Views.ColumnHeader headerView = new SourceGrid.Cells.Views.ColumnHeader();
+
 
             headerView.Background = headerBackground;
             headerView.ForeColor = colorConfig.HeaderFontColor;
@@ -173,7 +178,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             
             //SourceGrid.Cells.Controllers.SortableHeader sortableHeader = new SourceGrid.Cells.Controllers.SortableHeader();
             // ヘッダビューをセット
-            this.setHeaderView(0, headerView);
+            if (LinearGlobal.StyleConfig.GridHeaderStyle != StyleConfig.EnumGridHeaderStyle.Windows)
+            {
+                this.setHeaderView(0, headerView);
+            }
         }
 
         protected override void setHeader()
