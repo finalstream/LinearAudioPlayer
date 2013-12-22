@@ -15,16 +15,24 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 {
     public partial class ColorProfileEditDialog : Form
     {
-        public bool isCustomize { get; set; }
+
         private bool isSupportAlpha = false;
         private ColorInfo colorInfo = new ColorInfo();
         private int keepColor;
 
-        public ColorProfileEditDialog(string basename)
+        public ColorProfileEditDialog(string basename, bool isCustomize)
         {
             InitializeComponent();
-            txtBaseName.Text = basename;
-            txtColorProfileName.Text = basename + "Customize";
+            if (isCustomize)
+            {
+                txtBaseName.Text = basename;
+                txtColorProfileName.Text = basename + "Customize";
+            }
+            else
+            {
+                label2.Visible = false;
+                txtColorProfileName.Text = basename;
+            }
         }
 
         private void ColorProfileEditDialog_Load(object sender, EventArgs e)
@@ -63,8 +71,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         {
             PropertyInfo pi = typeof(ColorConfig).GetProperty(colorPropertyGrid.SelectedGridItem.Label);
             pi.SetValue(LinearGlobal.ColorConfig, color, null);
-            colorPropertyGrid.Refresh();
             colorPropertyGrid_PropertyValueChanged(null, null);
+            colorPropertyGrid.SelectedObject = LinearGlobal.ColorConfig;
         }
 
         private void randomButton_Click(object sender, EventArgs e)
@@ -140,9 +148,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         private void ColorProfileEditDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             LinearGlobal.LinearConfig.ViewConfig.ColorProfileEditDialogLocation = this.Location;
-            LinearGlobal.LinearConfig.ViewConfig.ColorProfile = "AutoSaveColor.xml";
+            string autoColorProfileName = "AutoSaveColor.xml";
             SettingManager sm = new SettingManager();
-            sm.SaveColorConfig(LinearGlobal.LinearConfig.ViewConfig.ColorProfile);
+            sm.SaveColorConfig(autoColorProfileName);
             ((ConfigForm) this.Owner).setEditColorProfile();
         }
 

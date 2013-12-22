@@ -250,7 +250,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         private void colorProfileList_SelectedIndexChanged(object sender, EventArgs e)
         {
             changeColorProfile(colorProfileList.Text);
-            
+            colorProfileList.Focus();
         }
 
         private void changeColorProfile(string colorProfile)
@@ -359,6 +359,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         private void styleList_SelectedIndexChanged(object sender, EventArgs e)
         {
             changeStyle(styleList.Text);
+            styleList.Focus();
         }
 
         private void changeStyle(string style)
@@ -505,6 +506,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         {
             if (e.Button == MouseButtons.Right)
             {
+                isStyleFocus = true;
                 styleList.SelectedItem = styleList.Items[styleList.IndexFromPoint(e.Location)];
             }
         }
@@ -552,10 +554,12 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             contextMenuStrip1.Close();
         }
 
+        private bool isStyleFocus = false;
         private void colorProfileList_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
+                isStyleFocus = false;
                 colorProfileList.SelectedItem = colorProfileList.Items[colorProfileList.IndexFromPoint(e.Location)];
             }
         }
@@ -706,12 +710,18 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 
         private void editToolStripMenuItem_MouseDown(object sender, MouseEventArgs e)
         {
-            editStyle(e, false);
+            if (e.Button == MouseButtons.Left)
+            {
+                editStyle(e, false);
+            }
         }
 
         private void copyToolStripMenuItem_MouseDown(object sender, MouseEventArgs e)
         {
-            editStyle(e, true);
+            if (e.Button == MouseButtons.Left)
+            {
+                editStyle(e, true);
+            }
         }
 
         private void editStyle(MouseEventArgs e,bool isCustomize)
@@ -719,18 +729,16 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 
             if (e.Button == MouseButtons.Left)
             {
-                if (styleList.Focused && !String.IsNullOrEmpty(styleList.Text))
+                if (isStyleFocus && !String.IsNullOrEmpty(styleList.Text))
                 {
-                    StyleEditDialog sed 
-                        = new StyleEditDialog(styleList.Text);
-                    sed.isCustomize = isCustomize;
+                    StyleEditDialog sed
+                        = new StyleEditDialog(styleList.Text, isCustomize);
                     sed.Show(this);
                 }
-                else if (colorProfileList.Focused && !String.IsNullOrEmpty(colorProfileList.Text))
+                else if (!isStyleFocus && !String.IsNullOrEmpty(colorProfileList.Text))
                 {
-                    ColorProfileEditDialog ced 
-                        = new ColorProfileEditDialog(Path.GetFileNameWithoutExtension(colorProfileList.Text));
-                    ced.isCustomize = isCustomize;
+                    ColorProfileEditDialog ced
+                        = new ColorProfileEditDialog(Path.GetFileNameWithoutExtension(colorProfileList.Text), isCustomize);
                     ced.Show(this);
                 }
             }

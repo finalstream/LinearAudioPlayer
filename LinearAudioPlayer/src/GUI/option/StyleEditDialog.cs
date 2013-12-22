@@ -11,13 +11,22 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
     public partial class StyleEditDialog : Form
     {
 
-        public bool isCustomize { get; set; }
-
-        public StyleEditDialog(string basename)
+        public StyleEditDialog(string basename, bool isCustomize)
         {
             InitializeComponent();
-            txtBaseName.Text = basename;
-            txtStyleName.Text = basename + "Customize";
+
+            if (isCustomize)
+            {
+                txtBaseName.Text = basename;
+                txtStyleName.Text = basename + "Customize";
+            }
+            else
+            {
+                label2.Visible = false;
+                txtBaseName.Visible = false;
+                txtBaseName.Text = basename;
+                txtStyleName.Text = basename;
+            }
         }
 
         private void StyleEditDialog_Load(object sender, EventArgs e)
@@ -50,8 +59,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         {
             PropertyInfo pi = typeof(StyleConfig).GetProperty(stylePropertyGrid.SelectedGridItem.Label);
             pi.SetValue(LinearGlobal.StyleConfig, color, null);
-            stylePropertyGrid.Refresh();
             stylePropertyGrid_PropertyValueChanged(null, null);
+            stylePropertyGrid.SelectedObject = LinearGlobal.StyleConfig;
         }
 
         private void stylePropertyGrid_SelectedGridItemChanged(object sender, SelectedGridItemChangedEventArgs e)
@@ -76,7 +85,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         private void StyleEditDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             LinearGlobal.LinearConfig.ViewConfig.StyleEditDialogLocation = this.Location;
-            LinearGlobal.LinearConfig.ViewConfig.StyleName = "AutoSaveStyle";
+            string autoSaveStyleName = "AutoSaveStyle";
 
             // Styleコピー
             string baseDir = Application.StartupPath + LinearConst.STYLE_DIRECTORY_NAME +
@@ -87,13 +96,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             {
                 File.Delete(newDir + "background_miniface.png");
             }
-            if (!txtBaseName.Text.Equals(LinearGlobal.LinearConfig.ViewConfig.StyleName))
+            if (!txtBaseName.Text.Equals(autoSaveStyleName))
             {
                 FileUtils.allcopy(baseDir, newDir);
             }
 
             SettingManager sm = new SettingManager();
-            sm.SaveStyleConfig(LinearGlobal.LinearConfig.ViewConfig.StyleName);
+            sm.SaveStyleConfig(autoSaveStyleName);
             ((ConfigForm) this.Owner).setEditStyle();
         }
 
