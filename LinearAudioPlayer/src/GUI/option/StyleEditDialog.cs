@@ -84,6 +84,11 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 
         private void StyleEditDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (e.CloseReason != CloseReason.UserClosing)
+            {
+                return;
+            }
+
             LinearGlobal.LinearConfig.ViewConfig.StyleEditDialogLocation = this.Location;
             string autoSaveStyleName = "AutoSaveStyle";
 

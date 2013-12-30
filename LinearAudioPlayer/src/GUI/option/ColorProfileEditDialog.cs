@@ -147,6 +147,11 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 
         private void ColorProfileEditDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (e.CloseReason != CloseReason.UserClosing)
+            {
+                return;
+            }
+
             LinearGlobal.LinearConfig.ViewConfig.ColorProfileEditDialogLocation = this.Location;
             string autoColorProfileName = "AutoSaveColor.xml";
             SettingManager sm = new SettingManager();
