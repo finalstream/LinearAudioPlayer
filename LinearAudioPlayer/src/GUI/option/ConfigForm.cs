@@ -753,7 +753,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
                              LinearGlobal.LinearConfig.ViewConfig.StyleName);
 
             string packFileName = "LINEARS-" + styleConfig.Name + styleConfig.Version;
-            string packFilePath = Application.StartupPath + "\\" + packFileName + ".zip";
+            string packDir = Application.StartupPath + "\\stylepackage";
+            DirectoryUtils.createDir(packDir);
+            string packFilePath = packDir + "\\" + packFileName + ".zip";
 
             Dictionary<string, string> archiveDict = new Dictionary<string, string>();
 
