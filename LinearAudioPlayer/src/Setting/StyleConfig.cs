@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using FINALSTREAM.Commons.Controls;
 
 namespace FINALSTREAM.LinearAudioPlayer.Setting
@@ -47,6 +48,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         private Color _FormOutSideUnderRightLineColor;
         [Category("Border")]
         [Description("ウインドウ枠線色(外側右下)を指定します。立体的に表示したいときは内側右下より暗めにします。")]
+        [XmlIgnore]
         public Color FormOutSideUnderRightLineColor { 
             get
             {
@@ -71,6 +73,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         private Color _FormInSideUnderRightLineColor;
         [Category("Border")]
         [Description("ウインドウ枠線色(内側右下)を指定します。立体的に表示したいときは外側左上より暗めにします。")]
+        [XmlIgnore]
         public Color FormInSideUnderRightLineColor
         {
             get
@@ -97,6 +100,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         private Color _FormOutSideBottomLeftLineColor;
         [Category("Border")]
         [Description("ウインドウ枠線色(外側左上)を指定します。立体的に表示したいときは内側左上より暗めにします。")]
+        [XmlIgnore]
         public Color FormOutSideBottomLeftLineColor
         {
             get
@@ -123,6 +127,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         private Color _FormInSideBottomLeftLineColor;
         [Category("Border")]
         [Description("ウインドウ枠線色(内側左上)を指定します。立体的に表示したいときは外側左上より明るめにします。")]
+        [XmlIgnore]
         public Color FormInSideBottomLeftLineColor
         {
             get

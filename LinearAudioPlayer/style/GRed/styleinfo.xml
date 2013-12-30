@@ -4,26 +4,27 @@
   <Designer>FINALSTREAM</Designer>
   <Version>Version 1.4</Version>
   <Comment>グレーと赤を基調としたスタイルです。</Comment>
-  <DefaultColorProfile>GRed.xml</DefaultColorProfile>
   <OutSideUnderRightLineColor>-9868951</OutSideUnderRightLineColor>
   <InSideUnderRightLineColor>-5658199</InSideUnderRightLineColor>
   <OutSideBottomLeftLineColor>-2894893</OutSideBottomLeftLineColor>
   <InSideBottomLeftLineColor>-1</InSideBottomLeftLineColor>
   <MainTitleFontConfig>
-  	<FontName>メイリオ</FontName>
-  	<FontSize>9</FontSize>
-  	<FontStyle>Regular</FontStyle>
+    <FontName>メイリオ</FontName>
+    <FontSize>9</FontSize>
+    <FontStyle>Regular</FontStyle>
   </MainTitleFontConfig>
   <MainDisplayFontConfig>
-  	<FontName>Tahoma</FontName>
-  	<FontSize>9</FontSize>
-  	<FontStyle>Regular</FontStyle>
+    <FontName>Tahoma</FontName>
+    <FontSize>9</FontSize>
+    <FontStyle>Regular</FontStyle>
   </MainDisplayFontConfig>
   <PlaylistFontConfig>
-  	<FontName>メイリオ</FontName>
-  	<FontSize>9</FontSize>
-  	<FontStyle>Regular</FontStyle>
+    <FontName>メイリオ</FontName>
+    <FontSize>9</FontSize>
+    <FontStyle>Regular</FontStyle>
   </PlaylistFontConfig>
   <DisplayBorderStyle>FixedSingle</DisplayBorderStyle>
   <ComboBoxStyle>DropDown</ComboBoxStyle>
+  <DefaultColorProfile>GRed.xml</DefaultColorProfile>
+  <GridHeaderStyle>Gradient</GridHeaderStyle>
 </StyleConfig>

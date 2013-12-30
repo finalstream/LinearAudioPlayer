@@ -2,25 +2,29 @@
 <StyleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>KURO2</Name>
   <Designer>FINALSTREAM</Designer>
-  <Version>Version 1.3</Version>
+  <Version>Version 1.4</Version>
   <Comment>漆黒と青のスタイルです。</Comment>
-  <DefaultColorProfile>KURO2.xml</DefaultColorProfile>
   <OutSideUnderRightLineColor>-14540254</OutSideUnderRightLineColor>
   <InSideUnderRightLineColor>-12566464</InSideUnderRightLineColor>
   <OutSideBottomLeftLineColor>-12566464</OutSideBottomLeftLineColor>
   <InSideBottomLeftLineColor>-11447983</InSideBottomLeftLineColor>
   <MainTitleFontConfig>
-  	<FontName>メイリオ</FontName>
-  	<FontSize>9</FontSize>
+    <FontName>メイリオ</FontName>
+    <FontSize>9</FontSize>
+    <FontStyle>Regular</FontStyle>
   </MainTitleFontConfig>
   <MainDisplayFontConfig>
-  	<FontName>Tahoma</FontName>
-  	<FontSize>9</FontSize>
+    <FontName>Tahoma</FontName>
+    <FontSize>9</FontSize>
+    <FontStyle>Regular</FontStyle>
   </MainDisplayFontConfig>
   <PlaylistFontConfig>
-  	<FontName>メイリオ</FontName>
-  	<FontSize>9</FontSize>
+    <FontName>メイリオ</FontName>
+    <FontSize>9</FontSize>
+    <FontStyle>Regular</FontStyle>
   </PlaylistFontConfig>
   <DisplayBorderStyle>None</DisplayBorderStyle>
   <ComboBoxStyle>DropDown</ComboBoxStyle>
+  <DefaultColorProfile>KURO2.xml</DefaultColorProfile>
+  <GridHeaderStyle>Flat</GridHeaderStyle>
 </StyleConfig>
