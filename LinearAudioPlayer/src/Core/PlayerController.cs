@@ -116,6 +116,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
             this._playEngine.init();
 
+           
             
         }
 
@@ -386,7 +387,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
                 LinearGlobal.MainForm.ListForm.InterruptForm.InterruptListBox.Items.Add(iii);
                  * */
-                playingListController.interruptId(long.Parse(LinearAudioPlayer.GridController.getValue(rowNo, (int)GridController.EnuGrid.ID)));
+                playingListController.interruptRowNo(rowNo);
             }
             LinearGlobal.MainForm.setTitle(createTitle());
         }
@@ -1326,7 +1327,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
             LinearAudioPlayer.GridController.updateItem(gi, gridRowNo);
 
-            
+            playingListController.updatePlayingList(gi);
+
         }
 
         /// <summary>
@@ -1914,5 +1916,22 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             }
         }
 
+        /// <summary>
+        /// 再生中リスト復元
+        /// </summary>
+        public void restorePlayingList()
+        {
+            playingListController.restorePlayingList();
+        }
+
+        public GridItemInfo[] getPlayingList()
+        {
+            return playingListController.getPlayingList();
+        }
+
+        public void savePlayingList()
+        {
+            playingListController.savePlayingList();
+        }
     }
 }

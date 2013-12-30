@@ -112,6 +112,11 @@ namespace FINALSTREAM.LinearAudioPlayer
 
             _playController = new PlayerController();
 
+            LinearUtils.connectDatabase(LinearGlobal.LinearConfig.PlayerConfig.SelectDatabase);
+            LinearAudioPlayer.GridController = new GridController();
+            // 再生中リスト復元
+            _playController.restorePlayingList();
+
             LinearGlobal.MainForm = new MainForm();
 
             StyleController = new StyleController();
@@ -129,6 +134,7 @@ namespace FINALSTREAM.LinearAudioPlayer
                     LinearGlobal.MainForm.setPlayEngineInfo("Powered by BASS Engine");
                     break;
             }
+
             
 
             /* 設定を復元 */
@@ -251,6 +257,10 @@ namespace FINALSTREAM.LinearAudioPlayer
             {
                 AutoAudioFileRegistThread.Join();
             }
+
+            // 再生中リスト保存
+            _playController.savePlayingList();
+
             //Initializer init = new Initializer();
             SettingManager sm = new SettingManager();
 

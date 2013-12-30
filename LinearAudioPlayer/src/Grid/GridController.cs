@@ -30,6 +30,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
 
         public static readonly int[] COLUMN_HEADER_WIDTHS = new int[] { 0, 0, 20, 150, 150, 150, 25, 50, 70, 80, 40, 20, 60, 0, 40, 30, 0, 0 };
 
+        public GridController(): base()
+        {
+        }
+
         public GridController(SourceGrid.Grid grid) : base(grid)
         {
         }
@@ -508,6 +512,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             {
                 Grid[i, (int)EnuGrid.BITRATE] = new Cell(gi.Bitrate + " kbps");
             }
+            Grid[i, (int) EnuGrid.BITRATE].Tag = gi.Bitrate;
             Grid[i, (int)EnuGrid.BITRATE].AddController(doubleclickController);
 
             // Genre
@@ -771,8 +776,9 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
 
             gi.Album = this.getValue(rowNo, (int)EnuGrid.ALBUM);
             gi.Artist = this.getValue(rowNo, (int)EnuGrid.ARTIST);
-            gi.Bitrate = this.getValue(rowNo, (int)EnuGrid.BITRATE).Replace(" kbps", String.Empty);
+            gi.Bitrate = this.getTagValue(rowNo, (int)EnuGrid.BITRATE);
             gi.Date = this.getValue(rowNo, (int)EnuGrid.DATE);
+            gi.Lastplaydate = this.getTagValue(rowNo, (int) EnuGrid.DATE);
             gi.FilePath = this.getValue(rowNo, (int)EnuGrid.FILEPATH);
             gi.Genre = this.getValue(rowNo, (int)EnuGrid.GENRE);
             

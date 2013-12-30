@@ -6,7 +6,7 @@
   </Item>
   <Item>
     <DisplayValue>再生中</DisplayValue>
-    <Value>INNER JOIN (SELECT ID,SORT FROM PLAYINGLIST) PLAYING ON PL.ID=PLAYING.ID ORDER BY PLAYING.SORT</Value>
+    <Value>PLAYINGLIST</Value>
   </Item>
   <Item>
     <DisplayValue>再生履歴</DisplayValue>

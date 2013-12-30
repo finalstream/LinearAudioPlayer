@@ -820,7 +820,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             _balloonForm = new BalloonForm();
 
             // グリッドの初期設定
-            LinearAudioPlayer.GridController = new GridController(Grid);
+            LinearAudioPlayer.GridController.Grid = Grid;
             LinearAudioPlayer.GridController.initialGrid();
             LinearAudioPlayer.FilteringGridController = new FilteringGridController(gridFiltering);
             LinearAudioPlayer.FilteringGridController.initialGrid();
@@ -1345,6 +1345,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             // DBのデータをロード
             ListFunction lf = new ListFunction();
+            int limitPlayingList = 0;
 
             // コンディションアイテム
             ConditionGridItemInfo cii = new ConditionGridItemInfo();
@@ -1368,11 +1369,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                             && LinearAudioPlayer.PlayController != null
                             && LinearAudioPlayer.PlayController.getPlayingRestCont() > 0)
                         {
-                            if (!String.IsNullOrEmpty(cii.Value))
-                            {
-                                cii.Value = cii.Value + " LIMIT " +
+                                limitPlayingList =
                                             LinearAudioPlayer.PlayController.getPlayingRestCont();
-                            }
                         }
                     }
                 }
@@ -1393,10 +1391,19 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             //    cii = (ConditionGridItemInfo)this.filteringList.Items[this.filteringList.SelectedIndex];
             //}
 
-            lf.addGridFromDatabase(
-                grid, 
-                this.filteringBox.Text,
-                cii);
+
+            if (!LinearAudioPlayer.FilteringGridController.isShowPlayingList())
+            {
+                lf.addGridFromDatabase(
+                    grid,
+                    this.filteringBox.Text,
+                    cii);
+            }
+            else
+            {
+                // 再生中
+                lf.addGridFromPlayinglist(grid, limitPlayingList);
+            }
             lf = null;
 
 

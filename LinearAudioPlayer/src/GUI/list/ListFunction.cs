@@ -875,6 +875,34 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         }
 
         /// <summary>
+        /// 再生中リストからグリッドに追加する
+        /// </summary>
+        /// <param name="grid"></param>
+        public void addGridFromPlayinglist(SourceGrid.Grid grid, int limit)
+        {
+
+            LinearAudioPlayer.GridController.clearGrid();
+
+            int i = 0;
+            foreach (GridItemInfo gridItem in LinearAudioPlayer.PlayController.getPlayingList())
+            {
+
+                LinearAudioPlayer.GridController.addItem(gridItem);
+                i++;
+                if (limit == i)
+                {
+                    break;
+                }
+            }
+
+            if (LinearGlobal.MainForm != null)
+            {
+                updateGridInformation();
+            }
+
+        }
+
+        /// <summary>
         /// m3u8形式でエクスポートする
         /// </summary>
         /// <param name="exportData">エクスポートデータ</param>

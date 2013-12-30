@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using FINALSTREAM.Commons.Database;
 using FINALSTREAM.Commons.Utils;
@@ -16,6 +17,11 @@ namespace FINALSTREAM.LinearAudioPlayer.Utils
         /// <param name="databaseName"></param>
         public static void connectDatabase(string databaseName)
         {
+            if (!File.Exists(LinearGlobal.DatabaseDirectory + databaseName + ".db"))
+            {
+                // 存在しなかったらデフォルト
+                databaseName = "linear";
+            }
 
             // データベースに接続
             SQLiteManager.Instance.connectDatabase(

@@ -1858,6 +1858,5 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         }
 
 
-
     }
 }

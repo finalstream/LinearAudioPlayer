@@ -344,7 +344,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             {
                 ConditionGridItemInfo cgi = (ConditionGridItemInfo) Grid[rows[0], (int)EnuGrid.FILTERING].Tag;
 
-                if (cgi.Value.ToLower().IndexOf("playinglist") >= 0)
+                if ("PLAYINGLIST".Equals(cgi.Value))
                 {
                     result = true;
                 }

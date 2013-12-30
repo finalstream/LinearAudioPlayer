@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
+using System.Linq;
 using System.Text;
 using FINALSTREAM.Commons.Database;
 using FINALSTREAM.Commons.Utils;
+using FINALSTREAM.LinearAudioPlayer.Database;
 using FINALSTREAM.LinearAudioPlayer.Grid;
 using FINALSTREAM.LinearAudioPlayer.Info;
 using FINALSTREAM.LinearAudioPlayer.Resources;
@@ -15,9 +17,13 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
     {
         //private IList<long> playingList = null;
 
+        private LinkedList<GridItemInfo> playingList = null; 
+
+        private const string SQL = "INNER JOIN (SELECT ID,SORT FROM PLAYINGLIST) PLAYING ON PL.ID=PLAYING.ID ORDER BY PLAYING.SORT";
 
         public PlayingListController()
         {
+            playingList = new LinkedList<GridItemInfo>();
             LinearGlobal.LinearConfig.PlayerConfig.RestCount = -1;
         }
 
@@ -29,6 +35,24 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         /// <param name="rowNo"></param>
         public void insertPlayingList(int gridrowno)
         {
+
+            clearPlayingList();
+
+            for (int i = gridrowno; i <= LinearAudioPlayer.GridController.getRowCount(); i++)
+            {
+                playingList.AddLast(
+                    (GridItemInfo) LinearAudioPlayer.GridController.getRowGridItem(i));
+            }
+            for (int i = 1; i < gridrowno; i++)
+            {
+                playingList.AddLast(
+                    (GridItemInfo)LinearAudioPlayer.GridController.getRowGridItem(i));
+            }
+
+            LinearGlobal.LinearConfig.PlayerConfig.RestCount = playingList.Count;
+            LinearGlobal.LinearConfig.PlayerConfig.RestMaxCount = playingList.Count;
+
+            /*
             InsertPlayingListDelegate ipldel = 
                 new  InsertPlayingListDelegate(delegate(int rowNo)
                                                    {
@@ -80,19 +104,45 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
                                                    });
             ipldel.BeginInvoke(gridrowno, null, null);
+             * */
         }
 
         public void clearPlayingList()
         {
-            SQLiteManager.Instance.executeNonQuery(SQLResource.SQL031);
+            playingList.Clear();
+            //SQLiteManager.Instance.executeNonQuery(SQLResource.SQL031);
         }
 
         /// <summary>
-        /// IDを割り込みする
+        /// RowNoにあるデータを割り込みする(次に再生する)
         /// </summary>
         /// <param name="id"></param>
-        public void interruptId(long id)
+        public void interruptRowNo(int rowNo)
         {
+
+            long playingcount = playingList.Count;
+            if (playingcount > 0)
+            {
+                // 既存のリストに割り込み
+                GridItemInfo gi = (GridItemInfo)LinearAudioPlayer.GridController.getRowGridItem(rowNo);
+                playingList.AddAfter(playingList.First, gi);
+
+                if (LinearGlobal.LinearConfig.PlayerConfig.RestCount != -1)
+                {
+                    LinearGlobal.LinearConfig.PlayerConfig.RestCount++;
+                }
+                LinearGlobal.LinearConfig.PlayerConfig.RestMaxCount++;
+            }
+            else
+            {
+                // リストを作成して追加
+                GridItemInfo gi = (GridItemInfo) LinearAudioPlayer.GridController.getRowGridItem(rowNo);
+                playingList.AddLast(gi);
+                LinearGlobal.LinearConfig.PlayerConfig.RestMaxCount = 1;
+
+            }
+
+            /*
             long playingcount = (long) SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL034);
             if (playingcount > 0)
             {
@@ -117,7 +167,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 SQLiteManager.Instance.executeNonQuery(SQLResource.SQL032, paramList);
                 LinearGlobal.LinearConfig.PlayerConfig.RestMaxCount = 1;
             }
-
+            */
         }
 
         /// <summary>
@@ -127,6 +177,29 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         /// <returns></returns>
         public long getNextId(bool isEndless)
         {
+            long nextid = -1;
+
+            long playingcount = playingList.Count;
+            if (playingcount > 0)
+            {
+                if (!isEndless)
+                {
+                    LinearGlobal.LinearConfig.PlayerConfig.RestCount--;
+
+                    if (LinearGlobal.LinearConfig.PlayerConfig.RestCount == 0)
+                    {
+                        return -1;
+                    }
+                }
+
+                var nowNode = playingList.First;
+                playingList.RemoveFirst();
+                playingList.AddLast(nowNode);
+
+                nextid = playingList.First.Value.Id;
+            }
+
+            /*
             long nextid = -1;
 
             long playingcount = (long)SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL034);
@@ -165,6 +238,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     sqltran.Rollback();
                 }
             }
+             */
 
             /*
             // todo:dbからid取得 sort=1
@@ -194,7 +268,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 }
             }*/
 
-            
+
 
             return nextid;
         }
@@ -206,8 +280,23 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 return null;
             }
 
-            // sort=2をタイトルとアーティストを取得。取得できない場合はnullを返す
-            object result = SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL039);
+            // 2番目のタイトルとアーティストを取得。取得できない場合はnullを返す
+            var nextNode = playingList.First.Next;
+
+            if (nextNode == null)
+            {
+                return null;
+            }
+
+            PlayItemInfo pii = new PlayItemInfo();
+            GridItemInfo nextItem = nextNode.Value;
+            pii.Id = nextItem.Id;
+            pii.Title = nextItem.Title;
+            pii.Artist = nextItem.Artist;
+
+            return pii;
+            /*
+             object result = SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL039);
             if (result != null && !"".Equals(result))
             {
                 PlayItemInfo pii = new PlayItemInfo();
@@ -226,8 +315,105 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             else
             {
                 return null;
-            }
+            }*/
         }
 
+        /// <summary>
+        /// 再生中リストをDBから復元
+        /// </summary>
+        public void restorePlayingList()
+        {
+            ConditionGridItemInfo cgi = new ConditionGridItemInfo();
+
+            cgi.Value = SQL;
+
+            object[][] resultList = SQLiteManager.Instance.executeQueryNormal(
+                SQLBuilder.selectPlaylist(
+                    SQLResource.SQL001,
+                    LinearGlobal.PlaylistMode,
+                    "",
+                    LinearEnum.FilteringMode.DEFAULT, 
+                    cgi));
+
+            foreach (object[] recordList in resultList)
+            {
+
+                GridItemInfo gi = LinearAudioPlayer.GridController.createLoadGridItem(recordList);
+                playingList.AddLast(gi);
+
+            }
+
+            LinearGlobal.LinearConfig.PlayerConfig.RestCount = playingList.Count;
+            LinearGlobal.LinearConfig.PlayerConfig.RestMaxCount = playingList.Count;
+
+        }
+
+        public GridItemInfo[] getPlayingList()
+        {
+            if (playingList.Count == 0)
+            {
+                return (GridItemInfo[])Enumerable.Empty<GridItemInfo>();
+            }
+
+            return playingList.ToArray();
+
+        }
+
+        public void savePlayingList()
+        {
+
+            SQLiteManager.Instance.executeNonQuery(SQLResource.SQL031);
+
+            SQLiteTransaction sqltran = null;
+            try
+            {
+                sqltran = SQLiteManager.Instance.beginTransaction();
+
+                List<DbParameter> paramList = new List<DbParameter>();
+                int i = 1;
+                foreach (var gi in playingList)
+                {
+                    paramList.Clear();
+                    paramList.Add(new SQLiteParameter("Id", gi.Id));
+                    paramList.Add(new SQLiteParameter("Sort", i));
+                    SQLiteManager.Instance.executeNonQuery(SQLResource.SQL032, paramList);
+                    i++;
+                }
+                sqltran.Commit();
+            }
+            catch (SQLiteException)
+            {
+                try
+                {
+                    sqltran.Rollback();
+                }
+                catch (SQLiteException) { }
+            }
+
+        }
+
+        public void updatePlayingList(GridItemInfo gi)
+        {
+
+            // todo:ラムダ式に変える?
+            foreach (var gridItemInfo in playingList)
+            {
+                if (gridItemInfo.Id== gi.Id)
+                {
+                    // todo:最終再生日時だけで十分？
+                    gridItemInfo.Lastplaydate = gi.Lastplaydate;
+                    break;
+                }
+            }
+
+        }
+
+        static Predicate<GridItemInfo> ById(long id)
+        {
+            return delegate(GridItemInfo gi)
+            {
+                return gi.Id == id;
+            };
+        }
     }
 }
