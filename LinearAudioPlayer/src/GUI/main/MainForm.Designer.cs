@@ -411,6 +411,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.popupNotifier.ImageUrl = null;
             this.popupNotifier.isChangeColor = false;
             this.popupNotifier.OptionsMenu = null;
+            this.popupNotifier.OwnerForm = null;
             this.popupNotifier.Position = new System.Drawing.Point(0, 0);
             this.popupNotifier.Scroll = false;
             this.popupNotifier.ShowGrip = false;

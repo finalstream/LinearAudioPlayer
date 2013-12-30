@@ -632,7 +632,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             //loadStyle();
 
             // とりあえずサイズとか調整
-            int yDisplayPosition = 5;
+            int yDisplayPosition = 4;
             int yDisplayTextPosition = -1; // -1
             int yDisplayTitlePosition = 0;
             // ディスプレイのY軸とコントロールのY軸の差
@@ -644,7 +644,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             // ディスプレイの高さとディスプレイアイテムの高さの差
             int diffDisplayHeightDisplayItemHeight = 2;
             // ディスプレイの高さとスペクトリウムの高さの差
-            int diffDisplayHeightSpectrumHeight = 4;
+            int diffDisplayHeightSpectrumHeight = 3;
             int diffyPositionSpectrum = 0;
             // スペクトリウムとプレイモードの間隔
             int intervalSpectrumPlayMode = 0;
@@ -652,6 +652,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             int diffSpectrum = 0;
             int ypositionMiniprogressbar = 6;
             int ypositionRating = 1;
+            int ratingHeight = 16;
 
             // メイリオじゃないとずれるので
             if (!this.lblTitle.Font.Name.Equals("メイリオ"))
@@ -662,23 +663,32 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             // ３D以外のとき調整
             if (this.picDisplay.BorderStyle == BorderStyle.None)
             {
-                diffFormHeightDisplayHeight += 2;
+                yDisplayPosition += 1;
+                diffFormHeightDisplayHeight += 3;
                 yDisplayTextPosition += 3;
                 yDisplayTitlePosition = yDisplayTextPosition -1;
+                yDisplayTextPosition -= 2;
                 diffSpectrum = 4;
-                ypositionMiniprogressbar = 5;
+                ypositionMiniprogressbar = 6;
                 ypositionRating = 0;
                 diffyPositionSpectrum = 1;
+                diffDisplayHeightDisplayItemHeight -= 2;
+                diffDisplayHeightSpectrumHeight -= 0;
+                ratingHeight += 2;
             }
             else if (this.picDisplay.BorderStyle == BorderStyle.FixedSingle)
             {
                 diffFormHeightDisplayHeight += 2;
                 yDisplayTextPosition += 2;
                 yDisplayTitlePosition = yDisplayTextPosition -1;
+                yDisplayTextPosition -= 1;
                 diffSpectrum = 2;
-                ypositionMiniprogressbar = 5;
+                ypositionMiniprogressbar = 6;
                 diffYDisplayPositionYControlPosition += 0;
                 ypositionRating = 0;
+                diffyPositionSpectrum = 0;
+                diffDisplayHeightSpectrumHeight -= 1;
+                ratingHeight += 3;
             }
             MainFunction.rolltop = yDisplayTitlePosition;
 
@@ -697,7 +707,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.lblBitRate.Size = new Size(widthBitRate, heightDisplayItem);
             this.miniProgressSeekBar.Size = new Size(widthBitRate  - (diffMiniprogressbarWidth*2), 6);
             //this.miniProgressSeekBar.Size = new Size(33, 6);
-            picRating.Size = new Size(16,16);
+            picRating.Size = new Size(16, ratingHeight);
             picRating.SizeMode = PictureBoxSizeMode.CenterImage;
             
 
@@ -1577,8 +1587,12 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 going to display the first 256 frequencies, or (0-11khz) 
             */
             count2 = 1;
+            // 横の幅
             float count3 = 2;
+            // 本数
             int count4;
+            int spectrumHeight = picSpectrum.Size.Height;
+
 
             //picSpectrum.Location = new Point(1000 , picSpectrum.Location.Y);
             //picSpectrum.Size = new Size(1000, picSpectrum.Size.Height);
@@ -1589,14 +1603,14 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 float height;
 
                 height = (spectrum[count2 - 1]/(LinearGlobal.LinearConfig.ViewConfig.MiniVisualizationLevel*0.1f))*
-                         picSpectrum.Size.Height;
+                         spectrumHeight;
                 //height = (spectrum[count2 - 1] )*
                 //         picSpectrum.Size.Height;
 
 
-                if (height >= picSpectrum.Size.Height)
+                if (height >= spectrumHeight)
                 {
-                    height = picSpectrum.Size.Height;
+                    height = spectrumHeight;
                 }
 
                 if (height < 0)
@@ -1604,13 +1618,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                     height = 0;
                 }
 
-                height = picSpectrum.Size.Height - height;
+                height = spectrumHeight  - height;
 
 
                 gb.GammaCorrection = true;
 
                 g.FillRectangle(gb, count3, (int) height - 2.0f, 2.0f,
-                                (float) Math.Ceiling(picSpectrum.Size.Height - height));
+                                (float)Math.Ceiling(spectrumHeight - height));
                 count3 += 2.0f;
                 count3++;
 
