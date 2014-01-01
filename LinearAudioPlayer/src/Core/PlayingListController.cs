@@ -17,6 +17,9 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         /// </summary>
         private LinkedList<GridItemInfo> playingList = null; 
 
+        /// <summary>
+        /// 再生中リスト取得するSQL
+        /// </summary>
         private const string SQL = "INNER JOIN (SELECT ID,SORT FROM PLAYINGLIST) PLAYING ON PL.ID=PLAYING.ID ORDER BY PLAYING.SORT";
 
         public PlayingListController()
