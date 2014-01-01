@@ -349,14 +349,6 @@ FROM ( #SQL# )
 ORDER BY random()</value>
     <comment>シャッフル用SQL</comment>
   </data>
-  <data name="SQL030" xml:space="preserve">
-    <value>SELECT 
-  TITLE,
-  ARTIST
-FROM PLAYLIST 
-WHERE ID = :Id</value>
-    <comment>IDからタイトルとアーティストを取得</comment>
-  </data>
   <data name="SQL031" xml:space="preserve">
     <value>DELETE FROM PLAYINGLIST</value>
     <comment>再生中リスト削除</comment>
@@ -364,26 +356,6 @@ WHERE ID = :Id</value>
   <data name="SQL032" xml:space="preserve">
     <value>INSERT INTO PLAYINGLIST(ID, SORT) VALUES (:Id, :Sort)</value>
     <comment>再生中リスト追加</comment>
-  </data>
-  <data name="SQL033" xml:space="preserve">
-    <value>UPDATE PLAYINGLIST SET SORT = SORT + 1 WHERE SORT &gt; 1</value>
-    <comment>割り込み追加用SQL</comment>
-  </data>
-  <data name="SQL034" xml:space="preserve">
-    <value>SELECT COUNT(*) FROM PLAYINGLIST</value>
-    <comment>再生中リスト件数取得</comment>
-  </data>
-  <data name="SQL035" xml:space="preserve">
-    <value>SELECT ID FROM PLAYINGLIST WHERE SORT = 1</value>
-    <comment>次に再生するIDを取得(リスト更新時)</comment>
-  </data>
-  <data name="SQL036" xml:space="preserve">
-    <value>UPDATE PLAYINGLIST SET SORT = SORT -1</value>
-    <comment>次のID取得したときに更新する用1</comment>
-  </data>
-  <data name="SQL037" xml:space="preserve">
-    <value>UPDATE PLAYINGLIST SET SORT = :Sort WHERE SORT = 0</value>
-    <comment>次のID取得したときに更新する用2</comment>
   </data>
   <data name="SQL038" xml:space="preserve">
     <value>SELECT 
@@ -394,10 +366,6 @@ WHERE ID = :Id</value>
 FROM PLAYLIST 
 WHERE ID = :Id</value>
     <comment>再生前にIDから情報取得する</comment>
-  </data>
-  <data name="SQL039" xml:space="preserve">
-    <value>SELECT ID FROM PLAYINGLIST WHERE SORT = 2</value>
-    <comment>次に再生するIDを取得(NEXT表示用)</comment>
   </data>
   <data name="SQL040" xml:space="preserve">
     <value>SELECT TITLE || ARTIST || FILESIZE FROM PLAYLIST GROUP BY TITLE || ARTIST || FILESIZE</value>
