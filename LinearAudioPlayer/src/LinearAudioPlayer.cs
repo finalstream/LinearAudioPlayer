@@ -152,7 +152,44 @@ namespace FINALSTREAM.LinearAudioPlayer
             // データベースアップデート(ver.0.3.0用)
             LinearGlobal.isCompleteStartup = true;
 
-            
+            Action resumePlayAction = () =>
+                {
+                    // レジューム情報があれば再生
+                    MainFunction mf = new MainFunction();
+                    if (LinearGlobal.LinearConfig.PlayerConfig.ResumeId != -1
+                        && mf.isIdRegistDatabase(LinearGlobal.LinearConfig.PlayerConfig.ResumeId))
+                    {
+
+                        LinearGlobal.CurrentPlayItemInfo.Id =
+                            LinearGlobal.LinearConfig.PlayerConfig.ResumeId;
+
+                        if (LinearGlobal.LinearConfig.PlayerConfig.ResumePlay
+                            && LinearGlobal.LinearConfig.PlayerConfig.ResumePosition != -1
+                            && LinearEnum.DatabaseMode.MUSIC.Equals(LinearGlobal.DatabaseMode))
+                        {
+
+                            // レジューム再生
+
+                            // todo:ボリュームを操作する必要ある？
+                           
+                            Action uiAction = () =>
+                                {
+                                    int backupVolume = LinearGlobal.Volume;
+                                    LinearGlobal.Volume = 0;
+                                    LinearAudioPlayer.PlayController.play(LinearGlobal.LinearConfig.PlayerConfig.ResumeId,
+                                true, false);
+                                    LinearGlobal.Volume = backupVolume;
+                                    LinearAudioPlayer.PlayController.setPosition(
+                                        (uint)LinearGlobal.LinearConfig.PlayerConfig.ResumePosition);
+                                };
+                            LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
+                            
+                            
+                        }
+                    }
+                };
+            LinearAudioPlayer.WorkerThread.EnqueueTask(resumePlayAction);
+
             Application.Run(LinearGlobal.MainForm);
 
 

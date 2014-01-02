@@ -533,11 +533,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                         LinearGlobal.MainForm.BeginInvoke(showNotificationAc);
                     }
 
-                    // プラグイン処理(再生後処理)
-                    {
-                        afterPlayPlugin(LinearGlobal.CurrentPlayItemInfo);
-                    }
-
                     // LinkLibrary beta
                     {
                         if (LinearGlobal.LinearConfig.PlayerConfig.IsLinkLibrary)
@@ -565,6 +560,11 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                 LinearGlobal.MainForm.ListForm.setArtworkFadeChange(gi.Picture, gi.IsNoPicture);
                             }
                         }
+                    }
+
+                    // プラグイン処理(再生後処理)
+                    {
+                        afterPlayPlugin(LinearGlobal.CurrentPlayItemInfo);
                     }
 
                     // タグ更新(ストック)
@@ -711,15 +711,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
             LinearGlobal.CurrentPlayItemInfo.AlbumDescription = gi.AlbumDescription;
 
-            /*
-            if (LinearGlobal.MainForm.ListForm.InvokeRequired)
-            {
-                LinearGlobal.MainForm.ListForm.BeginInvoke(new AfterDoLinkLibraryDelegate(afterDoLinkLibrary), gi);
-            }
-            else
-            {
-                afterDoLinkLibrary(gi);
-            }*/
 
 
         }
