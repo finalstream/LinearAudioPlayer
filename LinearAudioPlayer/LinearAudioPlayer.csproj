@@ -127,6 +127,7 @@
     </Compile>
     <Compile Include="src\Core\PlayingListController.cs" />
     <Compile Include="src\Core\StyleController.cs" />
+    <Compile Include="src\Core\WorkerThread.cs" />
     <Compile Include="src\Database\GetDirectoryPathSQLiteFunction.cs" />
     <Compile Include="src\Database\GetFileSizeSQLiteFunction.cs" />
     <Compile Include="src\Database\IsMatchMigemoSQLiteFunction.cs" />

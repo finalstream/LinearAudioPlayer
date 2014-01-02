@@ -408,7 +408,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.popupNotifier.Image = null;
             this.popupNotifier.ImagePadding = new System.Windows.Forms.Padding(10);
             this.popupNotifier.ImageSize = new System.Drawing.Size(72, 72);
-            this.popupNotifier.ImageUrl = null;
             this.popupNotifier.isChangeColor = false;
             this.popupNotifier.OptionsMenu = null;
             this.popupNotifier.OwnerForm = null;

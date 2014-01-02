@@ -450,7 +450,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Resources {
         ///  FILEPATH,
         ///  OPTION,
         ///  LENGTH,
-        ///  RATING
+        ///  RATING,
+        ///  PLAYCOUNT
         ///FROM PLAYLIST 
         ///WHERE ID = :Id に類似しているローカライズされた文字列を検索します。
         /// </summary>

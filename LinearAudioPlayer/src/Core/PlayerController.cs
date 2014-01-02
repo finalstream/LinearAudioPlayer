@@ -128,20 +128,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         {
             MainFunction.isRoll = true;
 
-            /*
-            if (pii.GridRowNo == -1)
-            {
-                pii.GridRowNo = LinearAudioPlayer.GridController.Find((int)GridController.EnuGrid.ID,
-                                                                  pii.Id.ToString());
-            }*/
-
-            /*
-            if (pii.GridRowNo != -1)
-            {
-                pii.FilePath = LinearAudioPlayer.GridController.getValue(pii.GridRowNo, (int)GridController.EnuGrid.FILEPATH);
-                pii.Option = LinearAudioPlayer.GridController.getValue(pii.GridRowNo, (int)GridController.EnuGrid.OPTION);
-            }*/
-
             // IDからFILEPATHとOPTIONを取得。
             IList<object> resultList = SQLiteManager.Instance.executeQueryOneRecord(
                 SQLResource.SQL038, new SQLiteParameter("Id", pii.Id));
@@ -151,6 +137,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 pii.Option = resultList[1].ToString();
                 pii.Time = resultList[2].ToString();
                 pii.Rating = unchecked((int)((long) resultList[3]));
+                pii.PlayCount = unchecked((int)((long)resultList[4]));
             }
             else
             {
@@ -407,12 +394,12 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             }
             
             // グリッドの情報を更新する
-            bool isTotalTimeUpdate = false;
+            //bool isTotalTimeUpdate = false;
             //string timestr = LinearAudioPlayer.GridController.getValue(pii.GridRowNo, (int)GridController.EnuGrid.TIME);
-            if (pii.GridRowNo > -1 && String.IsNullOrEmpty(pii.Time))
-            {
-                isTotalTimeUpdate = true;
-            }
+            //if (pii.GridRowNo > -1 && String.IsNullOrEmpty(pii.Time))
+            //{
+            //    isTotalTimeUpdate = true;
+            //}
             GridItemInfo gi = LinearAudioPlayer.GridController.createNewGridItem(pii.Id.ToString());
             
             gi.FilePath = pii.FilePath;
@@ -420,12 +407,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             this.getTag(gi);
             // たぶんいらない gi.Title = gc.getValue(pii.GridRowNo, (int)GridController.EnuGrid.TITLE);
             gi.Lastplaydate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            //gi.Rating = int.Parse(LinearAudioPlayer.GridController.getValue(pii.GridRowNo, (int)GridController.EnuGrid.SELECTION));
             gi.Rating = pii.Rating;
-
-            gi.PlayCount =
-                int.Parse(SQLiteManager.Instance.executeQueryOnlyOne(
-                    SQLResource.SQL017, new SQLiteParameter("Id", pii.Id)).ToString());
+            gi.PlayCount = pii.PlayCount;
 
             
 
@@ -440,11 +423,11 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 LinearGlobal.CurrentPlayItemInfo.PlayCountUpSecond = (long) (totalseconds*
                                                                              LinearGlobal.LinearConfig.PlayerConfig.
                                                                                   PlayCountUpRatio/100D);
-                if (isTotalTimeUpdate)
-                {
-                    LinearGlobal.TotalSec += totalseconds;
-                    LinearGlobal.MainForm.ListForm.setGridInfoString(LinearAudioPlayer.GridController.getRowCount());
-                }
+                //if (isTotalTimeUpdate)
+                //{
+                //    LinearGlobal.TotalSec += totalseconds;
+                //    LinearGlobal.MainForm.ListForm.setGridInfoString(LinearAudioPlayer.GridController.getRowCount());
+                //}
             }
 
             
@@ -465,12 +448,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 LinearAudioPlayer.GridController.setPlayIcon(curRowNo, GridController.EnuGridIcon.PLAYING, true);
                 LinearAudioPlayer.GridController.setRowColor(curRowNo, GridController.EnuPlayType.PLAYING);
             }
-            // 選択状態にする
-            /*
-            if (!LinearGlobal.MainForm.ListForm.Grid.Focused)
-            {
-                LinearAudioPlayer.GridController.Grid.Selection.SelectRow(curRowNo, true);
-            }*/
 
 
             gi.IsChangeAlbum = false;
@@ -493,24 +470,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             
 
             updateGridItem(gi, curRowNo);
-
-            // LinkLibrary beta
-            if (LinearGlobal.LinearConfig.PlayerConfig.IsLinkLibrary)
-            {
-                //LinearGlobal.MainForm.ListForm.setAlbumDescription("");
-                LinearAudioPlayer.LinkGridController.getSameArtistTrackList();
-                if (LinearAudioPlayer.LinkGridController.mode == LinkGridController.EnuMode.SAMEARTIST)
-                {
-                    LinearAudioPlayer.LinkGridController.reloadGrid();
-                }
-                LinearGlobal.MainForm.ListForm.setLinkLibrary(gi, false);
-
-                Thread t = new Thread(new ParameterizedThreadStart(doLinkLibrary));
-                t.IsBackground = true;
-                t.Start(gi);
-            }
-
-            
             
 
             // レーティング設定
@@ -528,61 +487,151 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             LinearGlobal.PlayCountUpStopwatch.Reset();
             LinearGlobal.PlayCountUpStopwatch.Start();
 
-            // タスクトレイに格納していたらバルーン表示
-            Thread t2 = new Thread(new ParameterizedThreadStart(showNotification));
-            t2.IsBackground = true;
-            t2.Start(gi);
-
-
-            // もしタグ編集ストックがあれば更新する
-            if (LinearGlobal.StockTagEditList.Count > 0)
+            if (LinearGlobal.LinearConfig.ViewConfig.TitleScrollMode != LinearEnum.TitleScrollMode.ROLL)
             {
-                Thread t = new Thread(new ThreadStart(SaveTagThreadTask));
-                t.IsBackground = true;
-                t.Start();
-                //SaveTagDelegate d = new SaveTagDelegate(saveTagCall);
-                //d.BeginInvoke(saveTagEnd, null);
-                
+                LinearGlobal.MainForm.setTitle(createTitle());
             }
 
-            // プラグイン処理(再生後処理)
-            afterPlayPluginDelegate pd = new afterPlayPluginDelegate(afterPlayPlugin);
-            pd.BeginInvoke(LinearGlobal.CurrentPlayItemInfo, null, null);
+            
+
+
+            
 
             // 再生中リスト更新
             if (pii.GridRowNo != -1)
             {
                 if (isInterrupt)
                 {
-
-                } else {
+                    // 何もしない
+                }
+                else
+                {
                     playingListController.insertPlayingList(pii.GridRowNo);
                 }
             }
 
-
-            if (LinearGlobal.LinearConfig.ViewConfig.TitleScrollMode != LinearEnum.TitleScrollMode.ROLL)
+            if (LinearGlobal.LinearConfig.PlayerConfig.IsLinkLibrary)
             {
-                LinearGlobal.MainForm.setTitle(createTitle());
+                LinearGlobal.MainForm.ListForm.setLinkLibrary(gi, false);
             }
 
-            // 最終再生日時更新
+            // LastPlay更新
+            updateLastPlayDate();
+
+            // 別スレッドアクション
+            Action ac = () =>
+                {
+                    // アートワークが埋め込まれてなかったらネットワークから取得
+                    {
+                        LinearAudioPlayer.PlayController.getPicture(gi);
+                        LinearGlobal.MainForm.setNotificationWindow(gi);
+
+                        Action showNotificationAc = () =>
+                            {
+                                LinearGlobal.MainForm.showNotificationWindow(gi);
+                            };
+                        LinearGlobal.MainForm.BeginInvoke(showNotificationAc);
+                    }
+
+                    // プラグイン処理(再生後処理)
+                    {
+                        afterPlayPlugin(LinearGlobal.CurrentPlayItemInfo);
+                    }
+
+                    // LinkLibrary beta
+                    {
+                        if (LinearGlobal.LinearConfig.PlayerConfig.IsLinkLibrary)
+                        {
+
+                            //LinearGlobal.MainForm.ListForm.setAlbumDescription("");
+                            LinearAudioPlayer.LinkGridController.getSameArtistTrackList();
+                            loadLinkLibraryData(gi);
+
+                            Action uiAction = () =>
+                                {
+                                    LinearGlobal.MainForm.ListForm.setLinkLibrary(gi, true);
+                                    if (LinearAudioPlayer.LinkGridController.mode ==
+                                        LinkGridController.EnuMode.SAMEARTIST)
+                                    {
+                                        LinearAudioPlayer.LinkGridController.reloadGrid();
+                                    }
+
+                                };
+                            LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
+
+                            // アートワークのフェードチェンジ
+                            if (gi.IsChangeAlbum)
+                            {
+                                LinearGlobal.MainForm.ListForm.setArtworkFadeChange(gi.Picture, gi.IsNoPicture);
+                            }
+                        }
+                    }
+
+                    // タグ更新(ストック)
+                    {
+                        // もしタグ編集ストックがあれば更新する
+                        if (LinearGlobal.StockTagEditList.Count > 0)
+                        {
+                            SaveTag();
+                        }
+                    }
+
+            };
+            LinearAudioPlayer.WorkerThread.EnqueueTask(ac);
+
+
+            
+
+        }
+
+        private void updateLastPlayDate()
+        {
+            
+            List<object[]> lastPlayDateList = new List<object[]>();
             RowInfo[] allrows = LinearAudioPlayer.GridController.getAllRowsInfo();
             foreach (var rowInfo in allrows)
             {
                 object lastplaydate =
-                    LinearAudioPlayer.GridController.Grid[rowInfo.Index, (int) GridController.EnuGrid.DATE].Value;
-                if (lastplaydate != null && ("さっき".Equals(lastplaydate)
-                    || lastplaydate.ToString().IndexOf("秒") > 0
-                    || lastplaydate.ToString().IndexOf("分") > 0
-                    || lastplaydate.ToString().IndexOf("時間") > 0))
-                {
-                    LinearAudioPlayer.GridController.Grid[rowInfo.Index, (int) GridController.EnuGrid.DATE].Value =
-                        DateTimeUtils.getRelativeTimeJapaneseString(
-                            LinearAudioPlayer.GridController.Grid[rowInfo.Index, (int) GridController.EnuGrid.DATE].Tag.
-                                ToString());
-                }
+                    LinearAudioPlayer.GridController.Grid[rowInfo.Index, (int)GridController.EnuGrid.DATE].Value;
+                lastPlayDateList.Add(new object[] { lastplaydate, rowInfo.Index, LinearAudioPlayer.GridController.Grid[rowInfo.Index, (int)GridController.EnuGrid.DATE].Tag.
+                                ToString() });
             }
+
+            Action ac = () =>
+                {
+
+                    // 最終再生日時更新
+                    Dictionary<int, string> lastPlayDateUpdateTargetDic = new Dictionary<int, string>();
+
+                    foreach (var o in lastPlayDateList)
+                    {
+                        if (o[0] != null && ("さっき".Equals(o[0])
+                                                     || o[0].ToString().IndexOf("秒") > 0
+                                                     || o[0].ToString().IndexOf("分") > 0
+                                                     || o[0].ToString().IndexOf("時間") > 0))
+                        {
+                            lastPlayDateUpdateTargetDic.Add((int) o[1], (string) o[2]);
+                        }
+                    }
+
+                    int[] keys = new int[lastPlayDateUpdateTargetDic.Keys.Count];
+                    lastPlayDateUpdateTargetDic.Keys.CopyTo(keys,0);
+                    foreach (var key in keys)
+                    {
+                        lastPlayDateUpdateTargetDic[key] = DateTimeUtils.getRelativeTimeJapaneseString(lastPlayDateUpdateTargetDic[key]);
+                    }
+
+                    Action uiAc = () => {
+                                            foreach (var key in lastPlayDateUpdateTargetDic.Keys)
+                                            {
+                                                LinearAudioPlayer.GridController.Grid[
+                                                    key, (int) GridController.EnuGrid.DATE].Value = lastPlayDateUpdateTargetDic[key];
+                                            }
+                    };
+                    LinearGlobal.MainForm.ListForm.BeginInvoke(uiAc);
+
+                };
+            LinearAudioPlayer.WorkerThread.EnqueueTask(ac);
 
         }
 
@@ -590,42 +639,14 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
         delegate void AfterPlayPluginDelegate(LinkLibraryInfo arg);
 
-        private void doLinkLibrary(object o)
+        
+        private void loadLinkLibraryData(GridItemInfo gi)
         {
-            GridItemInfo gi = (GridItemInfo) o;
-
-           
-
-            /* Amazonの商品説明を取得（遅いので廃止。Google Shopping APIが廃止になる2013年9月に復活予定？）
-            AmazonHelper amazonHelper = new AmazonHelper();
-            IList<AmazonItemInfo> amazonItemInfoList
-                = amazonHelper.execItemSearch("Small", LinearGlobal.CurrentPlayItemInfo.Album);
-            if (amazonItemInfoList.Count > 0)
-            {
-                // amazonから商品説明をスクレイピング
-                gi.AlbumDescription = amazonHelper.getItemDescription(amazonItemInfoList[0].DetailPageURL);
-            }*/
 
             // 画像をダウンロード
             if (gi.IsChangeAlbum)
             {
                 getPicture(gi);
-                if (!String.IsNullOrEmpty(gi.PictureUrl))
-                {
-
-                    try
-                    {
-                        WebClient wc = new WebClient();
-                        byte[] b1 = wc.DownloadData(gi.PictureUrl);
-                        ImageConverter ic = new ImageConverter();
-                        gi.Picture = (Image) ic.ConvertFrom(b1);
-                        gi.IsNoPicture = false;
-                    } catch(Exception ex)
-                    {
-                        LinearAudioPlayer.Logger.TraceEvent(TraceEventType.Warning, 0, ex.Message + " " + gi.PictureUrl);
-                        gi.IsNoPicture = true;
-                    }
-                }
 
                 // Yahooショッピングの説明を取得
                 gi.AlbumDescription = "";
@@ -637,7 +658,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 object result = SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL046, paramList);
                 if (result != null)
                 {
-                    gi.AlbumDescription = (string) result;
+                    gi.AlbumDescription = (string)result;
                 }
 
                 if (String.IsNullOrEmpty(gi.AlbumDescription))
@@ -682,37 +703,27 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     }
                 }
 
-            } else
+            }
+            else
             {
                 gi.AlbumDescription = LinearGlobal.MainForm.ListForm.getAlbumDescription();
             }
 
             LinearGlobal.CurrentPlayItemInfo.AlbumDescription = gi.AlbumDescription;
 
+            /*
             if (LinearGlobal.MainForm.ListForm.InvokeRequired)
             {
                 LinearGlobal.MainForm.ListForm.BeginInvoke(new AfterDoLinkLibraryDelegate(afterDoLinkLibrary), gi);
-            } else
+            }
+            else
             {
                 afterDoLinkLibrary(gi);
-            }
-            
+            }*/
+
 
         }
 
-        private void afterDoLinkLibrary(Object arg)
-        {
-            GridItemInfo gi = (GridItemInfo) arg;
-
-            LinearGlobal.MainForm.ListForm.setLinkLibrary(gi, true);
-
-            // アートワークのフェードチェンジ
-            if (gi.IsChangeAlbum)
-            {
-                LinearGlobal.MainForm.ListForm.setArtworkFadeChange(gi.Picture, gi.IsNoPicture);
-                
-            }
-        }
 
         private void afterPlayPlugin(PlayItemInfo pii)
         {
@@ -736,14 +747,12 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             linkLibraryInfo.Title = linkLibraryPlugin.getLinkLibraryTitle();
                             linkLibraryInfo.Description = linkLibraryPlugin.getLinkLibraryDescription(linkLibraryInfo);
 
-                            if (LinearGlobal.MainForm.ListForm.InvokeRequired)
-                            {
-                                LinearGlobal.MainForm.ListForm.BeginInvoke(new AfterPlayPluginDelegate(afterPlayPluginAfter), linkLibraryInfo);
-                            }
-                            else
-                            {
-                                afterPlayPluginAfter(linkLibraryInfo);
-                            }
+                            Action afterPlayPluginAfterAction = () =>
+                                {
+                                    LinearGlobal.MainForm.ListForm.setLinkLibrary(linkLibraryInfo);
+                                };
+                            LinearGlobal.MainForm.ListForm.BeginInvoke(afterPlayPluginAfterAction);
+
                         }
 
                     }
@@ -762,32 +771,27 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
         }
 
-        private void showNotification(object arg)
-        {
-            LinearGlobal.MainForm.showNotificationWindow((GridItemInfo) arg);
-        }
 
         delegate void afterPlayPluginDelegate(PlayItemInfo pii);
         delegate void SaveTagEndDelegate(Dictionary<long, Tag> saveTagResult);
 
-        private void SaveTagThreadTask()
+        private void SaveTag()
         {
             if (LinearGlobal.LinearConfig.SoundConfig.FadeEffect )
             {
-                System.Threading.Thread.Sleep((int) (LinearGlobal.LinearConfig.SoundConfig.FadeDuration * 1000));
+                Thread.Sleep((int) (LinearGlobal.LinearConfig.SoundConfig.FadeDuration * 1000));
             }
 
             var saveTagResult = saveTag();
             if (saveTagResult.Count > 0)
             {
-                if (LinearGlobal.MainForm.ListForm.InvokeRequired)
-                {
-                    LinearGlobal.MainForm.ListForm.BeginInvoke(new SaveTagEndDelegate(saveTagEnd), saveTagResult);
-                }
-                else
-                {
-                    saveTagEnd(saveTagResult);
-                }
+
+                Action uiAction = () =>
+                    {
+                        saveTagEnd(saveTagResult);
+                    };
+                LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
+
             }
 
             
@@ -1306,25 +1310,31 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         /// グリッドアイテムを更新する
         /// </summary>
         /// <param name="gi"></param>
-        private void updateGridItem(GridItemInfo gi, int gridRowNo){
+        private void updateGridItem(GridItemInfo gi, int gridRowNo)
+        {
 
-            List<DbParameter> paramList = new List<DbParameter>();
+            Action ac = () =>
+                {
+                    List<DbParameter> paramList = new List<DbParameter>();
 
-            paramList.Add(new SQLiteParameter("Title", gi.Title));
-            paramList.Add(new SQLiteParameter("Artist", gi.Artist));
-            paramList.Add(new SQLiteParameter("Bitrate", gi.Bitrate));
-            paramList.Add(new SQLiteParameter("Album", gi.Album));
-            paramList.Add(new SQLiteParameter("Track", gi.Track));
-            paramList.Add(new SQLiteParameter("Genre", gi.Genre));
-            paramList.Add(new SQLiteParameter("Year", gi.Year));
-            //paramDic.Add("Rating", gi.Rating);
-            paramList.Add(new SQLiteParameter("Time", gi.Time));
-            paramList.Add(new SQLiteParameter("NotFound", gi.NotFound));
-            paramList.Add(new SQLiteParameter("Date", gi.Date));
-            paramList.Add(new SQLiteParameter("Id", gi.Id));
-            paramList.Add(new SQLiteParameter("LastPlayDate", gi.Lastplaydate));
-            SQLiteManager.Instance.executeNonQuery(SQLResource.SQL007, paramList);
+                    paramList.Add(new SQLiteParameter("Title", gi.Title));
+                    paramList.Add(new SQLiteParameter("Artist", gi.Artist));
+                    paramList.Add(new SQLiteParameter("Bitrate", gi.Bitrate));
+                    paramList.Add(new SQLiteParameter("Album", gi.Album));
+                    paramList.Add(new SQLiteParameter("Track", gi.Track));
+                    paramList.Add(new SQLiteParameter("Genre", gi.Genre));
+                    paramList.Add(new SQLiteParameter("Year", gi.Year));
+                    //paramDic.Add("Rating", gi.Rating);
+                    paramList.Add(new SQLiteParameter("Time", gi.Time));
+                    paramList.Add(new SQLiteParameter("NotFound", gi.NotFound));
+                    paramList.Add(new SQLiteParameter("Date", gi.Date));
+                    paramList.Add(new SQLiteParameter("Id", gi.Id));
+                    paramList.Add(new SQLiteParameter("LastPlayDate", gi.Lastplaydate));
+                    SQLiteManager.Instance.executeNonQuery(SQLResource.SQL007, paramList);
+                };
 
+            LinearAudioPlayer.WorkerThread.EnqueueTask(ac);
+            
             LinearAudioPlayer.GridController.updateItem(gi, gridRowNo);
 
             playingListController.updatePlayingList(gi);
@@ -1481,6 +1491,11 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 try
                 {
                     gi.PictureUrl = new WebManager().getAlbumArtworkUrlFromGoogleImage(gi.Artist, gi.Album, gi.Title);
+                    WebClient wc = new WebClient();
+                    byte[] imageByteData = wc.DownloadData(gi.PictureUrl);
+                    ImageConverter ic = new ImageConverter();
+                    gi.Picture = (Image)ic.ConvertFrom(imageByteData);
+                    gi.IsNoPicture = false;
                 }
                 catch (FinalstreamException fex)
                 {
@@ -1489,8 +1504,12 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     LinearAudioPlayer.Logger.Flush();
                 }
 
-                gi.Picture = LinearAudioPlayer.StyleController.NoPictureImage;
-                gi.IsNoPicture = true;
+                if (gi.Picture == null)
+                {
+                    // 取得に失敗
+                    gi.Picture = LinearAudioPlayer.StyleController.NoPictureImage;
+                    gi.IsNoPicture = true;
+                }
 
             } else if (gi.Picture == null)
             {
@@ -1873,47 +1892,29 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
             if (!DirectoryUtils.isEmptyDirectory(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory))
             {
-                if (LinearAudioPlayer.AutoAudioFileRegistThread == null
-                    ||
-                    (LinearAudioPlayer.AutoAudioFileRegistThread != null &&
-                     !LinearAudioPlayer.AutoAudioFileRegistThread.IsAlive))
-                {
-                    LinearAudioPlayer.AutoAudioFileRegistThread =
-                        new Thread(new ThreadStart(AutoAudioFileRegistThreadTask));
-                    LinearAudioPlayer.AutoAudioFileRegistThread.IsBackground = true;
-                    LinearAudioPlayer.AutoAudioFileRegistThread.Start();
-                }
+
+                Action autoAudioFileRegistAction = () =>
+                    {
+                        ListFunction listFunc = new ListFunction();
+                        listFunc.addGridFromList(
+                            new string[] { LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory },
+                            ListFunction.RegistMode.AUTOREGIST);
+
+                        Action uiAction = () =>
+                            {
+                                if (LinearGlobal.MainForm != null && LinearGlobal.MainForm.ListForm != null)
+                                {
+                                    LinearGlobal.MainForm.ListForm.showToastMessage(MessageResource.I0007);
+                                    Debug.WriteLine("Comlete! AutoRegist");
+                                }
+                            };
+                        LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
+                        
+                    };
+                LinearAudioPlayer.WorkerThread.EnqueueTask(autoAudioFileRegistAction);
+                
             }
 
-        }
-
-        delegate void AutoAudioFileRegistEndDelegate();
-
-        private void AutoAudioFileRegistThreadTask()
-        {
-            ListFunction listFunc = new ListFunction();
-            listFunc.addGridFromList(
-                new string[] { LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory },
-                ListFunction.RegistMode.AUTOREGIST);
-
-            if (LinearGlobal.MainForm.ListForm.InvokeRequired)
-            {
-                LinearGlobal.MainForm.ListForm.BeginInvoke(new AutoAudioFileRegistEndDelegate(AutoAudioFileRegistEnd));
-            }
-            else
-            {
-                AutoAudioFileRegistEnd();
-            }
-
-        }
-
-        private void AutoAudioFileRegistEnd()
-        {
-            if (LinearGlobal.MainForm != null && LinearGlobal.MainForm.ListForm != null)
-            {
-                LinearGlobal.MainForm.ListForm.showToastMessage(MessageResource.I0007);
-                Debug.WriteLine("Comlete! AutoRegist");
-            }
         }
 
         /// <summary>

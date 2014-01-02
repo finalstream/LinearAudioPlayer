@@ -180,9 +180,21 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
                 if (gi.Picture == null || gi.IsNoPicture)
                 {
-                    Thread t = new Thread(new ParameterizedThreadStart(getArtworkUrl));
-                    t.IsBackground = true;
-                    t.Start(gi);
+                    Action getPcitureAction = () =>
+                        {
+                            LinearAudioPlayer.PlayController.getPicture(gi);
+
+                            
+                            Action uiAction = () =>
+                                {
+                                    if (this.IsHandleCreated)
+                                    {
+                                        ArtworkLoad(gi);
+                                    }
+                                };
+                            this.BeginInvoke(uiAction);
+                        };
+                    LinearAudioPlayer.WorkerThread.EnqueueTask(getPcitureAction);
 
 
                 } else
@@ -197,33 +209,18 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
         }
 
-        private delegate void ArtworkLoadDelegate(GridItemInfo gi);
-        private void getArtworkUrl(object obj)
-        {
-            GridItemInfo gi = (GridItemInfo) obj;
-
-            LinearAudioPlayer.PlayController.getPicture(gi);
-
-            if (this.IsHandleCreated)
-            {
-                this.BeginInvoke(new ArtworkLoadDelegate(ArtworkLoad), gi);
-            }
-
-        }
-
         private void ArtworkLoad(GridItemInfo gi)
         {
             if (!String.IsNullOrEmpty(gi.PictureUrl))
             {
                 lblArtworkType.Text = "WEB";
-                picArtwork.LoadAsync(gi.PictureUrl);
             }
             else
             {
                 isArtworkLoadComplete = true;
                 lblArtworkType.Text = "NONE";
-                picArtwork.Image = gi.Picture;
             }
+            picArtwork.Image = gi.Picture;
         }
 
         private void initalData()
@@ -413,33 +410,26 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 }
 
                 //LinearGlobal.StockTagEditInfo = tagEditInfo;
-                Thread t = new Thread(new ThreadStart(saveTagCall));
-                t.IsBackground = true;
-                t.Start();
+                Action saveTagAction = () =>
+                    {
+                        var saveTagResult = LinearAudioPlayer.PlayController.saveTag();
+                        if (saveTagResult.Count > 0)
+                        {
+                            Action uiAction = () =>
+                                {
+                                    LinearAudioPlayer.PlayController.saveTagEnd(saveTagResult);
+                                };
+                            LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
+                        }
+                    };
+                LinearAudioPlayer.WorkerThread.EnqueueTask(saveTagAction);
 
                 this.Hide();
                 
             }
             
         }
-        delegate void SaveTagDelegate(Dictionary<long, Tag> saveTagResult);
 
-        private void saveTagCall()
-        {
-            var saveTagResult = LinearAudioPlayer.PlayController.saveTag();
-            if (saveTagResult.Count > 0)
-            {
-                if (LinearGlobal.MainForm.ListForm.InvokeRequired)
-                {
-                    LinearGlobal.MainForm.ListForm.BeginInvoke(new SaveTagDelegate(LinearAudioPlayer.PlayController.saveTagEnd), saveTagResult);
-                }
-                else
-                {
-                    LinearAudioPlayer.PlayController.saveTagEnd(saveTagResult);
-                }
-            }
-            
-        }
 
         /// <summary>
         /// キャンセルボタンクリック時
@@ -976,9 +966,21 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             if (LinearGlobal.StockTagEditList.Count > 0)
             {
-                Thread t = new Thread(new ThreadStart(saveTagCall));
-                t.IsBackground = true;
-                t.Start();
+                Action getPcitureAction = () =>
+                {
+                    LinearAudioPlayer.PlayController.getPicture(gi);
+
+
+                    Action uiAction = () =>
+                    {
+                        if (this.IsHandleCreated)
+                        {
+                            ArtworkLoad(gi);
+                        }
+                    };
+                    this.BeginInvoke(uiAction);
+                };
+                LinearAudioPlayer.WorkerThread.EnqueueTask(getPcitureAction);
 
                 this.Hide();
             }

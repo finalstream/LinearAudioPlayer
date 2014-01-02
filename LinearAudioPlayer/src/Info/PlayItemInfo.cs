@@ -20,6 +20,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         public string ArtworkUrl { set; get; }
         public int Duration { set; get; }
         public int Rating { set; get; }
+        public int PlayCount { set; get; }
         public long PlayCountUpSecond { set; get; }
         public string LastPlayDate { set; get; }
         public string AlbumDescription { set; get; }

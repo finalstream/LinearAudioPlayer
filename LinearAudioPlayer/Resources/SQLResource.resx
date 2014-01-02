@@ -362,7 +362,8 @@ ORDER BY random()</value>
   FILEPATH,
   OPTION,
   LENGTH,
-  RATING
+  RATING,
+  PLAYCOUNT
 FROM PLAYLIST 
 WHERE ID = :Id</value>
     <comment>再生前にIDから情報取得する</comment>

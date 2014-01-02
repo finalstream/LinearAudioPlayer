@@ -1036,6 +1036,11 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
         public void setLinkLibrary(GridItemInfo gi, bool isSetAlbumDescription)
         {
+            if (isSetAlbumDescription)
+            {
+                txtAlbumDescription.Text = gi.AlbumDescription;
+                return;
+            }
 
             ltTitle.Visible = true;
             ltArtist.Visible = true;
@@ -1044,10 +1049,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             labelArtist.Text = gi.Artist;
             labelAlbum.Text = gi.Album + " [" + gi.Year +  "]";
             labelAlbum.Tag = gi.Album;
-            if (isSetAlbumDescription)
-            {
-                txtAlbumDescription.Text = gi.AlbumDescription;
-            }
+            
             ltLastfm.Text = "     Info    ";
 
             // TODO:同じ所がある
@@ -2851,9 +2853,14 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 artworkCount += artworkOffset;
 
                 refreshArtwork(isNoPicture);
+
                 try
                 {
-                    picArtwork.Refresh();
+                    Action uiAction = () =>
+                        {
+                            picArtwork.Refresh();
+                        };
+                    LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
                 }
                 catch { }
                 if (artworkCount >= 10)

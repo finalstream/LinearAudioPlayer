@@ -607,21 +607,21 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             if (LinearGlobal.LinearConfig.PlayerConfig.IsAutoUpdate)
             {
-                Thread t = new Thread(new ThreadStart(checkUpdate));
-                t.IsBackground = true;
-                t.Start();
-            }
-        }
+                Action checkUpdateAction = () =>
+                    {
+                        // アップデートチェックアクション
+                        UpdateInfo updateInfo = UpdateUtils.checkSoftwareUpdate();
 
-        delegate void ShowMessageDelegate(string newFileVersion);
-
-        private void checkUpdate()
-        {
-            UpdateInfo updateInfo = UpdateUtils.checkSoftwareUpdate();
-
-            if (updateInfo.IsReleaseNewVersion)
-            {
-                this.BeginInvoke(new ShowMessageDelegate(UpdateUtils.showUpdateConfirmMessage), updateInfo.NewFileVersion);
+                        if (updateInfo.IsReleaseNewVersion)
+                        {
+                            Action uiAction = () =>
+                                {
+                                    UpdateUtils.showUpdateConfirmMessage(updateInfo.NewFileVersion);
+                                };
+                            this.BeginInvoke(uiAction);
+                        }
+                    };
+                LinearAudioPlayer.WorkerThread.EnqueueTask(checkUpdateAction);
             }
         }
 
@@ -855,27 +855,17 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             }
         }
 
-        private delegate void ShowNotificationWindowDelegate(GridItemInfo gi);
-
-        public void showNotificationWindow(GridItemInfo gi)
-        {
-            LinearAudioPlayer.PlayController.getPicture(gi);
-            this.BeginInvoke(new ShowNotificationWindowDelegate(showNotificationWindowAsync), gi);
-
-        }
-
-        private void showNotificationWindowAsync(GridItemInfo gi)
+        public  void showNotificationWindow(GridItemInfo gi)
         {
             // 通知ウインドウに設定
-            
-            LinearGlobal.MainForm.setNotificationWindow(gi);
+
             popupNotifier.Position = Point.Empty;
             popupNotifier.Scroll = LinearGlobal.LinearConfig.ViewConfig.isSlidePIP;
 
             if (LinearGlobal.LinearConfig.ViewConfig.isNotificationWindow)
             {
                 popupNotifier.OwnerForm = this.ListForm;
-                popupNotifier.PopupAsync();
+                popupNotifier.Popup();
             }
         }
 
@@ -957,6 +947,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             // ListFormをNew
             _listForm = new ListForm();
             _listForm.Owner = this;
+            int h = _listForm.Handle.ToInt32(); // ハンドルを作成する（作成されてないとBeginInvokeでエラーになるので）
 
             restoreSetting();
 
@@ -1066,11 +1057,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             }
 
             popupNotifier.Image = gi.Picture;
-            popupNotifier.ImageUrl = gi.PictureUrl;
-
-
-
-
+            //popupNotifier.ImageUrl = gi.PictureUrl;
 
         }
 

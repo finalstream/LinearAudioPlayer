@@ -31,10 +31,10 @@ namespace FINALSTREAM.LinearAudioPlayer
         private static System.Diagnostics.TraceSource logger =
             new System.Diagnostics.TraceSource("LinearLogging");
 
+        public static WorkerThread WorkerThread {get; set;}
+
         // プレイヤーコントローラ
         private static PlayerController _playController = null;
-
-        public static Thread AutoAudioFileRegistThread { get; set; }
 
         public static GridController GridController { get; set; }
 
@@ -108,7 +108,7 @@ namespace FINALSTREAM.LinearAudioPlayer
 
 
 
-            
+            LinearAudioPlayer.WorkerThread = new WorkerThread();
 
             _playController = new PlayerController();
 
@@ -118,6 +118,7 @@ namespace FINALSTREAM.LinearAudioPlayer
             _playController.restorePlayingList();
 
             LinearGlobal.MainForm = new MainForm();
+            int h = LinearGlobal.MainForm.Handle.ToInt32(); // ハンドルを作成する（作成されてないとBeginInvokeでエラーになるので）
 
             StyleController = new StyleController();
             StyleController.loadStyle(LinearGlobal.StyleConfig);
@@ -253,9 +254,16 @@ namespace FINALSTREAM.LinearAudioPlayer
 
         static public void endApplication()
         {
-            if (AutoAudioFileRegistThread != null)
+
+            while (true)
             {
-                AutoAudioFileRegistThread.Join();
+                // ワーカースレッドが終わるまで待ち合わせる
+                if (!LinearAudioPlayer.WorkerThread.IsBusy())
+                {
+                    LinearAudioPlayer.WorkerThread.Kill();
+                    break;
+                }
+                Thread.Sleep(100);
             }
 
             // 再生中リスト保存

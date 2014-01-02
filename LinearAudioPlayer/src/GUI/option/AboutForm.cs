@@ -20,16 +20,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
     public partial class AboutForm : Form
     {
 
-        #region delegate
-
-        //  デリゲートを定義。
-
-        delegate void UpdateTextDelegate(UpdateInfo updateInfo);
-
-        delegate void ShowMessageDelegate(string newFileVersion);
-
-        #endregion
-
         public AboutForm()
         {
             InitializeComponent();
@@ -101,32 +91,27 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         {
             lblUpdateCheck.Text = "新しいバージョンがあるかチェックしています...";
 
-            Thread t = new Thread(new ThreadStart(checkUpdate));
-            t.IsBackground = true;
-            t.Start();
+            // バージョンチェック
+            Action versionCheckTask = () =>
+                {
+                    var updateInfo = UpdateUtils.checkSoftwareUpdate();
+
+                    Action updateAction = () =>
+                        {
+                            lblUpdateCheck.Text = updateInfo.CheckResultMessage;
+                            lblUpdateCheck.ForeColor = updateInfo.CheckResultMessageColor;
+                            if (updateInfo.IsReleaseNewVersion)
+                            {
+                                UpdateUtils.showUpdateConfirmMessage(updateInfo.NewFileVersion);
+                            }
+
+                        };
+                    this.BeginInvoke(updateAction);
+
+                };
+            LinearAudioPlayer.WorkerThread.EnqueueTask(versionCheckTask);
             
         }
-
-        void checkUpdate()
-        {
-
-            var updateInfo = UpdateUtils.checkSoftwareUpdate();
-
-            this.BeginInvoke(new UpdateTextDelegate(updateText), updateInfo);
-
-            if (updateInfo.IsReleaseNewVersion)
-            {
-                this.BeginInvoke(new ShowMessageDelegate(UpdateUtils.showUpdateConfirmMessage), updateInfo.NewFileVersion);
-            }
-
-        }
-
-        private void updateText(UpdateInfo updateInfo)
-        {
-            lblUpdateCheck.Text = updateInfo.CheckResultMessage;
-            lblUpdateCheck.ForeColor = updateInfo.CheckResultMessageColor;
-        }
-
         
     }
 }
