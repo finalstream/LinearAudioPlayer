@@ -144,9 +144,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         /// <summary>
         /// 再生回数をカウントアップする
         /// </summary>
-        public static void incrementPlayCountUp()
+        public static long  incrementPlayCountUp()
         {
-            
+            long playcount = -1;
+
             if (LinearGlobal.CurrentPlayItemInfo.Id != -1)
             {
                 List<DbParameter> paramList = new List<DbParameter>();
@@ -156,23 +157,18 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
                 if (result != null && !"".Equals(result))
                 {
-                    long playcount = (long)result;
+                    playcount = (long)result;
                     playcount++;
                     paramList.Add(new SQLiteParameter("PlayCount", playcount));
                     SQLiteManager.Instance.executeNonQuery(SQLResource.SQL022, paramList);
 
-                    // グリッドリアルタイム更新
-                    int rowNo = LinearAudioPlayer.GridController.Find((int)GridController.EnuGrid.ID, LinearGlobal.CurrentPlayItemInfo.Id.ToString());
-                    if(rowNo != -1)
-                    {
-                        LinearAudioPlayer.GridController.Grid[rowNo, (int) GridController.EnuGrid.PLAYCOUNT].Value =
-                            playcount;
-                    }
+                    
                 }
 
                 
             }
-            
+
+            return playcount;
 
         }
 

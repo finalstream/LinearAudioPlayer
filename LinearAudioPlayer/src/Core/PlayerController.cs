@@ -635,10 +635,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
         }
 
-        delegate void AfterDoLinkLibraryDelegate(Object arg);
-
-        delegate void AfterPlayPluginDelegate(LinkLibraryInfo arg);
-
         
         private void loadLinkLibraryData(GridItemInfo gi)
         {
@@ -761,10 +757,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             LinearGlobal.MainForm.ListForm.setLinkLibrary(lastFmInfo);
 
         }
-
-
-        delegate void afterPlayPluginDelegate(PlayItemInfo pii);
-        delegate void SaveTagEndDelegate(Dictionary<long, Tag> saveTagResult);
 
         private void SaveTag()
         {

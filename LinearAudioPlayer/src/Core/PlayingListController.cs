@@ -28,8 +28,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             LinearGlobal.LinearConfig.PlayerConfig.RestCount = -1;
         }
 
-        delegate void InsertPlayingListDelegate(int rowNo);
-
         /// <summary>
         /// 再生中リストにプレイリストのすべてのデータをいれる。
         /// </summary>

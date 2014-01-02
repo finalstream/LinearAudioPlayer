@@ -47,53 +47,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.addGridFromList(list.ToArray(), RegistMode.NORMAL);
         }
 
-        /*
-        /// <summary>
-        /// ファイルリストをグリッドに追加
-        /// </summary>
-        /// <param name="grid">グリッド</param>
-        /// <param name="fileList">ファイルリスト</param>
-        /// <param name="registMode">レジストモード</param>
-        public void addGridFromList(SourceGrid.Grid grid ,
-            IList<string> fileList,
-            RegistMode registMode
-            ) {
-            
-            // Todo: 同じようなメソッドがあるのでこのメソッドは削除する。
-
-            // ファイル更新日時の降順でソート
-            Dictionary<string, int> dic = new Dictionary<string, int>();
-            List<string[]> sortFilelist = new List<string[]>();
-            foreach (var filepath in fileList)
-            {
-                string[] fileInfo = new string[2];
-
-                fileInfo[0] = filepath;
-                fileInfo[1] = File.GetLastWriteTime(filepath).ToString("yyyyMMddHHmmss");
-
-                sortFilelist.Add(fileInfo);
-
-            }
-            sortFilelist.Sort(delegate(string[] a, string[] b)
-                                  {
-                                      if (a[1] != b[1])
-                                      {
-                                          return string.Compare(a[1], b[1]);
-                                      } else
-                                      {
-                                          return StringUtils.CompareNatural(b[0], a[0]);
-                                      }
-                                  });
-
-            ProgressDialog pd = new ProgressDialog("ファイル登録中",
-                registAudioFile_doWork,
-                registAudioFile_runComplete,
-                new object[] { sortFilelist , registMode });
-
-            pd.Show();
-            
-        }*/
-
         /// <summary>
         /// ファイルリストをグリッドに追加
         /// </summary>

@@ -372,10 +372,29 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 (LinearGlobal.PlayCountUpStopwatch.ElapsedMilliseconds/1000) >
                 LinearGlobal.CurrentPlayItemInfo.PlayCountUpSecond)
             {
-                MainFunction.incrementPlayCountUp();
-                // プラグイン処理(再生後処理)
-                afterPlayCountUpPluginDelegate pd = new afterPlayCountUpPluginDelegate(afterPlayCountUpPlugin);
-                pd.BeginInvoke(null, null);
+                Action incrementPlayCountAction = () =>
+                    {
+                        long playcount = MainFunction.incrementPlayCountUp();
+
+                        Action uiAction = () =>
+                            {
+                                // グリッドリアルタイム更新
+                                int rowNo = LinearAudioPlayer.GridController.Find((int)GridController.EnuGrid.ID, LinearGlobal.CurrentPlayItemInfo.Id.ToString());
+                                if (rowNo != -1)
+                                {
+                                    LinearAudioPlayer.GridController.Grid[rowNo, (int)GridController.EnuGrid.PLAYCOUNT].Value =
+                                        playcount;
+                                }
+                            };
+                        LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
+
+                        // プラグイン処理(再生後処理)
+                        afterPlayCountUpPlugin();
+
+                    };
+                LinearAudioPlayer.WorkerThread.EnqueueTask(incrementPlayCountAction);
+                
+                
                 LinearGlobal.PlayCountUpStopwatch.Reset();
             }
 
@@ -390,8 +409,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             } 
 
         }
-
-        delegate void afterPlayCountUpPluginDelegate();
 
         private void afterPlayCountUpPlugin()
         {
