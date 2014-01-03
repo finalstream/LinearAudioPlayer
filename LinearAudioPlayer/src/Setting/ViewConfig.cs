@@ -35,6 +35,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         public bool isGetNetworkArtwork { get; set; }
         public int GroupListOrder { get; set; }
         public int AlbumJudgeCount { get; set; }
+        public bool UseWebInterface { get; set; }
+        public int WebInterfaceListenPort { get; set; }
 
 
         /// <summary>
@@ -156,6 +158,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             this.isGetNetworkArtwork = true;
             this.GroupListOrder = (int) LinearEnum.EnumGroupListOrder.COUNT_DESC;
             this.AlbumJudgeCount = 10;
+            this.WebInterfaceListenPort = 8888;
         }
 
     }

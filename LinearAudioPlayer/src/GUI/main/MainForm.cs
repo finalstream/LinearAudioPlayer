@@ -1427,7 +1427,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             if (e.Button == MouseButtons.XButton1)
             {
                 // 前の曲に
-                LinearAudioPlayer.PlayController.prebiousPlay();
+                LinearAudioPlayer.PlayController.previousPlay();
             }
 
         }

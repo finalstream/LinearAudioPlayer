@@ -105,6 +105,7 @@
     </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -127,6 +128,7 @@
     </Compile>
     <Compile Include="src\Core\PlayingListController.cs" />
     <Compile Include="src\Core\StyleController.cs" />
+    <Compile Include="src\Core\WebServerThread.cs" />
     <Compile Include="src\Core\WorkerThread.cs" />
     <Compile Include="src\Database\GetDirectoryPathSQLiteFunction.cs" />
     <Compile Include="src\Database\GetFileSizeSQLiteFunction.cs" />
@@ -189,6 +191,8 @@
     <Compile Include="src\Info\TagEditFileInfo.cs" />
     <Compile Include="src\Info\AnyGridItemInfo.cs" />
     <Compile Include="src\Info\UpdateInfo.cs" />
+    <Compile Include="src\Info\WebServiceRequestInfo.cs" />
+    <Compile Include="src\Info\WebServiceResponseInfo.cs" />
     <Compile Include="src\LinearConst.cs" />
     <Compile Include="src\Core\PlayerController.cs" />
     <Compile Include="src\Database\SQLBuilder.cs" />

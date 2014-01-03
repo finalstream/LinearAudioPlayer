@@ -1832,7 +1832,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             _playEngine.applyNormalize(isApply);
         }
 
-        public void prebiousPlay()
+        public void previousPlay()
         {
 
             object sort = SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL050,

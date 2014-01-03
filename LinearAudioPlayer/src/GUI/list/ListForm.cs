@@ -2263,7 +2263,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             }
             else if (e.Button == MouseButtons.XButton1)
             {
-                LinearAudioPlayer.PlayController.prebiousPlay();
+                LinearAudioPlayer.PlayController.previousPlay();
             }
         }
 

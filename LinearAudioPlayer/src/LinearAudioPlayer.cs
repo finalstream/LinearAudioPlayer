@@ -7,7 +7,6 @@ using FINALSTREAM.Commons.Database;
 using FINALSTREAM.LinearAudioPlayer.Grid;
 using FINALSTREAM.LinearAudioPlayer.GUI;
 using FINALSTREAM.LinearAudioPlayer.Plugin;
-using FINALSTREAM.LinearAudioPlayer.Resources;
 using FINALSTREAM.LinearAudioPlayer.Setting;
 using FINALSTREAM.Commons.Utils;
 using FINALSTREAM.LinearAudioPlayer.Utils;
@@ -15,7 +14,6 @@ using System.IO;
 using System.Threading;
 using FINALSTREAM.LinearAudioPlayer.Core;
 using FINALSTREAM.Commons.Exceptions;
-
 
 
 namespace FINALSTREAM.LinearAudioPlayer
@@ -32,6 +30,7 @@ namespace FINALSTREAM.LinearAudioPlayer
             new System.Diagnostics.TraceSource("LinearLogging");
 
         public static WorkerThread WorkerThread {get; set;}
+        public static WebServerThread WebServerThread { get; set; }
 
         // プレイヤーコントローラ
         private static PlayerController _playController = null;
@@ -110,6 +109,11 @@ namespace FINALSTREAM.LinearAudioPlayer
 
             LinearAudioPlayer.WorkerThread = new WorkerThread();
 
+            if (LinearGlobal.LinearConfig.ViewConfig.UseWebInterface)
+            {
+                LinearAudioPlayer.WebServerThread = new WebServerThread();
+            }
+
             _playController = new PlayerController();
 
             LinearUtils.connectDatabase(LinearGlobal.LinearConfig.PlayerConfig.SelectDatabase);
@@ -179,8 +183,11 @@ namespace FINALSTREAM.LinearAudioPlayer
                                     LinearAudioPlayer.PlayController.play(LinearGlobal.LinearConfig.PlayerConfig.ResumeId,
                                 true, false);
                                     LinearGlobal.Volume = backupVolume;
-                                    LinearAudioPlayer.PlayController.setPosition(
-                                        (uint)LinearGlobal.LinearConfig.PlayerConfig.ResumePosition);
+                                    if (LinearGlobal.LinearConfig.PlayerConfig.ResumePosition != -1)
+                                    {
+                                        LinearAudioPlayer.PlayController.setPosition(
+                                            (uint) LinearGlobal.LinearConfig.PlayerConfig.ResumePosition);
+                                    }
                                 };
                             LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
                             
@@ -301,6 +308,11 @@ namespace FINALSTREAM.LinearAudioPlayer
                     break;
                 }
                 Thread.Sleep(100);
+            }
+
+            if (LinearAudioPlayer.WebServerThread != null)
+            {
+                LinearAudioPlayer.WebServerThread.Kill();
             }
 
             // 再生中リスト保存

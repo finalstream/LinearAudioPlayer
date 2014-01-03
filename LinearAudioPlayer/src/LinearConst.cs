@@ -44,6 +44,11 @@ namespace FINALSTREAM.LinearAudioPlayer
         public const string SQL_DIRECTORY_NAME = "\\sql\\";
 
         /// <summary>
+        /// WEBサーバドディレクトリ
+        /// </summary>
+        public const string WEB_DIRECTORY_NAME = "\\web\\";
+
+        /// <summary>
         /// BASSプラグインフォルダ名
         /// </summary>
         public const string BASS_PLUGIN_DIRECTORY_NAME = "\\lib\\bass\\plugin";
