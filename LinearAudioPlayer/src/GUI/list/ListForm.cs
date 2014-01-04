@@ -2136,7 +2136,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                     {
                         PlsParser plsParser = new PlsParser(
                         new StreamReader(res.GetResponseStream()));
-                    
+                        res.Close();
                         listfunc.addGridFromList(
                          ((List<string>)plsParser.getUrlList()).ToArray(), ListFunction.RegistMode.NORMAL);
                     }
@@ -2846,33 +2846,32 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         public void setArtworkFadeChange(Image picture, bool isNoPicture)
         {
 
-            lock (artworklock)
+            artworkOffset = +1;
+            artworkCount = 0;
+
+            artworkImage = ImageUtils.GetResizedImage(picture, 150, 150);
+
+            bool isEnd = false;
+            while (!isEnd)
             {
-                artworkOffset = +1;
-                artworkCount = 0;
-                artworkImage = ImageUtils.GetResizedImage(picture, 150, 150);
+                artworkCount += artworkOffset;
 
-                bool isEnd = false;
-                while (!isEnd)
-                {
-                    artworkCount += artworkOffset;
-
-                    refreshArtwork(isNoPicture);
+                refreshArtwork(isNoPicture);
 
 
-                    Action uiAction = () =>
-                        {
-                            picArtwork.Refresh();
-                        };
-                    LinearGlobal.MainForm.ListForm.Invoke(uiAction);
-
-                    if (artworkCount >= 10)
+                Action uiAction = () =>
                     {
-                        isEnd = true;
-                    }
-                    System.Threading.Thread.Sleep(100);
+                        picArtwork.Refresh();
+                    };
+                LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
+
+                if (artworkCount >= 10)
+                {
+                    isEnd = true;
                 }
+                System.Threading.Thread.Sleep(100);
             }
+
         }
 
         private void exportPlaylistToolStripMenuItem_Click(object sender, EventArgs e)

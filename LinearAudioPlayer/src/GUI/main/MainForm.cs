@@ -596,24 +596,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 switchViewPlaylist();
             }
 
-            if (LinearGlobal.LinearConfig.PlayerConfig.IsAutoUpdate)
-            {
-                Action checkUpdateAction = () =>
-                    {
-                        // アップデートチェックアクション
-                        UpdateInfo updateInfo = UpdateUtils.checkSoftwareUpdate();
-
-                        if (updateInfo.IsReleaseNewVersion)
-                        {
-                            Action uiAction = () =>
-                                {
-                                    UpdateUtils.showUpdateConfirmMessage(updateInfo.NewFileVersion);
-                                };
-                            this.BeginInvoke(uiAction);
-                        }
-                    };
-                LinearAudioPlayer.WorkerThread.EnqueueTask(checkUpdateAction);
-            }
+            
         }
 
 

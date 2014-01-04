@@ -28,14 +28,19 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         public bool IsBusy()
         {
             bool result = false;
+            int count;
+            bool iscomplete;
             lock (mutex)
             {
-                if (taskQueue.Count > 0 && isTaskComplete)
-                {
-                    result = true;
-                }
-
+                count = taskQueue.Count;
+                iscomplete = isTaskComplete;
             }
+            if (count > 0 && iscomplete)
+            {
+                result = true;
+            }
+
+           
             return result;
         }
 
@@ -49,8 +54,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             lock (mutex)
             {
                 taskQueue.Enqueue(a);
-                Debug.WriteLine("Enque Task:" + DateTime.Now.ToString("yyyy/MM/dd hh:mmm:ss:fff"));
             }
+            Debug.WriteLine("Enque Task:" + DateTime.Now.ToString("yyyy/MM/dd hh:mmm:ss:fff"));
         }
 
         void WorkerProc()
@@ -63,15 +68,22 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                         if (taskQueue.Count > 0)
                         {
                             // 無限ループ
+                            isTaskComplete = false;
+                            Action action = null;
                             lock (mutex)
                             {
-                                isTaskComplete = false;
-
-                                var action = taskQueue.Dequeue();
+                                action = taskQueue.Dequeue();
+                            }
+                            if (action != null)
+                            {
                                 action();
-                                Debug.WriteLine("Complete Task:" + DateTime.Now.ToString("yyyy/MM/dd hh:mmm:ss:fff"));
+                            }
+                            Debug.WriteLine("Complete Task:" + DateTime.Now.ToString("yyyy/MM/dd hh:mmm:ss:fff"));
+                            lock (mutex)
+                            {
                                 isTaskComplete = true;
                             }
+                            
 
                         }
 
@@ -88,6 +100,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         public void Kill()
         {
             workerthread.Abort();
+            workerthread.Join();
         }
     }
 }

@@ -60,6 +60,7 @@ namespace LinearAudioPlayerUpdate
             WebResponse res = new WebManager().request(LINEAR_URL);
             string newFileVersion = "";
             newFileVersion  = Path.GetFileNameWithoutExtension(res.ResponseUri.ToString());
+            res.Close();
             newFileVersion = newFileVersion.Substring(newFileVersion.Length - 5, 5);
 
             if (newFileVersion.CompareTo(nowVersion) > 0)

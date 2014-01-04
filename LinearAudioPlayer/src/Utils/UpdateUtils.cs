@@ -253,15 +253,17 @@ namespace FINALSTREAM.LinearAudioPlayer.Utils
         {
             UpdateInfo updateInfo = new UpdateInfo();
 
+            WebResponse res = null;
             try
             {
 
-                WebResponse res = new WebManager().request("http://www.finalstream.net/dl/download.php?dl=lap-checkupdate");
-
+                res =
+                    new WebManager().request("http://www.finalstream.net/dl/download.php?dl=lap-checkupdate");
                 updateInfo.NewFileVersion = Path.GetFileNameWithoutExtension(res.ResponseUri.ToString());
                 updateInfo.NewFileVersion = updateInfo.NewFileVersion.Substring(updateInfo.NewFileVersion.Length - 5, 5);
 
-                string nowVersion = LinearGlobal.ApplicationVersion.Substring(LinearGlobal.ApplicationVersion.Length - 5, 5);
+                string nowVersion = LinearGlobal.ApplicationVersion.Substring(
+                    LinearGlobal.ApplicationVersion.Length - 5, 5);
 
                 if (updateInfo.NewFileVersion.CompareTo(nowVersion) > 0)
                 {
@@ -285,6 +287,13 @@ namespace FINALSTREAM.LinearAudioPlayer.Utils
             catch
             {
                 updateInfo.CheckResultMessage = "最新バージョンチェックに失敗しました。";
+            }
+            finally
+            {
+                if (res != null)
+                {
+                    res.Close();
+                }
             }
 
 

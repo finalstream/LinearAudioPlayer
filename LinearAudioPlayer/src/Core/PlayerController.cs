@@ -1471,20 +1471,28 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             if (gi.Picture == null && LinearGlobal.LinearConfig.ViewConfig.isGetNetworkArtwork)
             {
 
+                HttpWebResponse webResponse = null;
                 try
                 {
                     gi.PictureUrl = new WebManager().getAlbumArtworkUrlFromGoogleImage(gi.Artist, gi.Album, gi.Title);
-                    WebClient wc = new WebClient();
-                    byte[] imageByteData = wc.DownloadData(gi.PictureUrl);
+                    HttpWebRequest wr = (HttpWebRequest) WebRequest.Create(gi.PictureUrl);
+                    wr.Timeout = 5000;
+                    wr.Proxy = null;
+                    webResponse = (HttpWebResponse) wr.GetResponse();
+                    byte[] imageByteData = ReadBytes(webResponse.GetResponseStream());
                     ImageConverter ic = new ImageConverter();
-                    gi.Picture = (Image)ic.ConvertFrom(imageByteData);
+                    gi.Picture = (Image) ic.ConvertFrom(imageByteData);
                     gi.IsNoPicture = false;
                 }
                 catch (WebException wex)
                 {
                     LinearAudioPlayer.Logger.TraceEvent(System.Diagnostics.TraceEventType.Warning,
-                    0, wex.ToString() + " " + gi.PictureUrl);
+                                                        0, wex.ToString() + " " + gi.PictureUrl);
                     LinearAudioPlayer.Logger.Flush();
+                }
+                finally
+                {
+                    webResponse.Close();
                 }
 
                 if (gi.Picture == null)
@@ -1500,6 +1508,30 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 gi.IsNoPicture = true;
             }
 
+        }
+
+        //Streamからbyte[]で読み込む
+        static byte[] ReadBytes(Stream stream)
+        {
+            var buf = new byte[0];
+            var tmp = new byte[1024];
+            while (true)
+            {
+                var len = stream.Read(tmp, 0, 1024);
+                if (len <= 0)
+                    break;
+                buf = AppendBuffer(buf, tmp, len);
+            }
+            return buf;
+        }
+
+        //byte[]への追加
+        static byte[] AppendBuffer(byte[] buf, byte[] tmp, int len)
+        {
+            var res = new byte[buf.Length + len];
+            Buffer.BlockCopy(buf, 0, res, 0, buf.Length);
+            Buffer.BlockCopy(tmp, 0, res, buf.Length, len);
+            return res;
         }
 
         /// <summary>

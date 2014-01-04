@@ -35,12 +35,28 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         {
             listener = new HttpListener();
             listener.Prefixes.Add(prefix); // プレフィックスの登録
-            listener.Start();
-
+            try
+            {
+                listener.Start();
+            }
+            catch (HttpListenerException httpListenerException)
+            {
+                // すでにポートが使用中もしくは管理者権限なし
+                LinearAudioPlayer.writeErrorMessage(httpListenerException);
+                return;
+            }
 
             while (true)
             {
-                HttpListenerContext context = listener.GetContext();
+                HttpListenerContext context = null;
+                try
+                {
+                    context = listener.GetContext();
+                }
+                catch (HttpListenerException)
+                {
+                    // HTTP通信中に終了されたらどうしようもないので例外を握りつぶす
+                }
                 HttpListenerRequest req = context.Request;
                 HttpListenerResponse res = context.Response;
 
@@ -182,6 +198,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         {
             listener.Close();
             webServerThread.Abort();
+            webServerThread.Join();
         }
     }
 }

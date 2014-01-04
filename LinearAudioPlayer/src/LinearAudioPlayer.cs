@@ -6,6 +6,7 @@ using FINALSTREAM.Commons.Archive;
 using FINALSTREAM.Commons.Database;
 using FINALSTREAM.LinearAudioPlayer.Grid;
 using FINALSTREAM.LinearAudioPlayer.GUI;
+using FINALSTREAM.LinearAudioPlayer.Info;
 using FINALSTREAM.LinearAudioPlayer.Plugin;
 using FINALSTREAM.LinearAudioPlayer.Setting;
 using FINALSTREAM.Commons.Utils;
@@ -196,6 +197,25 @@ namespace FINALSTREAM.LinearAudioPlayer
                     }
                 };
             LinearAudioPlayer.WorkerThread.EnqueueTask(resumePlayAction);
+
+            if (LinearGlobal.LinearConfig.PlayerConfig.IsAutoUpdate)
+            {
+                Action checkUpdateAction = () =>
+                {
+                    // アップデートチェックアクション
+                    UpdateInfo updateInfo = UpdateUtils.checkSoftwareUpdate();
+
+                    if (updateInfo.IsReleaseNewVersion)
+                    {
+                        Action uiAction = () =>
+                        {
+                            UpdateUtils.showUpdateConfirmMessage(updateInfo.NewFileVersion);
+                        };
+                        LinearGlobal.MainForm.BeginInvoke(uiAction);
+                    }
+                };
+                LinearAudioPlayer.WorkerThread.EnqueueTask(checkUpdateAction);
+            }
 
             Application.Run(LinearGlobal.MainForm);
 
