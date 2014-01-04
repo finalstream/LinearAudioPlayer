@@ -2840,36 +2840,38 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         }
 
         // 画像
-        public Image artworkImage, artworkBeforeImage;
-        public int artworkOffset, artworkCount;
+        private  Image artworkImage, artworkBeforeImage;
+        private  int artworkOffset, artworkCount;
+        private object artworklock = new Object();
         public void setArtworkFadeChange(Image picture, bool isNoPicture)
         {
 
-            artworkOffset = +1;
-            artworkCount = 0;
-            artworkImage = ImageUtils.GetResizedImage(picture, 150, 150);
-
-            bool isEnd = false;
-            while(!isEnd)
+            lock (artworklock)
             {
-                artworkCount += artworkOffset;
+                artworkOffset = +1;
+                artworkCount = 0;
+                artworkImage = ImageUtils.GetResizedImage(picture, 150, 150);
 
-                refreshArtwork(isNoPicture);
-
-                try
+                bool isEnd = false;
+                while (!isEnd)
                 {
+                    artworkCount += artworkOffset;
+
+                    refreshArtwork(isNoPicture);
+
+
                     Action uiAction = () =>
                         {
                             picArtwork.Refresh();
                         };
-                    LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
+                    LinearGlobal.MainForm.ListForm.Invoke(uiAction);
+
+                    if (artworkCount >= 10)
+                    {
+                        isEnd = true;
+                    }
+                    System.Threading.Thread.Sleep(100);
                 }
-                catch { }
-                if (artworkCount >= 10)
-                {
-                    isEnd = true;
-                }
-                System.Threading.Thread.Sleep(100);
             }
         }
 

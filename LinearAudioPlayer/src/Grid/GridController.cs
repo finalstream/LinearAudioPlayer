@@ -525,6 +525,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
                 gi.Year = gi.Date.Substring(0, 4);
             }
             Grid[i, (int)EnuGrid.YEAR] = new Cell(gi.Year);
+            Grid[i, (int)EnuGrid.YEAR].Tag = gi.Date;
             Grid[i, (int)EnuGrid.YEAR].AddController(doubleclickController);
 
             // Selection
@@ -776,9 +777,9 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
 
             gi.Album = this.getValue(rowNo, (int)EnuGrid.ALBUM);
             gi.Artist = this.getValue(rowNo, (int)EnuGrid.ARTIST);
-            gi.Bitrate = this.getTagValue(rowNo, (int)EnuGrid.BITRATE);
-            gi.Date = this.getValue(rowNo, (int)EnuGrid.DATE);
-            gi.Lastplaydate = this.getTagValue(rowNo, (int) EnuGrid.DATE);
+            gi.Bitrate = this.getTagValue(rowNo, (int)EnuGrid.BITRATE).ToString();
+            gi.Date = this.getTagValue(rowNo, (int)EnuGrid.YEAR).ToString();
+            gi.Lastplaydate = this.getTagValue(rowNo, (int)EnuGrid.DATE).ToString();
             gi.FilePath = this.getValue(rowNo, (int)EnuGrid.FILEPATH);
             gi.Genre = this.getValue(rowNo, (int)EnuGrid.GENRE);
             

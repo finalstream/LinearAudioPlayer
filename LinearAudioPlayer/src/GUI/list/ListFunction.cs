@@ -1204,6 +1204,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             }
 
             LinearGlobal.TagEditDialog = new TagEditDialog(id);
+            int h = LinearGlobal.TagEditDialog.Handle.ToInt32(); // ハンドルを作成する（作成されてないとBeginInvokeでエラーになるので）
 
             LinearGlobal.TagEditDialog.Show();
             afterTagEdit(LinearGlobal.TagEditDialog);

@@ -55,8 +55,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
         void WorkerProc()
         {
-            try
-            {
+            //try
+            //{
                 while (true)
                 {
                     
@@ -77,11 +77,11 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
                     Thread.Sleep(10);
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
 

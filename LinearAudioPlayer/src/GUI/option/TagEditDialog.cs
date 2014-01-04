@@ -192,7 +192,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                                         ArtworkLoad(gi);
                                     }
                                 };
-                            this.BeginInvoke(uiAction);
+                            if (this.IsHandleCreated)
+                            {
+                                this.BeginInvoke(uiAction);
+                            }
                         };
                     LinearAudioPlayer.WorkerThread.EnqueueTask(getPcitureAction);
 
