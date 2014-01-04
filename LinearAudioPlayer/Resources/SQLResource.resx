@@ -440,21 +440,6 @@ WHERE LASTPLAYDATE &lt; :LastPlayDate
 ORDER BY LASTPLAYDATE DESC LIMIT 1</value>
     <comment>1つ前の再生IDを取得</comment>
   </data>
-  <data name="SQL050" xml:space="preserve">
-    <value>SELECT SORT FROM PLAYINGLIST WHERE ID = :Id</value>
-    <comment>1つ前の再生用SORT取得</comment>
-  </data>
-  <data name="SQL051" xml:space="preserve">
-    <value>SELECT ID
-FROM PLAYINGLIST
-WHERE SORT &lt; :Sort
-ORDER BY SORT DESC LIMIT 1</value>
-    <comment>1つ前の再生用ID取得</comment>
-  </data>
-  <data name="SQL052" xml:space="preserve">
-    <value>SELECT ID FROM PLAYINGLIST WHERE SORT = (SELECT MAX(SORT) FROM PLAYINGLIST)</value>
-    <comment>1つ前の再生用SORT取得(MAX)</comment>
-  </data>
   <data name="SQL053" xml:space="preserve">
     <value>UPDATE PLAYLIST
 SET DESCRIPTION = :Description

@@ -584,36 +584,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Resources {
         }
         
         /// <summary>
-        ///   SELECT SORT FROM PLAYINGLIST WHERE ID = :Id に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string SQL050 {
-            get {
-                return ResourceManager.GetString("SQL050", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   SELECT ID
-        ///FROM PLAYINGLIST
-        ///WHERE SORT &lt; :Sort
-        ///ORDER BY SORT DESC LIMIT 1 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string SQL051 {
-            get {
-                return ResourceManager.GetString("SQL051", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   SELECT ID FROM PLAYINGLIST WHERE SORT = (SELECT MAX(SORT) FROM PLAYINGLIST) に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string SQL052 {
-            get {
-                return ResourceManager.GetString("SQL052", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   UPDATE PLAYLIST
         ///SET DESCRIPTION = :Description
         ///WHERE ID = (

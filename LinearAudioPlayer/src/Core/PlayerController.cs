@@ -1480,10 +1480,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     gi.Picture = (Image)ic.ConvertFrom(imageByteData);
                     gi.IsNoPicture = false;
                 }
-                catch (FinalstreamException fex)
+                catch (WebException wex)
                 {
                     LinearAudioPlayer.Logger.TraceEvent(System.Diagnostics.TraceEventType.Warning,
-                    0, fex.ToString() +"\n" + fex.InnerException.Message);
+                    0, wex.ToString() + " " + gi.PictureUrl);
                     LinearAudioPlayer.Logger.Flush();
                 }
 
@@ -1835,34 +1835,13 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         public void previousPlay()
         {
 
-            object sort = SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL050,
-                                                                        new SQLiteParameter("Id",
-                                                                                            LinearGlobal.CurrentPlayItemInfo.
-                                                                                                Id));
+            var id = playingListController.getPreviousId();
 
-            if (sort != null)
+            if (id != -1)
             {
-                object id;
-                if ((long)sort == 1L)
-                {
-                    id = SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL052);
-
-                }
-                else
-                {
-                    id = SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL051,
-                                                                           new SQLiteParameter("Sort",
-                                                                                               (long) sort));
-                }
-
-                if (id != null)
-                {
-                    PlayItemInfo pii = new PlayItemInfo();
-                    pii.Id = (long)id;
-                    play(pii, false, false);
-
-                }
-
+                PlayItemInfo pii = new PlayItemInfo();
+                pii.Id = id;
+                play(pii, false, false);
             }
 
         }

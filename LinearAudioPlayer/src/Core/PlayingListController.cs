@@ -121,6 +121,21 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             return nextid;
         }
 
+        public long getPreviousId()
+        {
+            if (playingList.Count > 0)
+            {
+                var lastNode = playingList.Last;
+                playingList.RemoveLast();
+                playingList.AddFirst(lastNode);
+                return lastNode.Value.Id;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
         public PlayItemInfo getNextPlayInfo()
         {
             if (LinearGlobal.LinearConfig.PlayerConfig.RestCount == 0)
