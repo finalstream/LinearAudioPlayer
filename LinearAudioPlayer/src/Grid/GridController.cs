@@ -54,12 +54,14 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
         private static Bitmap starNormalImage;
         private static Bitmap playingImage;
         private static Bitmap notfoundImage;
+        private static Bitmap disableImage;
         private static CellBackColorAlternate cellView;
         private static CellBackColorAlternate cellViewPlaying;
         private static CellBackColorAlternate cellViewTextAlignmentRight;
         private static CellBackColorAlternate cellViewPlayingTextAlignmentRight;
         CellClickEvent doubleclickController;
         SelectionClickEvent selectionClickController;
+        private IconClickEvent iconClickController;
         SourceGrid.Cells.Controllers.ToolTipText toolTipController;
 
         #endregion
@@ -214,6 +216,20 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
                 Bitmap bm = new Bitmap(fsimg);
                 notfoundImage = bm;
             }
+
+            string disableIconPath = LinearGlobal.StyleDirectory + "disable.png";
+            if (!File.Exists(disableIconPath))
+            {
+                disableIconPath = LinearGlobal.DefaultStyleDirectory + "disable.png";
+            }
+
+            using (FileStream fs = File.OpenRead(disableIconPath))
+            using (System.Drawing.Image fsimg = System.Drawing.Image.FromStream(fs, false, false))
+            {
+                Bitmap bm = new Bitmap(fsimg);
+                disableImage = bm;
+            }
+
             //starFavoriteImage = new Bitmap(LinearGlobal.StyleDirectory + LinearConst.STAR_FAVORITE_FILE);
             //starNormalImage = new Bitmap(LinearGlobal.StyleDirectory + LinearConst.STAR_NORMAL_FILE);
             //playingImage = new Bitmap(LinearGlobal.StyleDirectory + "audio.png");
@@ -407,6 +423,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
 
             doubleclickController = new CellClickEvent();
             selectionClickController = new SelectionClickEvent();
+            iconClickController = new IconClickEvent();
             toolTipController = new SourceGrid.Cells.Controllers.ToolTipText();
             toolTipController.IsBalloon = false;
 
@@ -466,6 +483,16 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             Grid[i, (int)EnuGrid.ICON] = new Cell();
             Grid[i, (int)EnuGrid.ICON].AddController(doubleclickController);
             Grid[i, (int)EnuGrid.ICON].AddController(toolTipController);
+            Grid[i, (int)EnuGrid.ICON].AddController(iconClickController);
+            if (!LinearGlobal.invalidIdTable.Contains(gi.Id))
+            {
+                Grid[i, (int) EnuGrid.ICON].Tag = true; // 一時無効フラグ(trueが有効、falseが無効)
+            }
+            else
+            {
+                Grid[i, (int)EnuGrid.ICON].Tag = false; // 一時無効フラグ
+                Grid[i, (int) EnuGrid.ICON].Image = disableImage;
+            }
             Grid[i, (int)EnuGrid.ICON].ToolTipText = gi.Title + " - " +gi.Artist;
 
             // Title
@@ -1247,6 +1274,48 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
                 
             }
 
+        }
+
+        /// <summary>
+        /// アイコンクリックイベント
+        /// </summary>
+        private class IconClickEvent : SourceGrid.Cells.Controllers.ControllerBase
+        {
+
+
+            /// <summary>
+            /// マウスボタンが押下されたとき
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            public override void OnMouseDown(CellContext sender, MouseEventArgs e)
+            {
+                base.OnMouseDown(sender, e);
+
+                sender.Grid.ContextMenuStrip = null;
+
+                SourceGrid.Grid grid = (SourceGrid.Grid) sender.Grid;
+
+                if (e.Button == MouseButtons.Left)
+                {
+                    bool nowEnable = (bool) ((SourceGrid.Cells.Cell) sender.Cell).Tag;
+                    nowEnable = !nowEnable;
+                    grid[sender.Position.Row, (int) EnuGrid.ICON].Tag = nowEnable;
+                    if (nowEnable)
+                    {
+                        grid[sender.Position.Row, (int) EnuGrid.ICON].Image = null;
+                        LinearGlobal.invalidIdTable.Remove((long)grid[sender.Position.Row, (int)EnuGrid.ID].Value);
+                    }
+                    else
+                    {
+                        grid[sender.Position.Row, (int) EnuGrid.ICON].Image = disableImage;
+                        LinearGlobal.invalidIdTable.Add((long) grid[sender.Position.Row, (int) EnuGrid.ID].Value);
+                    }
+                    //grid.Refresh();
+
+                }
+
+            }
         }
 
         private class CellBackColorAlternate : SourceGrid.Cells.Views.Cell

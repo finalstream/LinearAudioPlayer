@@ -119,7 +119,18 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 nextid = playingList.First.Value.Id;
             }
 
-            return nextid;
+            if (!LinearGlobal.invalidIdTable.Contains(nextid))
+            {
+                return nextid;
+            }
+            else
+            {
+                // 一時無効リストにあるIDだったら次の曲を取得
+                LinearGlobal.LinearConfig.PlayerConfig.RestCount++;
+                return getNextId(isEndless);
+            }
+
+            
         }
 
         public long getPreviousId()
@@ -256,7 +267,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         {
             if (playingList.Count > 0)
             {
-                return playingList.Skip(1).Take(listcount).ToArray();
+                return playingList.Where(p=>!LinearGlobal.invalidIdTable.Contains(p.Id)).Skip(1).Take(listcount).ToArray();
             }
             else
             {

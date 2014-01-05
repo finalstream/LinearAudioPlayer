@@ -79,6 +79,11 @@ namespace FINALSTREAM.LinearAudioPlayer
         /// </summary>
         public static List<GridItemInfo> StockTagEditList = new List<GridItemInfo>(); 
 
+        /// <summary>
+        /// 一時無効IDテーブル
+        /// </summary>
+        public static HashSet<long> invalidIdTable = new HashSet<long>();
+
         #endregion
 
 
@@ -176,6 +181,8 @@ namespace FINALSTREAM.LinearAudioPlayer
             get { return LinearGlobal._styleDirectory; }
             set { LinearGlobal._styleDirectory = value; }
         }
+
+        public static string DefaultStyleDirectory { get; set; }
 
         /// <summary>
         /// データベースディレクトリ

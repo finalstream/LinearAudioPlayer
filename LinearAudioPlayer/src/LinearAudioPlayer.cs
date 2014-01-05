@@ -268,6 +268,9 @@ namespace FINALSTREAM.LinearAudioPlayer
            LinearGlobal.StyleDirectory =
                 Application.StartupPath + LinearConst.STYLE_DIRECTORY_NAME + LinearGlobal.LinearConfig.ViewConfig.StyleName + "\\";
 
+           LinearGlobal.DefaultStyleDirectory =
+               Application.StartupPath + LinearConst.STYLE_DIRECTORY_NAME + LinearConst.DEFAULT_STYLE + "\\";
+
             Environment.SetEnvironmentVariable("PATH", Application.StartupPath + "\\lib\\migemo");
 
 

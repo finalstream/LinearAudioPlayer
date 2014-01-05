@@ -442,6 +442,7 @@
     <Content Include="style\GRed\database.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="style\GRed\disable.png" />
     <Content Include="style\GRed\limit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -541,6 +542,7 @@
     <Content Include="style\KURO2\database.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="style\KURO2\disable.png" />
     <Content Include="style\KURO2\limit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -640,6 +642,7 @@
     <Content Include="style\Lyrids\database.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="style\Lyrids\disable.png" />
     <Content Include="style\Lyrids\limit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
