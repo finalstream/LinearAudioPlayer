@@ -667,6 +667,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             {
                 SQLiteManager.Instance.closeDatabase();
 
+                // 一時無効リストクリア
+                LinearGlobal.invalidIdTable.Clear();
+
                 LinearUtils.connectDatabase(databaseList.Text);
                 // フィルタリングリストクリア
 

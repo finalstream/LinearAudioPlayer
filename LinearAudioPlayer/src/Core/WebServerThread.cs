@@ -180,6 +180,17 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             response.seekRatio = (int) (((float)LinearAudioPlayer.PlayController.getPosition() /
                                                         (float)LinearAudioPlayer.PlayController.getLength()) * 100);
                             break;
+
+                        case "seek":
+                            Action seekAction = () =>
+                            {
+                                double value = ((double)LinearAudioPlayer.PlayController.getLength()) * reqParam.SeekPosition;
+                                LinearAudioPlayer.PlayController.setPosition((uint)value);
+                                LinearGlobal.MainForm.ListForm.setProgressBarValue((int)value);
+                            };
+                            LinearGlobal.MainForm.ListForm.BeginInvoke(seekAction);
+                            break;
+
                     }
 
 
