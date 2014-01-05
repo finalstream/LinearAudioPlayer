@@ -1425,6 +1425,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             if (isMoveFocus != null)
             {
+                /*
                 if ((bool)isMoveFocus)
                 {
                     int rowNo = LinearAudioPlayer.GridController.Find((int)GridController.EnuGrid.ID,
@@ -1443,7 +1444,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 else
                 {
                     Grid.Selection.FocusFirstCell(true);
-                }
+                }*/
+                Grid.Selection.FocusFirstCell(true);
             }
             
             /*
