@@ -52,8 +52,9 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
         private static CellBackColorAlternate cellView;
         private static CellBackColorAlternate cellViewPlaying;
         CellClickEvent clickController;
-        private string[] headerTitle = new string[] { "Same artist music", "Similar artists" };
-        public EnuMode mode = EnuMode.SAMEARTIST;
+        private string[] headerTitle = new string[] { "Now Playing","Same artist music", "Similar artists" };
+        public EnuMode mode = EnuMode.NOWPLAYING;
+        private int listcount = 6;  // 表示件数
 
         #endregion
 
@@ -81,6 +82,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
 
         public enum EnuMode : int
         {
+            NOWPLAYING,
             SAMEARTIST,
             SIMILARARTIST,
             OVER
@@ -395,7 +397,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             parameters.Add(new SQLiteParameter("Id", LinearGlobal.CurrentPlayItemInfo.Id));
             parameters.Add(new SQLiteParameter("Artist", LinearGlobal.CurrentPlayItemInfo.Artist));
             SameArtistTrackList = SQLiteManager.Instance.executeQueryNormal(
-                SQLBuilder.selectSameArtistTrackList(), parameters);
+                SQLBuilder.selectSameArtistTrackList(listcount), parameters);
         }
 
         public void reloadGrid()
@@ -404,7 +406,21 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             clearGrid();
             switch (mode)
             {
-                    case EnuMode.SAMEARTIST:
+                case EnuMode.NOWPLAYING:
+                    // 再生中の曲
+                    GridItemInfo[] nowPlayings = LinearAudioPlayer.PlayController.getNowPlayingList(listcount);
+
+                    foreach (var gridItemInfo in nowPlayings)
+                    {
+                        AnyGridItemInfo anyGridItem = new AnyGridItemInfo();
+                        anyGridItem.DisplayValue = gridItemInfo.Title;
+                        anyGridItem.Value = gridItemInfo.Id;
+                        addItem(anyGridItem);
+                    }
+
+                    break;
+
+                case EnuMode.SAMEARTIST:
                     // 同じアーティストの曲を選択
                     if (SameArtistTrackList != null)
                     {
@@ -456,7 +472,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
                     LinearAudioPlayer.LinkGridController.mode++;
                     if (LinearAudioPlayer.LinkGridController.mode == EnuMode.OVER)
                     {
-                        LinearAudioPlayer.LinkGridController.mode = EnuMode.SAMEARTIST;
+                        LinearAudioPlayer.LinkGridController.mode = EnuMode.NOWPLAYING;
                     }
                     LinearAudioPlayer.LinkGridController.reloadGrid();
                 }
@@ -497,6 +513,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
 
                     switch (LinearAudioPlayer.LinkGridController.mode)
                     {
+                            case EnuMode.NOWPLAYING:
                             case EnuMode.SAMEARTIST:
                             AnyGridItemInfo anyGridItem = (AnyGridItemInfo) grid[sender.Position.Row, 0].Tag;
                             LinearAudioPlayer.PlayController.play((long) anyGridItem.Value, false, true);

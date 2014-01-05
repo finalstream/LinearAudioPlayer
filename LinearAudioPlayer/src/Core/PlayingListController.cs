@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Linq;
@@ -251,5 +252,17 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
         }
 
+        public GridItemInfo[] getNowPlayingList(int listcount)
+        {
+            if (playingList.Count > 0)
+            {
+                return playingList.Skip(1).Take(listcount).ToArray();
+            }
+            else
+            {
+                return new GridItemInfo[]{};
+            }
+            
+        }
     }
 }

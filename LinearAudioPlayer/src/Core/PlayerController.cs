@@ -545,8 +545,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             Action uiAction = () =>
                                 {
                                     LinearGlobal.MainForm.ListForm.setLinkLibrary(gi, true);
-                                    if (LinearAudioPlayer.LinkGridController.mode ==
-                                        LinkGridController.EnuMode.SAMEARTIST)
+                                    if (LinearAudioPlayer.LinkGridController.mode !=
+                                        LinkGridController.EnuMode.SIMILARARTIST)
                                     {
                                         LinearAudioPlayer.LinkGridController.reloadGrid();
                                     }
@@ -1931,6 +1931,11 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         public void savePlayingList()
         {
             playingListController.savePlayingList();
+        }
+
+        public GridItemInfo[] getNowPlayingList(int listcount)
+        {
+            return playingListController.getNowPlayingList(listcount);
         }
     }
 }

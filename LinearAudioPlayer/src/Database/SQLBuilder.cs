@@ -392,11 +392,11 @@ namespace FINALSTREAM.LinearAudioPlayer.Database
         /// 同じアーティストの曲を選択するSQL
         /// </summary>
         /// <returns></returns>
-        public static string selectSameArtistTrackList()
+        public static string selectSameArtistTrackList(int limit)
         {
             return SQLResource.SQL045
                 .Replace("#RATING#", getRatingWhereString(LinearGlobal.PlaylistMode))
-                .Replace("#LIMIT#", "6");
+                .Replace("#LIMIT#", limit.ToString());
         }
 
         /// <summary>
