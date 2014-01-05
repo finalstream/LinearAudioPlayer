@@ -115,6 +115,12 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.alphabetAscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.picArtwork = new System.Windows.Forms.PictureBox();
             this.txtAlbumDescription = new System.Windows.Forms.TextBox();
+            this.albumDescriptionContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.adAllselectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adCopyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adPasteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.adAmazonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ltArtist = new System.Windows.Forms.Label();
             this.labelArtist = new System.Windows.Forms.Label();
             this.ltTitle = new System.Windows.Forms.Label();
@@ -144,12 +150,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.playtimeShortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playtimeLongToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playtimeHalfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.albumDescriptionContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.adAllselectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adCopyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.adPasteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.adAmazonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playlistContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeSwitch)).BeginInit();
@@ -166,10 +166,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.filteringBoxContextMenuStrip.SuspendLayout();
             this.groupGridContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picArtwork)).BeginInit();
+            this.albumDescriptionContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLinkLibrary)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMedley)).BeginInit();
             this.medleyContextMenuStrip.SuspendLayout();
-            this.albumDescriptionContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // playlistContextMenuStrip
@@ -807,6 +807,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.picArtwork.TabIndex = 39;
             this.picArtwork.TabStop = false;
             this.picArtwork.Visible = false;
+            this.picArtwork.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picArtwork_MouseDown);
             // 
             // txtAlbumDescription
             // 
@@ -824,6 +825,50 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.txtAlbumDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAlbumDescription_KeyDown);
             this.txtAlbumDescription.Leave += new System.EventHandler(this.txtAlbumDescription_Leave);
             this.txtAlbumDescription.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.txtAlbumDescription_MouseWheel);
+            // 
+            // albumDescriptionContextMenuStrip
+            // 
+            this.albumDescriptionContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.adAllselectToolStripMenuItem,
+            this.adCopyToolStripMenuItem1,
+            this.adPasteToolStripMenuItem1,
+            this.toolStripSeparator8,
+            this.adAmazonToolStripMenuItem});
+            this.albumDescriptionContextMenuStrip.Name = "albumDescriptionContextMenuStrip";
+            this.albumDescriptionContextMenuStrip.Size = new System.Drawing.Size(148, 98);
+            // 
+            // adAllselectToolStripMenuItem
+            // 
+            this.adAllselectToolStripMenuItem.Name = "adAllselectToolStripMenuItem";
+            this.adAllselectToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.adAllselectToolStripMenuItem.Text = "すべて選択";
+            this.adAllselectToolStripMenuItem.Click += new System.EventHandler(this.adAllselectToolStripMenuItem_Click);
+            // 
+            // adCopyToolStripMenuItem1
+            // 
+            this.adCopyToolStripMenuItem1.Name = "adCopyToolStripMenuItem1";
+            this.adCopyToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.adCopyToolStripMenuItem1.Text = "コピー";
+            this.adCopyToolStripMenuItem1.Click += new System.EventHandler(this.adCopyToolStripMenuItem1_Click);
+            // 
+            // adPasteToolStripMenuItem1
+            // 
+            this.adPasteToolStripMenuItem1.Name = "adPasteToolStripMenuItem1";
+            this.adPasteToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.adPasteToolStripMenuItem1.Text = "貼り付け";
+            this.adPasteToolStripMenuItem1.Click += new System.EventHandler(this.adPasteToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(144, 6);
+            // 
+            // adAmazonToolStripMenuItem
+            // 
+            this.adAmazonToolStripMenuItem.Name = "adAmazonToolStripMenuItem";
+            this.adAmazonToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.adAmazonToolStripMenuItem.Text = "Amazon検索";
+            this.adAmazonToolStripMenuItem.Click += new System.EventHandler(this.adAmazonToolStripMenuItem_Click);
             // 
             // ltArtist
             // 
@@ -1158,50 +1203,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.playtimeHalfToolStripMenuItem.Text = "ハーフ(50-70%)";
             this.playtimeHalfToolStripMenuItem.Click += new System.EventHandler(this.playtimeHalfToolStripMenuItem_Click);
             // 
-            // albumDescriptionContextMenuStrip
-            // 
-            this.albumDescriptionContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.adAllselectToolStripMenuItem,
-            this.adCopyToolStripMenuItem1,
-            this.adPasteToolStripMenuItem1,
-            this.toolStripSeparator8,
-            this.adAmazonToolStripMenuItem});
-            this.albumDescriptionContextMenuStrip.Name = "albumDescriptionContextMenuStrip";
-            this.albumDescriptionContextMenuStrip.Size = new System.Drawing.Size(153, 120);
-            // 
-            // adAllselectToolStripMenuItem
-            // 
-            this.adAllselectToolStripMenuItem.Name = "adAllselectToolStripMenuItem";
-            this.adAllselectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.adAllselectToolStripMenuItem.Text = "すべて選択";
-            this.adAllselectToolStripMenuItem.Click += new System.EventHandler(this.adAllselectToolStripMenuItem_Click);
-            // 
-            // adCopyToolStripMenuItem1
-            // 
-            this.adCopyToolStripMenuItem1.Name = "adCopyToolStripMenuItem1";
-            this.adCopyToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.adCopyToolStripMenuItem1.Text = "コピー";
-            this.adCopyToolStripMenuItem1.Click += new System.EventHandler(this.adCopyToolStripMenuItem1_Click);
-            // 
-            // adPasteToolStripMenuItem1
-            // 
-            this.adPasteToolStripMenuItem1.Name = "adPasteToolStripMenuItem1";
-            this.adPasteToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.adPasteToolStripMenuItem1.Text = "貼り付け";
-            this.adPasteToolStripMenuItem1.Click += new System.EventHandler(this.adPasteToolStripMenuItem1_Click);
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
-            // 
-            // adAmazonToolStripMenuItem
-            // 
-            this.adAmazonToolStripMenuItem.Name = "adAmazonToolStripMenuItem";
-            this.adAmazonToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.adAmazonToolStripMenuItem.Text = "Amazon検索";
-            this.adAmazonToolStripMenuItem.Click += new System.EventHandler(this.adAmazonToolStripMenuItem_Click);
-            // 
             // ListForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1274,10 +1275,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.filteringBoxContextMenuStrip.ResumeLayout(false);
             this.groupGridContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picArtwork)).EndInit();
+            this.albumDescriptionContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picLinkLibrary)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMedley)).EndInit();
             this.medleyContextMenuStrip.ResumeLayout(false);
-            this.albumDescriptionContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

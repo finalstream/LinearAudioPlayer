@@ -148,6 +148,12 @@
     <Compile Include="src\GUI\option\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\GUI\option\ArtworkViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\GUI\option\ArtworkViewForm.Designer.cs">
+      <DependentUpon>ArtworkViewForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\GUI\option\BalloonForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,6 +267,9 @@
     <EmbeddedResource Include="src\GUI\option\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\GUI\option\ArtworkViewForm.resx">
+      <DependentUpon>ArtworkViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\GUI\option\BalloonForm.resx">
       <DependentUpon>BalloonForm.cs</DependentUpon>

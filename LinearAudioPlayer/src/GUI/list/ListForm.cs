@@ -2851,6 +2851,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             artworkOffset = +1;
             artworkCount = 0;
 
+            picArtwork.Tag = picture;
+
             artworkImage = ImageUtils.GetResizedImage(picture, 150, 150);
 
             bool isEnd = false;
@@ -2956,6 +2958,30 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private void adAmazonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.amazon.co.jp/gp/search/?field-keywords=" + labelAlbum.Tag);
+        }
+
+        private ArtworkViewForm artworkViewForm = null;
+        private Image nowImage = null;
+        private void picArtwork_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && picArtwork.Tag != null)
+            {
+                if (artworkViewForm == null)
+                {
+                    nowImage = (Image) picArtwork.Tag;
+                    artworkViewForm = new ArtworkViewForm(nowImage);
+                    artworkViewForm.Show();
+                }
+                else
+                {
+                    if (!nowImage.Equals((Image) picArtwork.Tag))
+                    {
+                        nowImage = (Image)picArtwork.Tag;
+                        artworkViewForm.setImage((Image) picArtwork.Tag);
+                    }
+                    artworkViewForm.Show();
+                }
+            }
         }
 
     }
