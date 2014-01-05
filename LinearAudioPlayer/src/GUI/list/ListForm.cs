@@ -2917,11 +2917,12 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             if (!LinearGlobal.CurrentPlayItemInfo.AlbumDescription.Equals(getAlbumDescription()))
             {
+                LinearGlobal.CurrentPlayItemInfo.AlbumDescription = getAlbumDescription();
 
                 List<DbParameter> paramList = new List<DbParameter>();
                 paramList.Add(new SQLiteParameter("Artist", LinearGlobal.CurrentPlayItemInfo.Artist));
                 paramList.Add(new SQLiteParameter("Album", LinearGlobal.CurrentPlayItemInfo.Album));
-                paramList.Add(new SQLiteParameter("Description", txtAlbumDescription.Text));
+                paramList.Add(new SQLiteParameter("Description", getAlbumDescription()));
 
                 SQLiteManager.Instance.executeNonQuery(SQLResource.SQL053, paramList);
 
