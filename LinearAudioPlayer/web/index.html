@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linear Audio Player Remote Controller</title>
+    <link rel="icon" href="img/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+      
+      var linearWebServiceName = "LinearWebService";
+      var pollingTimer;
+      var pollingIntervalMs = 1000;
+      
+      $(document).ready(function(){
+        // ready
+
+        $("#error-message").hide();
+        
+        // init request
+        polling();
+        
+        // polling
+        function polling() {
+          requestAction({ action:"getplayinfo"});
+          clearTimeout(pollingTimer);
+          pollingTimer = setTimeout(function(){ 
+            polling();
+          }, pollingIntervalMs);
+        }
+        
+        // ajax request
+        function requestAction(reqParam) {
+          $("#error-message").hide();
+          //console.log("requestAction: " + action);
+          $.ajax({
+            url: linearWebServiceName,
+            data: reqParam,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+              //console.log("success! requestAction");
+              //console.log(res);
+              
+              switch(res.action) {
+                
+                case "getplayinfo":
+                  $("#title").text(res.playInfo.Title);
+                  $("#artist").text(res.playInfo.Artist);
+                  $("#album").text(res.playInfo.Album);
+                  $('.progress-bar').css("width",res.seekRatio + "%");
+                  break;
+                
+              }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrow){
+              $("#error-message").fadeIn("slow");
+              clearTimeout(pollingTimer);
+            }
+          });
+          
+        }
+        
+        // bind
+        $( ".navbar-brand" ).on( "click", function( event ) {
+          polling();
+        });
+        
+        $( "#button-group #play" ).on( "click", function( event ) {
+          requestAction({action: "play"});
+        });
+        
+        $( "#button-group #pause" ).on( "click", function( event ) {
+          requestAction({action: "pause"});
+        });
+        
+        $( "#button-group #stop" ).on( "click", function( event ) {
+          requestAction({action: "stop"});
+        });
+        
+        $( "#button-group #previous" ).on( "click", function( event ) {
+          requestAction({action: "previous"});
+        });
+        
+        $( "#button-group #forward" ).on( "click", function( event ) {
+          requestAction({action: "forward"});
+        });
+        
+        $( "#button-group #voldown" ).on( "click", function( event ) {
+          requestAction({action: "voldown"});
+        });
+        
+        $( "#button-group #volup" ).on( "click", function( event ) {
+          requestAction({action: "volup"});
+        });
+        
+        $( ".progress" ).on( "mousedown", function( event ) {
+          var progressWidth = $(".progress").width();
+          var progressClickX = event.pageX - $(".progress").offset().left;
+          var seekVal = progressClickX / progressWidth;
+          //console.log(seekVal);
+          requestAction({action: "seek", seekPosition: seekVal});
+        });
+        
+      });
+    </script>
+  </head>
+  <body>
+  
+    <!-- navi -->
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Linear Remote Controller β</a>
+      </div>
+    </nav>
+    
+    <!-- error message -->
+    <div class="container">
+      <div id="error-message" class="alert alert-danger alert-dismissable">
+        <strong>Error!</strong> Linear Audio Player is not running.
+      </div>
+    </div>
+    
+    <!-- playing info -->
+    <div class="container">
+      <h2 id="title"></h2>
+      <h4 id="artist"></h4>
+      <h4 id="album"></h4>
+      <!--
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      -->
+    </div>
+    <br/>
+    
+    <!-- seekbar -->
+    <div class="container">
+      <div class="progress">
+        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+          <!--<span class="sr-only">60% Complete</span>-->
+        </div>
+      </div>
+    </div>
+    <!-- controll button -->
+    <div class="container">
+      <div id="button-group" class="btn-group btn-group-lg">
+        <button id="play" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-play"></span> Play
+        </button>
+        <button id="pause" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-pause"></span> Pause
+        </button>
+        <button id="stop" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-stop"></span> Stop
+        </button>
+        <button id="previous" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-backward"></span> Previous
+        </button>
+        <button id="forward" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-forward"></span> Forward
+        </button>
+        <button id="voldown" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-volume-down"></span> -
+        </button>
+        <button id="volup" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-volume-up"></span> +
+        </button>
+      </div>
+    </div>
+    <br/>
+  </body>
+</html>

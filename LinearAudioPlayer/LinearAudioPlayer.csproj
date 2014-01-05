@@ -337,6 +337,9 @@
     <Compile Include="src\Setting\LinearConfig.cs" />
     <Compile Include="src\Setting\SettingManager.cs" />
     <Compile Include="src\Utils\UpdateUtils.cs" />
+    <None Include="web\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="web\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="web\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="color\Gred.xml">
@@ -700,6 +703,16 @@
     <Content Include="style\Lyrids\volume_switch.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="web\css\bootstrap-theme.css" />
+    <Content Include="web\css\bootstrap-theme.min.css" />
+    <Content Include="web\css\bootstrap.css" />
+    <Content Include="web\css\bootstrap.min.css" />
+    <Content Include="web\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="web\img\favicon.ico" />
+    <Content Include="web\index.html" />
+    <Content Include="web\js\bootstrap.js" />
+    <Content Include="web\js\bootstrap.min.js" />
+    <Content Include="web\js\jquery-1.10.2.min.js" />
     <None Include="Resources\linearlogo.png" />
     <None Include="Resources\mediakun.png" />
     <Content Include="Resources\lap.ico" />
