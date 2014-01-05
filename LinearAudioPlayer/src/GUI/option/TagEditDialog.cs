@@ -1056,7 +1056,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
         private void clearArtworkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (gi.PictureUrl == null)
+            if (String.IsNullOrEmpty(gi.PictureUrl))
             {
                 lblArtworkType.Text = "FILE";
                 picArtwork.Image = gi.Picture;

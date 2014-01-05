@@ -171,5 +171,11 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
             }
             set { _lastplaydate = value; }
         }
+
+        public GridItemInfo()
+        {
+            PictureUrl = "";
+        }
     }
+
 }

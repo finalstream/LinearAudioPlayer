@@ -1475,16 +1475,17 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 try
                 {
                     gi.PictureUrl = new WebManager().getAlbumArtworkUrlFromGoogleImage(gi.Artist, gi.Album, gi.Title);
-                    HttpWebRequest wr = (HttpWebRequest) WebRequest.Create(gi.PictureUrl);
-                    wr.Timeout = 5000;
-                    wr.Proxy = null;
-                    webResponse = (HttpWebResponse) wr.GetResponse();
-                    byte[] imageByteData = ReadBytes(webResponse.GetResponseStream());
-                    ImageConverter ic = new ImageConverter();
-                    gi.Picture = (Image) ic.ConvertFrom(imageByteData);
-                    gi.IsNoPicture = false;
+                    if (!String.IsNullOrEmpty(gi.PictureUrl))
+                    {
+                        HttpWebRequest wr = (HttpWebRequest) WebRequest.Create(gi.PictureUrl);
+                        wr.Timeout = 5000;
+                        wr.Proxy = null;
+                        webResponse = (HttpWebResponse) wr.GetResponse();
+                        gi.Picture = Image.FromStream(webResponse.GetResponseStream());
+                        gi.IsNoPicture = false;
+                    }
                 }
-                catch (WebException wex)
+                catch (Exception wex)
                 {
                     LinearAudioPlayer.Logger.TraceEvent(System.Diagnostics.TraceEventType.Warning,
                                                         0, wex.ToString() + " " + gi.PictureUrl);
@@ -1492,7 +1493,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 }
                 finally
                 {
-                    webResponse.Close();
+                    if (webResponse != null)
+                    {
+                        webResponse.Close();
+                    }
                 }
 
                 if (gi.Picture == null)
