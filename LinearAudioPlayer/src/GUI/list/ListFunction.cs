@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data.Common;
 using System.Text;
 using System.Windows.Forms;
+using FINALSTREAM.Commons.Exceptions;
 using FINALSTREAM.Commons.Grid;
 using FINALSTREAM.Commons.Parser;
 using FINALSTREAM.LinearAudioPlayer.Grid;
@@ -17,6 +18,8 @@ using FINALSTREAM.LinearAudioPlayer.Resources;
 using FINALSTREAM.Commons.Forms;
 using FINALSTREAM.Commons.Archive;
 using SourceGrid;
+using TagLib.Mpeg;
+using File = System.IO.File;
 
 namespace FINALSTREAM.LinearAudioPlayer.GUI
 {
@@ -186,6 +189,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             RegistMode registMode = (RegistMode) args[1];
             int registAllCount = getFileCount(sortFilelist);
             List<string> trashDirList = new List<string>();
+            bool warnMessageShownFlg = false;
 
             int i = 0;
             if (bw != null)
@@ -238,8 +242,15 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                             if (registMode == RegistMode.AUTOREGIST && audioFileList.Count > 0)
                             {
                                 // TODO:フォルダ移動
-                                TagLib.File workfileinfo = TagLib.File.Create(audioFileList[0]);
-
+                                TagLib.File workfileinfo = null;
+                                try
+                                {
+                                    workfileinfo = TagLib.File.Create(audioFileList[0]);
+                                }
+                                catch (Exception)
+                                {
+                                    // なぜかNulReference Exceptionになる場合があるので握りつぶす
+                                }
                                 string stockDirectoryPath = moveAutoRegistFile(workfileinfo, filePath);
 
                                 // audioFileListを書き換え
@@ -326,7 +337,18 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                     string bk_proption = "";
                     foreach (string audioFile in audioFileList)
                     {
-
+                        if (audioFile.Length >= 245)
+                        {
+                            // パスが245を超えているとスキップする。
+                            LinearAudioPlayer.writeErrorMessage(new FinalstreamException(
+                                "ファイルパスが長すぎるので登録できませんでした : " + audioFile));
+                            if (!warnMessageShownFlg)
+                            {
+                                MessageUtils.showMessage("ファイルパスが長すぎるので登録できなかったファイルがあります。エラーログをご確認ください。");
+                                warnMessageShownFlg = true;
+                            }
+                            continue;
+                        }
 
                         if (RegistMode.NORMAL.Equals(registMode) ||
                            (!RegistMode.NORMAL.Equals(registMode)
@@ -542,34 +564,44 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private string moveAutoRegistFile(TagLib.File workfileinfo, string path)
         {
             string stockDirectory = "";
-            string genre = "";
-            string genretag = workfileinfo.Tag.FirstGenre;
-            if (!String.IsNullOrEmpty(genretag))
+            string genre = "unknown";
+            string year = "0";
+            string artist = null;
+            string album = null;
+
+            if (workfileinfo != null)
             {
-                genre = workfileinfo.Tag.FirstGenre.ToLower().Trim();
+                string genretag = workfileinfo.Tag.FirstGenre;
+                if (!String.IsNullOrEmpty(genretag))
+                {
+                    genre = workfileinfo.Tag.FirstGenre.ToLower().Trim();
+                }
+                if (String.IsNullOrEmpty(genre))
+                {
+                    genre = "unknown";
+                }
+                year = workfileinfo.Tag.Year.ToString().Trim();
             }
-            if (String.IsNullOrEmpty(genre))
-            {
-                genre = "unknown";
-            }
-            string year = workfileinfo.Tag.Year.ToString().Trim();
-            
 
             if (Directory.Exists(path))
             {
-                if (String.IsNullOrEmpty(year) || "0".Equals(year))
+                    if (String.IsNullOrEmpty(year) || "0".Equals(year))
+                    {
+                        year = DirectoryUtils.getCreationDateTime(path).Substring(0, 4);
+                    }
+
+                if (workfileinfo != null)
                 {
-                    year = DirectoryUtils.getCreationDateTime(path).Substring(0, 4);
+                    artist = workfileinfo.Tag.FirstPerformer;
+                    album = workfileinfo.Tag.Album;
                 }
 
-                string artist = workfileinfo.Tag.FirstPerformer;
-                string album = workfileinfo.Tag.Album;
-                
                 string dirName;
-                if (artist == null && album == null)
+                if (artist == null && album == null && workfileinfo != null)
                 {
                     dirName = workfileinfo.Name;
-                } else
+                }
+                else
                 {
                     if (artist == null)
                     {
@@ -586,11 +618,20 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                stockDirectory = Path.Combine(
                     Path.Combine(
                         Path.Combine(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.StorageDirectory, genre), year),
-                            dirName);
+                            StringUtils.replaceDisableFilenameChar(dirName));
+
+               if (stockDirectory.Length >  180)
+                {
+                    stockDirectory = Path.Combine(
+                    Path.Combine(
+                        Path.Combine(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.StorageDirectory, genre), year),
+                            StringUtils.replaceDisableFilenameChar(album));
+                }
+
                 Directory.CreateDirectory(stockDirectory);
 
                 FileUtils.allcopy(path, stockDirectory);
-                DirectoryUtils.moveRecycleBin(path);
+                //DirectoryUtils.moveRecycleBin(path);
             }
             else
             {
@@ -605,7 +646,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 Directory.CreateDirectory(stockDirectory);
                 stockDirectory = Path.Combine(stockDirectory, Path.GetFileName(path));
                 FileUtils.copy(path, stockDirectory, true);
-                FileUtils.moveRecycleBin(path);
+                //FileUtils.moveRecycleBin(path);
             }
 
             return stockDirectory;
@@ -709,8 +750,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 {
                     artistName = "Various Artists";
                 }
-                string fileName = LinearGlobal.LinearConfig.PlayerConfig.albumAutoRenameTemplete.Replace("%R",
-                                                                                                         artistName).Replace("%A", fileinfo1.Tag.Album).Replace("%Y", year).Trim();
+                string fileName = StringUtils.replaceDisableFilenameChar(LinearGlobal.LinearConfig.PlayerConfig.albumAutoRenameTemplete.Replace("%R",
+                                                                                                         artistName).Replace("%A", fileinfo1.Tag.Album).Replace("%Y", year).Trim());
                 newfilepath =
                 Path.Combine(Path.GetDirectoryName(filePath)
                 , fileName + System.IO.Path.GetExtension(filePath));
