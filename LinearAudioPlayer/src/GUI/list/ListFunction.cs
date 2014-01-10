@@ -344,7 +344,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                                 "ファイルパスが長すぎるので登録できませんでした : " + audioFile));
                             if (!warnMessageShownFlg)
                             {
-                                MessageUtils.showMessage("ファイルパスが長すぎるので登録できなかったファイルがあります。エラーログをご確認ください。");
+                                MessageUtils.showMessage(MessageBoxIcon.Warning,  "ファイルパスが長すぎるので登録できなかったファイルがあります。エラーログをご確認ください。");
                                 warnMessageShownFlg = true;
                             }
                             continue;
