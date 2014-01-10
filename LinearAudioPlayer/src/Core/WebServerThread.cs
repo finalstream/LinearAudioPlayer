@@ -89,6 +89,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 else
                 {
                     // RESTサービス
+                    // TODO:変なもの受け取ったら落ちる
 
                     WebServiceResponseInfo response = new WebServiceResponseInfo();
                     var dict = req.QueryString;
@@ -186,7 +187,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             {
                                 double value = ((double)LinearAudioPlayer.PlayController.getLength()) * reqParam.SeekPosition;
                                 LinearAudioPlayer.PlayController.setPosition((uint)value);
-                                LinearGlobal.MainForm.ListForm.setProgressBarValue((int)value);
                             };
                             LinearGlobal.MainForm.ListForm.BeginInvoke(seekAction);
                             break;
