@@ -200,7 +200,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
                     Path.GetFileNameWithoutExtension(dbfile));
             }
             comboTargetDatabase.SelectedIndex =
-                comboTargetDatabase.FindString(linearConfig.PlayerConfig.AudioFileAutoRegistInfo.TargetDatabase);
+                comboTargetDatabase.FindStringExact(linearConfig.PlayerConfig.AudioFileAutoRegistInfo.TargetDatabase);
 
             this.checkAutoRegist.Checked = linearConfig.PlayerConfig.AudioFileAutoRegistInfo.IsEnable;
             
