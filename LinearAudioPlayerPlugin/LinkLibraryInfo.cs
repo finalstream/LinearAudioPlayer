@@ -15,6 +15,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Plugin
 
         public List<string> SimilarArtists { get; set; }
 
+        public string Url { get; set; }
+
         /// <summary>
         /// 画面に表示するタイトル
         /// </summary>

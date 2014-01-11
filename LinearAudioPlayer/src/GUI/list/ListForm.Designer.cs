@@ -934,6 +934,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.ltLastfm.TabIndex = 47;
             this.ltLastfm.Text = "   ";
             this.ltLastfm.Visible = false;
+            this.ltLastfm.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ltLastfm_MouseDown);
             // 
             // labelLastfm
             // 

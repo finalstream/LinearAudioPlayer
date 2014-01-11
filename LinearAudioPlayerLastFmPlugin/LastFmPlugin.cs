@@ -31,7 +31,7 @@ namespace Finalstream.LinearAudioPlayer.Plugin.Lastfm
 
         public string Version
         {
-            get { return "ver.1.10"; }
+            get { return "ver.1.20"; }
         }
 
         public string Description
@@ -92,6 +92,7 @@ namespace Finalstream.LinearAudioPlayer.Plugin.Lastfm
                 {
                     lastFmInfo.Listener = trackInfo.listeners;
                     lastFmInfo.AllPlaycount = trackInfo.playcount;
+                    lastFmInfo.Url = trackInfo.url;
                 }
 
                 trackInfo = _scrobbler.GetLibraryTrack(CurrentTrack, true);

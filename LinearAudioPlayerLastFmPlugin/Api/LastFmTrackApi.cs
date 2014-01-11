@@ -244,7 +244,7 @@ namespace Finalstream.LinearAudioPlayer.Plugin.Lastfm
         public string name { get; set; }
         public int listeners { get; set; }
         public int playcount { get; set; }
-
+        public string url { get; set; }
     }
 
     internal class UpdateNowPlayingResponse : ErrorResponse

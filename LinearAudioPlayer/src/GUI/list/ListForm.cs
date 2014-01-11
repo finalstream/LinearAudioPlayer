@@ -2646,6 +2646,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             // last.fm
             ltLastfm.Text = linkLibraryInfo.Title;
+            ltLastfm.Tag = linkLibraryInfo.Url;
             labelLastfm.Text = linkLibraryInfo.Description;
 
 
@@ -2983,6 +2984,17 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                         artworkViewForm.setImage((Image) picArtwork.Tag);
                     }
                     artworkViewForm.Show();
+                }
+            }
+        }
+
+        private void ltLastfm_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (ltLastfm.Tag != null && !String.IsNullOrEmpty(ltLastfm.Tag.ToString()))
+                {
+                    System.Diagnostics.Process.Start(ltLastfm.Tag.ToString());
                 }
             }
         }

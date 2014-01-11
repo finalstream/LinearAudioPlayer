@@ -620,7 +620,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                         Path.Combine(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.StorageDirectory, genre), year),
                             StringUtils.replaceDisableFilenameChar(dirName));
 
-               if (stockDirectory.Length >  180)
+               if (stockDirectory.Length >  170)
                 {
                     stockDirectory = Path.Combine(
                     Path.Combine(
