@@ -128,13 +128,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.ltAlbum = new System.Windows.Forms.Label();
             this.ltLastfm = new System.Windows.Forms.Label();
             this.labelLastfm = new System.Windows.Forms.Label();
-            this.gridLink = new FINALSTREAM.Commons.Grid.SourceGridEx();
-            this.gridGroup = new FINALSTREAM.Commons.Grid.SourceGridEx();
-            this.gridFiltering = new FINALSTREAM.Commons.Grid.SourceGridEx();
-            this.progressSeekBar = new FINALSTREAM.Commons.Controls.VistaProgressBar();
-            this.grid = new FINALSTREAM.Commons.Grid.SourceGridEx();
-            this.databaseList = new FINALSTREAM.Commons.Controls.ComboBoxEx();
-            this.filteringBox = new FINALSTREAM.Commons.Controls.TextBoxEx();
             this.labelTitle = new System.Windows.Forms.Label();
             this.picLinkLibrary = new System.Windows.Forms.PictureBox();
             this.picMedley = new System.Windows.Forms.PictureBox();
@@ -150,6 +143,14 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.playtimeShortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playtimeLongToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playtimeHalfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridLink = new FINALSTREAM.Commons.Grid.SourceGridEx();
+            this.gridGroup = new FINALSTREAM.Commons.Grid.SourceGridEx();
+            this.gridFiltering = new FINALSTREAM.Commons.Grid.SourceGridEx();
+            this.progressSeekBar = new FINALSTREAM.Commons.Controls.VistaProgressBar();
+            this.grid = new FINALSTREAM.Commons.Grid.SourceGridEx();
+            this.databaseList = new FINALSTREAM.Commons.Controls.ComboBoxEx();
+            this.filteringBox = new FINALSTREAM.Commons.Controls.TextBoxEx();
+            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playlistContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeSwitch)).BeginInit();
@@ -175,6 +176,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             // playlistContextMenuStrip
             // 
             this.playlistContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.playToolStripMenuItem,
             this.toolStripMenuItem2,
             this.toolStripSeparator4,
             this.addToolStripMenuItem,
@@ -190,7 +192,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.toolStripMenuItem1,
             this.SortToolStripMenuItem});
             this.playlistContextMenuStrip.Name = "contextMenuStrip";
-            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 248);
+            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 292);
             this.playlistContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.playlistContextMenuStrip_Opening);
             // 
             // toolStripMenuItem2
@@ -947,6 +949,130 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.labelLastfm.Text = " ";
             this.labelLastfm.Visible = false;
             // 
+            // labelTitle
+            // 
+            this.labelTitle.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelTitle.Location = new System.Drawing.Point(385, 47);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(13, 20);
+            this.labelTitle.TabIndex = 50;
+            this.labelTitle.Text = " ";
+            this.labelTitle.Visible = false;
+            // 
+            // picLinkLibrary
+            // 
+            this.picLinkLibrary.Location = new System.Drawing.Point(344, 14);
+            this.picLinkLibrary.Name = "picLinkLibrary";
+            this.picLinkLibrary.Size = new System.Drawing.Size(16, 16);
+            this.picLinkLibrary.TabIndex = 51;
+            this.picLinkLibrary.TabStop = false;
+            // 
+            // picMedley
+            // 
+            this.picMedley.Location = new System.Drawing.Point(281, 18);
+            this.picMedley.Name = "picMedley";
+            this.picMedley.Size = new System.Drawing.Size(16, 16);
+            this.picMedley.TabIndex = 52;
+            this.picMedley.TabStop = false;
+            // 
+            // lblMedley
+            // 
+            this.lblMedley.ContextMenuStrip = this.medleyContextMenuStrip;
+            this.lblMedley.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Bold);
+            this.lblMedley.Location = new System.Drawing.Point(293, 18);
+            this.lblMedley.Name = "lblMedley";
+            this.lblMedley.Size = new System.Drawing.Size(59, 15);
+            this.lblMedley.TabIndex = 53;
+            this.lblMedley.Text = "Medley";
+            this.lblMedley.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblMedley_MouseDown);
+            // 
+            // medleyContextMenuStrip
+            // 
+            this.medleyContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem5,
+            this.toolStripMenuItem10});
+            this.medleyContextMenuStrip.Name = "medleyContextMenuStrip";
+            this.medleyContextMenuStrip.Size = new System.Drawing.Size(149, 48);
+            this.medleyContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.medleyContextMenuStrip_Opening);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startPositionDefaultToolStripMenuItem,
+            this.startPositionOpeningToolStripMenuItem,
+            this.startPositionMiddleToolStripMenuItem,
+            this.startPositionEndingToolStripMenuItem});
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(148, 22);
+            this.toolStripMenuItem5.Text = "スタート位置";
+            // 
+            // startPositionDefaultToolStripMenuItem
+            // 
+            this.startPositionDefaultToolStripMenuItem.Name = "startPositionDefaultToolStripMenuItem";
+            this.startPositionDefaultToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.startPositionDefaultToolStripMenuItem.Text = "デフォルト(15-50%)";
+            this.startPositionDefaultToolStripMenuItem.Click += new System.EventHandler(this.startPositionDefaultToolStripMenuItem_Click);
+            // 
+            // startPositionOpeningToolStripMenuItem
+            // 
+            this.startPositionOpeningToolStripMenuItem.Name = "startPositionOpeningToolStripMenuItem";
+            this.startPositionOpeningToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.startPositionOpeningToolStripMenuItem.Text = "序盤(10-30%)";
+            this.startPositionOpeningToolStripMenuItem.Click += new System.EventHandler(this.startPositionOpeningToolStripMenuItem_Click);
+            // 
+            // startPositionMiddleToolStripMenuItem
+            // 
+            this.startPositionMiddleToolStripMenuItem.Name = "startPositionMiddleToolStripMenuItem";
+            this.startPositionMiddleToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.startPositionMiddleToolStripMenuItem.Text = "中盤(40-60%)";
+            this.startPositionMiddleToolStripMenuItem.Click += new System.EventHandler(this.startPositionMiddleToolStripMenuItem_Click);
+            // 
+            // startPositionEndingToolStripMenuItem
+            // 
+            this.startPositionEndingToolStripMenuItem.Name = "startPositionEndingToolStripMenuItem";
+            this.startPositionEndingToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.startPositionEndingToolStripMenuItem.Text = "終盤(60-80%)";
+            this.startPositionEndingToolStripMenuItem.Click += new System.EventHandler(this.startPositionEndingToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem10
+            // 
+            this.toolStripMenuItem10.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.playtimeDefaultToolStripMenuItem,
+            this.playtimeShortToolStripMenuItem,
+            this.playtimeLongToolStripMenuItem,
+            this.playtimeHalfToolStripMenuItem});
+            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(148, 22);
+            this.toolStripMenuItem10.Text = "再生時間";
+            // 
+            // playtimeDefaultToolStripMenuItem
+            // 
+            this.playtimeDefaultToolStripMenuItem.Name = "playtimeDefaultToolStripMenuItem";
+            this.playtimeDefaultToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.playtimeDefaultToolStripMenuItem.Text = "デフォルト(15-30%)";
+            this.playtimeDefaultToolStripMenuItem.Click += new System.EventHandler(this.playtimeDefaultToolStripMenuItem_Click);
+            // 
+            // playtimeShortToolStripMenuItem
+            // 
+            this.playtimeShortToolStripMenuItem.Name = "playtimeShortToolStripMenuItem";
+            this.playtimeShortToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.playtimeShortToolStripMenuItem.Text = "ショート(5-10%)";
+            this.playtimeShortToolStripMenuItem.Click += new System.EventHandler(this.playtimeShortToolStripMenuItem_Click);
+            // 
+            // playtimeLongToolStripMenuItem
+            // 
+            this.playtimeLongToolStripMenuItem.Name = "playtimeLongToolStripMenuItem";
+            this.playtimeLongToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.playtimeLongToolStripMenuItem.Text = "ロング(30-50%)";
+            this.playtimeLongToolStripMenuItem.Click += new System.EventHandler(this.playtimeLongToolStripMenuItem_Click);
+            // 
+            // playtimeHalfToolStripMenuItem
+            // 
+            this.playtimeHalfToolStripMenuItem.Name = "playtimeHalfToolStripMenuItem";
+            this.playtimeHalfToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.playtimeHalfToolStripMenuItem.Text = "ハーフ(50-70%)";
+            this.playtimeHalfToolStripMenuItem.Click += new System.EventHandler(this.playtimeHalfToolStripMenuItem_Click);
+            // 
             // gridLink
             // 
             this.gridLink.AllowDrop = true;
@@ -1080,129 +1206,12 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.filteringBox.TextChanged += new System.EventHandler(this.filteringBox_TextChanged);
             this.filteringBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.filteringBox_MouseDoubleClick);
             // 
-            // labelTitle
+            // playToolStripMenuItem
             // 
-            this.labelTitle.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelTitle.Location = new System.Drawing.Point(385, 47);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(13, 20);
-            this.labelTitle.TabIndex = 50;
-            this.labelTitle.Text = " ";
-            this.labelTitle.Visible = false;
-            // 
-            // picLinkLibrary
-            // 
-            this.picLinkLibrary.Location = new System.Drawing.Point(344, 14);
-            this.picLinkLibrary.Name = "picLinkLibrary";
-            this.picLinkLibrary.Size = new System.Drawing.Size(16, 16);
-            this.picLinkLibrary.TabIndex = 51;
-            this.picLinkLibrary.TabStop = false;
-            // 
-            // picMedley
-            // 
-            this.picMedley.Location = new System.Drawing.Point(281, 18);
-            this.picMedley.Name = "picMedley";
-            this.picMedley.Size = new System.Drawing.Size(16, 16);
-            this.picMedley.TabIndex = 52;
-            this.picMedley.TabStop = false;
-            // 
-            // lblMedley
-            // 
-            this.lblMedley.ContextMenuStrip = this.medleyContextMenuStrip;
-            this.lblMedley.Font = new System.Drawing.Font("Tahoma", 8.5F, System.Drawing.FontStyle.Bold);
-            this.lblMedley.Location = new System.Drawing.Point(293, 18);
-            this.lblMedley.Name = "lblMedley";
-            this.lblMedley.Size = new System.Drawing.Size(59, 15);
-            this.lblMedley.TabIndex = 53;
-            this.lblMedley.Text = "Medley";
-            this.lblMedley.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblMedley_MouseDown);
-            // 
-            // medleyContextMenuStrip
-            // 
-            this.medleyContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem5,
-            this.toolStripMenuItem10});
-            this.medleyContextMenuStrip.Name = "medleyContextMenuStrip";
-            this.medleyContextMenuStrip.Size = new System.Drawing.Size(149, 48);
-            this.medleyContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.medleyContextMenuStrip_Opening);
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startPositionDefaultToolStripMenuItem,
-            this.startPositionOpeningToolStripMenuItem,
-            this.startPositionMiddleToolStripMenuItem,
-            this.startPositionEndingToolStripMenuItem});
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(148, 22);
-            this.toolStripMenuItem5.Text = "スタート位置";
-            // 
-            // startPositionDefaultToolStripMenuItem
-            // 
-            this.startPositionDefaultToolStripMenuItem.Name = "startPositionDefaultToolStripMenuItem";
-            this.startPositionDefaultToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.startPositionDefaultToolStripMenuItem.Text = "デフォルト(15-50%)";
-            this.startPositionDefaultToolStripMenuItem.Click += new System.EventHandler(this.startPositionDefaultToolStripMenuItem_Click);
-            // 
-            // startPositionOpeningToolStripMenuItem
-            // 
-            this.startPositionOpeningToolStripMenuItem.Name = "startPositionOpeningToolStripMenuItem";
-            this.startPositionOpeningToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.startPositionOpeningToolStripMenuItem.Text = "序盤(10-30%)";
-            this.startPositionOpeningToolStripMenuItem.Click += new System.EventHandler(this.startPositionOpeningToolStripMenuItem_Click);
-            // 
-            // startPositionMiddleToolStripMenuItem
-            // 
-            this.startPositionMiddleToolStripMenuItem.Name = "startPositionMiddleToolStripMenuItem";
-            this.startPositionMiddleToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.startPositionMiddleToolStripMenuItem.Text = "中盤(40-60%)";
-            this.startPositionMiddleToolStripMenuItem.Click += new System.EventHandler(this.startPositionMiddleToolStripMenuItem_Click);
-            // 
-            // startPositionEndingToolStripMenuItem
-            // 
-            this.startPositionEndingToolStripMenuItem.Name = "startPositionEndingToolStripMenuItem";
-            this.startPositionEndingToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.startPositionEndingToolStripMenuItem.Text = "終盤(60-80%)";
-            this.startPositionEndingToolStripMenuItem.Click += new System.EventHandler(this.startPositionEndingToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem10
-            // 
-            this.toolStripMenuItem10.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.playtimeDefaultToolStripMenuItem,
-            this.playtimeShortToolStripMenuItem,
-            this.playtimeLongToolStripMenuItem,
-            this.playtimeHalfToolStripMenuItem});
-            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(148, 22);
-            this.toolStripMenuItem10.Text = "再生時間";
-            // 
-            // playtimeDefaultToolStripMenuItem
-            // 
-            this.playtimeDefaultToolStripMenuItem.Name = "playtimeDefaultToolStripMenuItem";
-            this.playtimeDefaultToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.playtimeDefaultToolStripMenuItem.Text = "デフォルト(15-30%)";
-            this.playtimeDefaultToolStripMenuItem.Click += new System.EventHandler(this.playtimeDefaultToolStripMenuItem_Click);
-            // 
-            // playtimeShortToolStripMenuItem
-            // 
-            this.playtimeShortToolStripMenuItem.Name = "playtimeShortToolStripMenuItem";
-            this.playtimeShortToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.playtimeShortToolStripMenuItem.Text = "ショート(5-10%)";
-            this.playtimeShortToolStripMenuItem.Click += new System.EventHandler(this.playtimeShortToolStripMenuItem_Click);
-            // 
-            // playtimeLongToolStripMenuItem
-            // 
-            this.playtimeLongToolStripMenuItem.Name = "playtimeLongToolStripMenuItem";
-            this.playtimeLongToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.playtimeLongToolStripMenuItem.Text = "ロング(30-50%)";
-            this.playtimeLongToolStripMenuItem.Click += new System.EventHandler(this.playtimeLongToolStripMenuItem_Click);
-            // 
-            // playtimeHalfToolStripMenuItem
-            // 
-            this.playtimeHalfToolStripMenuItem.Name = "playtimeHalfToolStripMenuItem";
-            this.playtimeHalfToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.playtimeHalfToolStripMenuItem.Text = "ハーフ(50-70%)";
-            this.playtimeHalfToolStripMenuItem.Click += new System.EventHandler(this.playtimeHalfToolStripMenuItem_Click);
+            this.playToolStripMenuItem.Name = "playToolStripMenuItem";
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.playToolStripMenuItem.Text = "いますぐ再生する";
+            this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
             // 
             // ListForm
             // 
@@ -1401,6 +1410,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private ToolStripMenuItem adPasteToolStripMenuItem1;
         private ToolStripSeparator toolStripSeparator8;
         private ToolStripMenuItem adAmazonToolStripMenuItem;
+        private ToolStripMenuItem playToolStripMenuItem;
 
     }
 }

@@ -1937,5 +1937,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         {
             return playingListController.getNowPlayingList(listcount);
         }
+
+        public void skipPlayingList(long id)
+        {
+            playingListController.skipPlayingList(id);
+        }
     }
 }

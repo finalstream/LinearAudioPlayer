@@ -2993,6 +2993,18 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             }
         }
 
+        private void playToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int rowNo = LinearAudioPlayer.GridController.getActiveRowNo();
+
+            if (rowNo != -1)
+            {
+                LinearAudioPlayer.PlayController.play(
+                    (long)LinearAudioPlayer.GridController.Grid[rowNo, (int)GridController.EnuGrid.ID].Value, false, true);
+            }
+
+        }
+
     }
 
     

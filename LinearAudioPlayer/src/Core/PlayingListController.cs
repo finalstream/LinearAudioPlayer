@@ -275,5 +275,32 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             }
             
         }
+
+        public void skipPlayingList(long id)
+        {
+            bool isHit = false;
+            List<GridItemInfo> removeList = new List<GridItemInfo>();
+
+            foreach (var gi in playingList)
+            {
+                if (gi.Id == id)
+                {
+                    isHit = true;
+                    break;
+                }
+                else
+                {
+                    removeList.Add(gi);
+                }
+            }
+
+            if (isHit)
+            {
+                foreach (var gi in removeList.ToArray())
+                {
+                    playingList.Remove(gi);
+                }
+            }
+        }
     }
 }

@@ -516,6 +516,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
                             case EnuMode.NOWPLAYING:
                             case EnuMode.SAMEARTIST:
                             AnyGridItemInfo anyGridItem = (AnyGridItemInfo) grid[sender.Position.Row, 0].Tag;
+                            LinearAudioPlayer.PlayController.skipPlayingList((long)anyGridItem.Value);
                             LinearAudioPlayer.PlayController.play((long) anyGridItem.Value, false, true);
                             break;
 
