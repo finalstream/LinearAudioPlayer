@@ -1,0 +1,34 @@
+﻿[
+  {
+    "Value": "ORDER BY PL.ADDDATETIME DESC, PL.ALBUM, ABS(PL.TRACK), PL.ID #LIMIT#",
+    "DisplayValue": "ALL MUSIC"
+  },
+  {
+    "Value": "PLAYINGLIST",
+    "DisplayValue": "再生中"
+  },
+  {
+    "Value": "AND LASTPLAYDATE IS NOT NULL ORDER BY LASTPLAYDATE DESC #LIMIT#",
+    "DisplayValue": "再生履歴"
+  },
+  {
+    "Value": "AND PLAYCOUNT > 2 ORDER BY  PLAYCOUNT / ROUND(JULIANDAY(DATETIME('NOW', 'LOCALTIME')) - JULIANDAY(DATETIME(ADDDATE))) DESC #LIMIT#",
+    "DisplayValue": "再生頻度が高いもの"
+  },
+  {
+    "Value": "AND RATING <> 9 AND PLAYCOUNT > 2 ORDER BY  PLAYCOUNT / ROUND(JULIANDAY(DATETIME('NOW', 'LOCALTIME')) - JULIANDAY(DATETIME(ADDDATE))) DESC #LIMIT#",
+    "DisplayValue": "お気に入り候補"
+  },
+  {
+    "Value": "AND LASTPLAYDATE IS NOT NULL AND PLAYCOUNT > 0 ORDER BY LASTPLAYDATE #LIMIT#",
+    "DisplayValue": "最近再生していないもの"
+  },
+  {
+    "Value": "AND LASTPLAYDATE IS NULL ORDER BY ADDDATETIME DESC, PL.ALBUM, ABS(PL.TRACK), PL.ID",
+    "DisplayValue": "未再生"
+  },
+  {
+    "Value": "AND GETFILESIZE(FILEPATH,'') = 0 ORDER BY PL.ID DESC",
+    "DisplayValue": "存在しないもの"
+  }
+]

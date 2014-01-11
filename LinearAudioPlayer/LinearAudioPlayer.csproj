@@ -337,6 +337,7 @@
     <Compile Include="src\Setting\LinearConfig.cs" />
     <Compile Include="src\Setting\SettingManager.cs" />
     <Compile Include="src\Utils\UpdateUtils.cs" />
+    <None Include="sql\default.json" />
     <None Include="web\fonts\glyphicons-halflings-regular.eot" />
     <None Include="web\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="web\fonts\glyphicons-halflings-regular.woff" />
@@ -396,10 +397,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="plugin\Finalstream.LinearAudioPlayer.Plugin.LastFm.dll" />
-    <Content Include="sql\default.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="style\GRed\audio.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
