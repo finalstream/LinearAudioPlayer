@@ -706,7 +706,7 @@
     <Content Include="web\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="web\img\favicon.ico" />
     <Content Include="web\js\bootstrap.min.js" />
-    <Content Include="web\js\jquery-1.10.2.min.js" />
+    <Content Include="web\js\jquery.min.js" />
     <Content Include="web\ui\dark.html" />
     <Content Include="web\ui\light.html" />
     <None Include="Resources\linearlogo.png" />

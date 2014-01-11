@@ -108,8 +108,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
                             }
 
                         };
-                    this.BeginInvoke(updateAction);
-
+                    if (this.IsHandleCreated)
+                    {
+                        this.BeginInvoke(updateAction);
+                    }
                 };
             LinearAudioPlayer.WorkerThread.EnqueueTask(versionCheckTask);
             
