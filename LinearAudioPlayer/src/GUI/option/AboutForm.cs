@@ -36,8 +36,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             System.Diagnostics.FileVersionInfo gapiver = System.Diagnostics.FileVersionInfo.GetVersionInfo("lib\\google\\GAPI.dll");
             System.Diagnostics.FileVersionInfo migemover = System.Diagnostics.FileVersionInfo.GetVersionInfo("lib\\migemo\\migemo.dll");
             System.Diagnostics.FileVersionInfo restsharpver = System.Diagnostics.FileVersionInfo.GetVersionInfo("lib\\rest\\RestSharp.dll");
+            System.Diagnostics.FileVersionInfo jsonver = System.Diagnostics.FileVersionInfo.GetVersionInfo("lib\\json\\Newtonsoft.Json.dll");
 
-            string mes = "\r\nCommon Library:\r\nFinalstream Commons Library ver." + fcver.FileVersion + "\r\nCopyright © 2008-2013 FINALSTREAM.\r\nhttp://www.finalstream.net/";
+            string mes = "\r\nCommon Library:\r\nFinalstream Commons Library ver." + fcver.FileVersion + "\r\nCopyright © 2008-2014 FINALSTREAM.\r\nhttp://www.finalstream.net/";
             mes += "\r\n\r\nPlay Engine:\r\nPowered by FMOD Sound System ver." + fmodver.FileVersion + "\r\nCopyright © Firelight Technologies Pty, Ltd., 1994-2013.\r\nhttp://www.fmod.org/";
             mes += "               \r\n\r\nPowered by BASS Audio Library ver." + bassver.FileVersion + "\r\nCopyright © 1999-2013 Un4seen Developments Ltd.\r\nhttp://www.un4seen.com/";
             mes += "               \r\nPowered by BASS.NET ver." + bassnetver.FileVersion + "\r\nCopyright © 2005-2013 by radio42, Hamburg, Germany\r\nhttp://www.bass.radio42.com/";
@@ -59,6 +60,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             mes += "\r\n\r\nWebService:\r\nPowered by Google\r\nhttp://www.google.com/\r\nPowered by Amazon Japan\r\nhttp://www.amazon.co.jp/\r\nPowered by Yahoo! JAPAN\r\nhttp://www.yahoo.co.jp/";
             mes += "\r\n\r\nIncremental Search Engine by C/Migemo ver." + migemover.FileVersion +"\r\nCopyright © 2003-2007 MURAOKA Taro (KoRoN).\r\nhttp://code.google.com/p/cmigemo/";
             mes += "\r\n\r\nREST API by RestSharp ver." + restsharpver.FileVersion + "\r\nCopyright © RestSharp Project 2009-2012\r\nhttp://restsharp.org/";
+            mes += "\r\n\r\nJSON API by Json.NET ver." + jsonver.FileVersion + "\r\nCopyright © 2007 James Newton-King\r\nhttp://james.newtonking.com/json/";
             mes += "\r\n\r\n\r\nThank you All Developers & Users.";
 
             lblversion.Text = LinearGlobal.ApplicationVersion;

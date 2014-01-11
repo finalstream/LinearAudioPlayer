@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FINALSTREAM")]
 [assembly: AssemblyProduct("LinearAudioPlayerLastFmPlugin")]
-[assembly: AssemblyCopyright("Copyright © FINALSTREAM 2012-2013")]
+[assembly: AssemblyCopyright("Copyright © FINALSTREAM 2012-2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

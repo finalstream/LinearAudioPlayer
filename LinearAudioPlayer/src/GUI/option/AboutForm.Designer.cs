@@ -74,7 +74,7 @@
             this.lblCopyright.Name = "lblCopyright";
             this.lblCopyright.Size = new System.Drawing.Size(317, 12);
             this.lblCopyright.TabIndex = 4;
-            this.lblCopyright.Text = "Copyright © 2003-2013 FINALSTREAM. All Rights Reserved.";
+            this.lblCopyright.Text = "Copyright © 2003-2014 FINALSTREAM. All Rights Reserved.";
             // 
             // lblUrl
             // 
