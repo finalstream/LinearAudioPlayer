@@ -754,6 +754,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="config\" />
     <Folder Include="lib\bass\plugin\" />
     <Folder Include="lib\google\" />
     <Folder Include="lib\sourcegrid\" />

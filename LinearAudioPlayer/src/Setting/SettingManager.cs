@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using FINALSTREAM.LinearAudioPlayer.Info;
 using FINALSTREAM.LinearAudioPlayer.Core;
+using Newtonsoft.Json;
 
 namespace FINALSTREAM.LinearAudioPlayer.Setting
 {
@@ -29,7 +30,15 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
 
             LinearConfig linearConfig = getLinearConfigValue();
 
-            new XmlSerializer().save(linearConfig, typeof(LinearConfig), Application.StartupPath + LinearConst.SETTING_FILE);
+            //new XmlSerializer().save(linearConfig, typeof(LinearConfig), Application.StartupPath + LinearConst.SETTING_FILE);
+
+            File.WriteAllText(
+                Application.StartupPath + LinearConst.NEW_SETTING_FILE,
+                JsonConvert.SerializeObject(linearConfig, Formatting.Indented),
+                Encoding.UTF8);
+
+            // 旧コンフィグファイルがあれば削除
+            File.Delete(Application.StartupPath + LinearConst.SETTING_FILE);
 
             // TODO: カラーテスト
             //ColorConfigXml cc = new ColorConfigXml();
@@ -49,6 +58,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             // アプリケーションの設定を読み込む
             if (File.Exists(Application.StartupPath + LinearConst.SETTING_FILE))
             {
+                // xml(old)
                 object obj = new XmlSerializer().load(typeof(LinearConfig), Application.StartupPath + LinearConst.SETTING_FILE);
                 
                 if (obj != null) {
@@ -58,7 +68,18 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
                 }
 
             }
-            else
+            else if (File.Exists(Application.StartupPath + LinearConst.NEW_SETTING_FILE))
+            {
+                // json(new)
+
+                LinearGlobal.LinearConfig = JsonConvert.DeserializeObject<LinearConfig>(
+                    File.ReadAllText(Application.StartupPath + LinearConst.NEW_SETTING_FILE));
+
+                if (LinearGlobal.LinearConfig == null)
+                {
+                    LinearGlobal.LinearConfig = new LinearConfig();
+                }
+            } else
             {
                 LinearGlobal.LinearConfig = new LinearConfig();
             }

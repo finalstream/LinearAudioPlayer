@@ -14,6 +14,7 @@ namespace FINALSTREAM.LinearAudioPlayer
         public const string TEMP_DIRCTORY_NAME = "lap";
 
         public const string SETTING_FILE = "\\linearconfig.xml";
+        public const string NEW_SETTING_FILE = "\\config\\linearconfig.json";
         public const string COLOR_DIRECTORY_NAME = "\\color\\";
 
         public const string DATEFORMAT_ADDDATE = "yyyyMMddHHmmssffffff";

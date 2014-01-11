@@ -32,6 +32,7 @@ using FINALSTREAM.Commons.Info;
 using FINALSTREAM.LinearAudioPlayer.Database;
 using FINALSTREAM.LinearAudioPlayer.Info;
 using System.Xml;
+using Newtonsoft.Json;
 using SourceGrid;
 
 
@@ -1587,22 +1588,15 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         {
             LinearAudioPlayer.FilteringGridController.clearGrid();
 
-            // xmlからデータ取得
+            // jsonからデータ取得
             IList<string> conditionFileList = FileUtils.getFilePathListWithExtFilter(Application.StartupPath + LinearConst.SQL_DIRECTORY_NAME,
-                                                    SearchOption.TopDirectoryOnly, ".xml");
+                                                    SearchOption.TopDirectoryOnly, ".json");
             foreach (string filepath in conditionFileList)
             {
-                XmlDataDocument xmlDataDoc = new XmlDataDocument();
-                BindingSource bs = new BindingSource();
-                xmlDataDoc.DataSet.ReadXml(filepath);
+                var sqlConds = JsonConvert.DeserializeObject<ConditionGridItemInfo[]>(File.ReadAllText(filepath));
 
-                ConditionGridItemInfo cii = null;
-
-                foreach (DataRow dataRow in xmlDataDoc.DataSet.Tables[0].Rows)
+                foreach (ConditionGridItemInfo cii in sqlConds)
                 {
-                    cii = new ConditionGridItemInfo();
-                    cii.DisplayValue = dataRow[0].ToString();
-                    cii.Value = dataRow[1].ToString();
                     LinearAudioPlayer.FilteringGridController.addItem(cii);
                 }
             }
