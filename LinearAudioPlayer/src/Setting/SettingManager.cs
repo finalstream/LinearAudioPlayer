@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FINALSTREAM.Commons.Controls;
+﻿using System.Text;
 using FINALSTREAM.Commons.Parser;
 using FINALSTREAM.Commons.Utils;
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
-using FINALSTREAM.LinearAudioPlayer.Info;
-using FINALSTREAM.LinearAudioPlayer.Core;
 using Newtonsoft.Json;
 
 namespace FINALSTREAM.LinearAudioPlayer.Setting

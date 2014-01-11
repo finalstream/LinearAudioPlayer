@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Threading;
 using System.Windows.Forms;
 using FINALSTREAM.Commons.Controls;
 using FINALSTREAM.Commons.Database;
-using FINALSTREAM.LinearAudioPlayer.Core;
 using FINALSTREAM.LinearAudioPlayer.Database;
 using FINALSTREAM.LinearAudioPlayer.Grid;
 using FINALSTREAM.Commons.Utils;
 using System.IO;
 using FINALSTREAM.LinearAudioPlayer.GUI.option;
 using FINALSTREAM.LinearAudioPlayer.Info;
-using FINALSTREAM.LinearAudioPlayer.Resources;
 using FINALSTREAM.LinearAudioPlayer.Setting;
-using FINALSTREAM.LinearAudioPlayer.Utils;
 using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace FINALSTREAM.LinearAudioPlayer.GUI
