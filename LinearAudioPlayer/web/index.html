@@ -13,12 +13,12 @@
     <script src="js/bootstrap.min.js"></script>
     <script>
       
-      var linearWebServiceName = "LinearWebService";
-      var pollingTimer;
-      var pollingIntervalMs = 1000;
-      
       $(document).ready(function(){
         // ready
+
+        var pollingTimer;
+        var pollingIntervalMs = 1000; // polling interval millisecond
+        var isChangeTrack = false;  // track change flag
 
         $("#error-message").hide();
         
@@ -35,12 +35,22 @@
         }
         
         // ajax request
-        function requestAction(reqParam) {
+        function requestAction(req) {
+        
           $("#error-message").hide();
+          
+          switch(req.action) {
+                case "previous":
+                case "forward":
+                  break;
+                case "getplayinfo":
+                  break;
+          }
+          
           //console.log("requestAction: " + action);
           $.ajax({
-            url: linearWebServiceName,
-            data: reqParam,
+            url: "LinearWebService",
+            data: req,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(res) {
@@ -48,11 +58,25 @@
               //console.log(res);
               
               switch(res.action) {
-                
+                case "previous":
+                case "forward":
+                  isChangeTrack = true;
+                  break;
                 case "getplayinfo":
-                  $("#title").text(res.playInfo.Title);
-                  $("#artist").text(res.playInfo.Artist);
-                  $("#album").text(res.playInfo.Album);
+                  if (!isChangeTrack) {
+                    // change playinfo
+                    setPlayInfo(res.playInfo);
+                  } else {
+                    // fade change playinfo
+                    $("#playing_info").find("*").animate({opacity:0}, "slow",function(){
+                        setPlayInfo(res.playInfo);
+                        $("#playing_info").find("*").animate(
+                          {opacity:1},
+                          {duration: "slow"});
+                        isChangeTrack = false;
+                    });
+                    
+                  }
                   $('.progress-bar').css("width",res.seekRatio + "%");
                   break;
                 
@@ -64,6 +88,12 @@
             }
           });
           
+        }
+        
+        function setPlayInfo(playInfo) {
+          $("#title").text(playInfo.Title);
+          $("#artist").text(playInfo.Artist);
+          $("#album").text(playInfo.Album);
         }
         
         // bind
@@ -127,14 +157,10 @@
     </div>
     
     <!-- playing info -->
-    <div class="container">
+    <div id="playing_info" class="container">
       <h2 id="title"></h2>
       <h4 id="artist"></h4>
       <h4 id="album"></h4>
-      <!--
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-      -->
     </div>
     <br/>
     
@@ -142,7 +168,6 @@
     <div class="container">
       <div class="progress">
         <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-          <!--<span class="sr-only">60% Complete</span>-->
         </div>
       </div>
     </div>

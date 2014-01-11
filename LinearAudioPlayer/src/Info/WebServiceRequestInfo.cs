@@ -10,11 +10,12 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         /// <summary>
         /// Action Name
         /// </summary>
-        public string Action { get; set; }
+        public string action { get; set; }
 
         /// <summary>
         /// Seek位置(%)
         /// </summary>
-        public double SeekPosition { get; set; }
+        public double seekPosition { get; set; }
+
     }
 }

@@ -98,10 +98,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                 );
                 
                     Debug.WriteLine("req data: " + reqParamJsonString);
-                    WebServiceRequestInfo reqParam = JsonConvert.DeserializeObject<WebServiceRequestInfo>(reqParamJsonString);
+                    WebServiceRequestInfo request = JsonConvert.DeserializeObject<WebServiceRequestInfo>(reqParamJsonString);
 
-                    response.action = reqParam.Action;
-                    switch (reqParam.Action)
+                    response.action = request.action;
+                    switch (request.action)
                     {
                         case "play":
                             Action playAction = () =>
@@ -178,6 +178,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
                         case "getplayinfo":
                             response.playInfo = LinearGlobal.CurrentPlayItemInfo;
+
                             response.seekRatio = (int) (((float)LinearAudioPlayer.PlayController.getPosition() /
                                                         (float)LinearAudioPlayer.PlayController.getLength()) * 100);
                             break;
@@ -185,7 +186,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                         case "seek":
                             Action seekAction = () =>
                             {
-                                double value = ((double)LinearAudioPlayer.PlayController.getLength()) * reqParam.SeekPosition;
+                                double value = ((double)LinearAudioPlayer.PlayController.getLength()) * request.seekPosition;
                                 LinearAudioPlayer.PlayController.setPosition((uint)value);
                             };
                             LinearGlobal.MainForm.ListForm.BeginInvoke(seekAction);
