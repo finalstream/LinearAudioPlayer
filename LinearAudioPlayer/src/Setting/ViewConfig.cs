@@ -37,6 +37,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         public int AlbumJudgeCount { get; set; }
         public bool UseWebInterface { get; set; }
         public int WebInterfaceListenPort { get; set; }
+        public string WebInterfaceTheme { get; set; }
 
 
         /// <summary>
@@ -159,6 +160,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             this.GroupListOrder = (int) LinearEnum.EnumGroupListOrder.COUNT_DESC;
             this.AlbumJudgeCount = 10;
             this.WebInterfaceListenPort = 8888;
+            this.WebInterfaceTheme = "light";
         }
 
     }

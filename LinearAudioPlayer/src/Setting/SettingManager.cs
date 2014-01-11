@@ -210,6 +210,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
                 LinearGlobal.LinearConfig.ViewConfig.StyleEditDialogLocation;
             setting.ViewConfig.UseWebInterface = LinearGlobal.LinearConfig.ViewConfig.UseWebInterface;
             setting.ViewConfig.WebInterfaceListenPort = LinearGlobal.LinearConfig.ViewConfig.WebInterfaceListenPort;
+            setting.ViewConfig.WebInterfaceTheme = LinearGlobal.LinearConfig.ViewConfig.WebInterfaceTheme;
 
             // Gridの幅を取得
             int i = 0;

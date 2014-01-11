@@ -34,6 +34,9 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         {
             GridRowNo = -1;
             Id = -1;
+            Title = "";
+            Artist = "";
+            Album = "";
         }
 
     }

@@ -115,6 +115,21 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             this.numudPIPViewDuration.Value = (decimal) linearConfig.ViewConfig.PIPViewDuration;
             this.numudPlayCountUpRatio.Value = linearConfig.PlayerConfig.PlayCountUpRatio;
 
+            // WEBUI設定
+            this.checkWEBUIEnable.Checked = linearConfig.ViewConfig.UseWebInterface;
+            this.numWEBUIPort.Value = linearConfig.ViewConfig.WebInterfaceListenPort;
+
+            comboWebUITheme.Items.Clear();
+            var filePaths = FileUtils.getFilePathList(
+                Application.StartupPath + LinearConst.WEB_DIRECTORY_NAME + "ui", SearchOption.TopDirectoryOnly);
+            foreach (string path in filePaths)
+            {
+                comboWebUITheme.Items.Add(
+                Path.GetFileNameWithoutExtension(path));
+            }
+            comboWebUITheme.SelectedIndex =
+                comboWebUITheme.FindStringExact(linearConfig.ViewConfig.WebInterfaceTheme);
+
             // フェード持続時間
             this.numudFadeDuration.Value =
                 (decimal) linearConfig.SoundConfig.FadeDuration;
@@ -785,6 +800,33 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 
             MessageUtils.showMessage(MessageBoxIcon.Information, "スタイルのパッケージを作成しました。\n" + packFilePath);
 
+        }
+
+        private void checkWEBUIEnable_CheckedChanged(object sender, EventArgs e)
+        {
+            LinearGlobal.LinearConfig.ViewConfig.UseWebInterface = checkWEBUIEnable.Checked;
+            numWEBUIPort.Enabled = checkWEBUIEnable.Checked;
+            labelOpenWEBUI.Enabled = checkWEBUIEnable.Checked;
+            comboWebUITheme.Enabled = checkWEBUIEnable.Checked;
+        }
+
+        private void numWEBUIPort_ValueChanged(object sender, EventArgs e)
+        {
+            LinearGlobal.LinearConfig.ViewConfig.WebInterfaceListenPort =
+                (int) this.numWEBUIPort.Value;
+        }
+
+        private void labelOpenWEBUI_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                System.Diagnostics.Process.Start("http://localhost:" + numWEBUIPort.Value);
+            }
+        }
+
+        private void comboWebUITheme_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LinearGlobal.LinearConfig.ViewConfig.WebInterfaceTheme = comboWebUITheme.Text;
         }
 
 

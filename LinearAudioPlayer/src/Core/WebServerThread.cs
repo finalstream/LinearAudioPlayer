@@ -69,7 +69,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     string reqPath = req.RawUrl;
                     if (reqPath == "/")
                     {
-                        reqPath = "index.html";
+                        reqPath = "ui/" + LinearGlobal.LinearConfig.ViewConfig.WebInterfaceTheme + ".html";
                     }
 
                     reqPath = reqPath.Replace("/", "\\");
