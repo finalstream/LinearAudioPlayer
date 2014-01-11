@@ -61,6 +61,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             mes += "\r\n\r\nIncremental Search Engine by C/Migemo ver." + migemover.FileVersion +"\r\nCopyright © 2003-2007 MURAOKA Taro (KoRoN).\r\nhttp://code.google.com/p/cmigemo/";
             mes += "\r\n\r\nREST API by RestSharp ver." + restsharpver.FileVersion + "\r\nCopyright © RestSharp Project 2009-2012\r\nhttp://restsharp.org/";
             mes += "\r\n\r\nJSON API by Json.NET ver." + jsonver.FileVersion + "\r\nCopyright © 2007 James Newton-King\r\nhttp://james.newtonking.com/json/";
+            mes += "\r\n\r\nWEBUI Engine:\r\nPowered by Bootstrap Copyright © 2011-2014 Twitter, Inc\r\nhttp://getbootstrap.com/";
+            mes += "               \r\n\r\nPowered by jQuery Copyright © 2014 jQuery Foundation\r\nhttp://jquery.com/";
             mes += "\r\n\r\n\r\nThank you All Developers & Users.";
 
             lblversion.Text = LinearGlobal.ApplicationVersion;
