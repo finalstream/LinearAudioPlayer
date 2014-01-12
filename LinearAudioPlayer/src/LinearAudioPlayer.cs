@@ -355,7 +355,7 @@ namespace FINALSTREAM.LinearAudioPlayer
 
             if (LinearGlobal.IsUpdateNewVersion)
             {
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(3000);
                 Process p = new Process();
                 // 管理者として実行
                 p.StartInfo.FileName = Application.StartupPath + "\\update\\LinearAudioPlayerUpdate.exe";

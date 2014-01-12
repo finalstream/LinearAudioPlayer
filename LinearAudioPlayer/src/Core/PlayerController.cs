@@ -1886,14 +1886,17 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         public void executeAutoAudioFileRegist()
         {
 
-            if (!DirectoryUtils.isEmptyDirectory(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory))
+            if (
+                !DirectoryUtils.isEmptyDirectory(
+                    LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory))
             {
 
                 Action autoAudioFileRegistAction = () =>
                     {
                         ListFunction listFunc = new ListFunction();
                         listFunc.addGridFromList(
-                            new string[] { LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory },
+                            new string[]
+                                {LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory},
                             ListFunction.RegistMode.AUTOREGIST);
 
                         Action uiAction = () =>
@@ -1905,10 +1908,14 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                 }
                             };
                         LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
-                        
+
                     };
                 LinearAudioPlayer.WorkerThread.EnqueueTask(autoAudioFileRegistAction);
-                
+
+            }
+            else
+            {
+                LinearGlobal.MainForm.ListForm.showToastMessage(MessageResource.I0009);
             }
 
         }

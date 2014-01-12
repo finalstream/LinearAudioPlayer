@@ -71,6 +71,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.miniProgressSeekBar = new FINALSTREAM.Commons.Controls.VistaProgressBar();
             this.picDisplay = new FINALSTREAM.Commons.Controls.PictureBoxEx();
             this.popupNotifier = new FINALSTREAM.Commons.Controls.PopupNotifier();
+            this.audioAutoRegisttoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openMonitoringDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoRegistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.picPlaylist)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFwd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStop)).BeginInit();
@@ -170,64 +173,66 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.toolStripSeparator2,
             this.PoweredToolStripMenuItem,
             this.toolStripSeparator7,
-            this.TaskTrayToolStripMenuItem,
+            this.audioAutoRegisttoolStripMenuItem,
             this.toolStripSeparator3,
             this.configToolStripMenuItem,
             this.toolStripSeparator5,
             this.topMosttoolStripMenuItem,
             this.fadeEffectToolStripMenuItem,
             this.autoFittoolStripMenuItem,
+            this.TaskTrayToolStripMenuItem,
             this.versionToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(185, 210);
+            this.contextMenuStrip.Size = new System.Drawing.Size(209, 254);
+            this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(205, 6);
             // 
             // PoweredToolStripMenuItem
             // 
             this.PoweredToolStripMenuItem.Enabled = false;
             this.PoweredToolStripMenuItem.Name = "PoweredToolStripMenuItem";
-            this.PoweredToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.PoweredToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(205, 6);
             // 
             // TaskTrayToolStripMenuItem
             // 
             this.TaskTrayToolStripMenuItem.Name = "TaskTrayToolStripMenuItem";
-            this.TaskTrayToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.TaskTrayToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.TaskTrayToolStripMenuItem.Text = "タスクトレイ格納";
             this.TaskTrayToolStripMenuItem.Click += new System.EventHandler(this.TaskTrayToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(205, 6);
             // 
             // configToolStripMenuItem
             // 
             this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.configToolStripMenuItem.Text = "設定...";
             this.configToolStripMenuItem.Click += new System.EventHandler(this.configToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(205, 6);
             // 
             // topMosttoolStripMenuItem
             // 
             this.topMosttoolStripMenuItem.CheckOnClick = true;
             this.topMosttoolStripMenuItem.Name = "topMosttoolStripMenuItem";
-            this.topMosttoolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.topMosttoolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.topMosttoolStripMenuItem.Text = "常に手前に表示";
             this.topMosttoolStripMenuItem.Click += new System.EventHandler(this.topMosttoolStripMenuItem_Click);
             // 
@@ -235,33 +240,33 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             // 
             this.fadeEffectToolStripMenuItem.CheckOnClick = true;
             this.fadeEffectToolStripMenuItem.Name = "fadeEffectToolStripMenuItem";
-            this.fadeEffectToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.fadeEffectToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.fadeEffectToolStripMenuItem.Text = "フェードエフェクト";
             this.fadeEffectToolStripMenuItem.Click += new System.EventHandler(this.fadeEffectToolStripMenuItem_Click);
             // 
             // autoFittoolStripMenuItem
             // 
             this.autoFittoolStripMenuItem.Name = "autoFittoolStripMenuItem";
-            this.autoFittoolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.autoFittoolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.autoFittoolStripMenuItem.Text = "オートフィット";
             this.autoFittoolStripMenuItem.Click += new System.EventHandler(this.autoFittoolStripMenuItem_Click);
             // 
             // versionToolStripMenuItem
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.versionToolStripMenuItem.Text = "Version...";
             this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(205, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -421,6 +426,29 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.popupNotifier.TitleText = null;
             this.popupNotifier.Click += new System.EventHandler(this.popupNotifier_Click);
             // 
+            // audioAutoRegisttoolStripMenuItem
+            // 
+            this.audioAutoRegisttoolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.autoRegistToolStripMenuItem,
+            this.openMonitoringDirToolStripMenuItem});
+            this.audioAutoRegisttoolStripMenuItem.Name = "audioAutoRegisttoolStripMenuItem";
+            this.audioAutoRegisttoolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.audioAutoRegisttoolStripMenuItem.Text = "オーディオファイル登録";
+            // 
+            // openMonitoringDirToolStripMenuItem
+            // 
+            this.openMonitoringDirToolStripMenuItem.Name = "openMonitoringDirToolStripMenuItem";
+            this.openMonitoringDirToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.openMonitoringDirToolStripMenuItem.Text = "監視フォルダを開く";
+            this.openMonitoringDirToolStripMenuItem.Click += new System.EventHandler(this.openMonitoringDirToolStripMenuItem_Click);
+            // 
+            // autoRegistToolStripMenuItem
+            // 
+            this.autoRegistToolStripMenuItem.Name = "autoRegistToolStripMenuItem";
+            this.autoRegistToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.autoRegistToolStripMenuItem.Text = "自動登録実行";
+            this.autoRegistToolStripMenuItem.Click += new System.EventHandler(this.autoRegistToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -512,6 +540,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         public Commons.Controls.PopupNotifier popupNotifier;
         private Commons.Controls.VistaProgressBar miniProgressSeekBar;
         private PictureBox picRating;
+        private ToolStripMenuItem audioAutoRegisttoolStripMenuItem;
+        private ToolStripMenuItem autoRegistToolStripMenuItem;
+        private ToolStripMenuItem openMonitoringDirToolStripMenuItem;
     }
 }
 

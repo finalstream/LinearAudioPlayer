@@ -154,6 +154,9 @@
   <data name="I0008" xml:space="preserve">
     <value>アルバム説明を更新しました。</value>
   </data>
+  <data name="I0009" xml:space="preserve">
+    <value>監視フォルダが空です。</value>
+  </data>
   <data name="Q0001" xml:space="preserve">
     <value>{0}を削除してもよろしいですか？</value>
   </data>

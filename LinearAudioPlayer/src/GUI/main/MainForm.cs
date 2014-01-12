@@ -1813,6 +1813,26 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.lblTitle.Text = LinearAudioPlayer.PlayController.createTitle();
         }
 
+        private void contextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            audioAutoRegisttoolStripMenuItem.Enabled =
+                LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.IsEnable;
+
+        }
+
+        private void autoRegistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LinearAudioPlayer.PlayController.executeAutoAudioFileRegist();
+        }
+
+        private void openMonitoringDirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory))
+            {
+                System.Diagnostics.Process.Start(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory);
+            }
+        }
+
 
     }
 }
