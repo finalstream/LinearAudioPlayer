@@ -1585,7 +1585,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                                                     SearchOption.TopDirectoryOnly, ".json");
             foreach (string filepath in conditionFileList)
             {
-                var sqlConds = JsonConvert.DeserializeObject<ConditionGridItemInfo[]>(File.ReadAllText(filepath));
+                var sqlConds = JsonConvert.DeserializeObject<List<ConditionGridItemInfo>>(File.ReadAllText(filepath));
 
                 foreach (ConditionGridItemInfo cii in sqlConds)
                 {
@@ -2850,11 +2850,12 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             {
                 artworkCount += artworkOffset;
 
-                refreshArtwork(isNoPicture);
+                //refreshArtwork(isNoPicture);
 
 
                 Action uiAction = () =>
                     {
+                        refreshArtwork(isNoPicture);
                         picArtwork.Refresh();
                     };
                 LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);

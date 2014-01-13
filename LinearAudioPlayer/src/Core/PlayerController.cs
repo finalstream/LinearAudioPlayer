@@ -1883,7 +1883,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         /// <summary>
         /// オーディオファイル自動登録
         /// </summary>
-        public void executeAutoAudioFileRegist()
+        public bool executeAutoAudioFileRegist()
         {
 
             if (
@@ -1911,11 +1911,11 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
                     };
                 LinearAudioPlayer.WorkerThread.EnqueueTask(autoAudioFileRegistAction);
-
+                return true;
             }
             else
             {
-                LinearGlobal.MainForm.ListForm.showToastMessage(MessageResource.I0009);
+                return false;
             }
 
         }

@@ -761,7 +761,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if /I "$(ConfigurationName)" == "Release" Eazfuscator.NET.exe "$(TargetPath)" --msbuild-project-path "$(ProjectPath)" --msbuild-project-configuration "$(ConfigurationName)" --msbuild-project-platform "$(PlatformName)" --msbuild-solution-path "$(SolutionPath)" -n --newline-flush -v 3.2
+    <PostBuildEvent>if /I "$(ConfigurationName)" == "Releases" Eazfuscator.NET.exe "$(TargetPath)" --msbuild-project-path "$(ProjectPath)" --msbuild-project-configuration "$(ConfigurationName)" --msbuild-project-platform "$(PlatformName)" --msbuild-solution-path "$(SolutionPath)" -n --newline-flush -v 3.1
 move /Y "$(TargetDir)Bass.Net.dll" "$(TargetDir)lib\bass"
 move /Y "$(TargetDir)FMOD.dll" "$(TargetDir)lib\fmod"
 move /Y "$(TargetDir)System.Data.SQLite.DLL" "$(TargetDir)lib\sqlite"

@@ -719,7 +719,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         private void btnExecAudioFileRegist_Click(object sender, EventArgs e)
         {
 
-            LinearAudioPlayer.PlayController.executeAutoAudioFileRegist();
+            if (!LinearAudioPlayer.PlayController.executeAutoAudioFileRegist())
+            {
+                LinearGlobal.MainForm.ListForm.showToastMessage(MessageResource.I0009);
+            }
 
         }
 

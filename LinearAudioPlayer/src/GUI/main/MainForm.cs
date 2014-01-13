@@ -11,6 +11,7 @@ using FINALSTREAM.Commons.Utils;
 using System.IO;
 using FINALSTREAM.LinearAudioPlayer.GUI.option;
 using FINALSTREAM.LinearAudioPlayer.Info;
+using FINALSTREAM.LinearAudioPlayer.Resources;
 using FINALSTREAM.LinearAudioPlayer.Setting;
 using Microsoft.WindowsAPICodePack.Taskbar;
 
@@ -1822,7 +1823,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
         private void autoRegistToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LinearAudioPlayer.PlayController.executeAutoAudioFileRegist();
+            if (!LinearAudioPlayer.PlayController.executeAutoAudioFileRegist())
+            {
+                LinearGlobal.MainForm.ListForm.showToastMessage(MessageResource.I0009);
+            }
         }
 
         private void openMonitoringDirToolStripMenuItem_Click(object sender, EventArgs e)
