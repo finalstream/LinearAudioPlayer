@@ -646,7 +646,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 Directory.CreateDirectory(stockDirectory);
                 stockDirectory = Path.Combine(stockDirectory, Path.GetFileName(path));
                 FileUtils.copy(path, stockDirectory, true);
-                //FileUtils.moveRecycleBin(path);
+                FileUtils.moveRecycleBin(path);
             }
 
             return stockDirectory;
