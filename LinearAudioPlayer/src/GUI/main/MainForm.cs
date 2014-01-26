@@ -1837,6 +1837,15 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             }
         }
 
+        private void helptoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string helpFilePath = Application.StartupPath + "\\doc\\How_to_use.html";
+            if (File.Exists(helpFilePath))
+            {
+                System.Diagnostics.Process.Start(helpFilePath);
+            }
+        }
+
 
     }
 }
