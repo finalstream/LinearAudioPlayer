@@ -1068,7 +1068,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 //ImageAttributesを使用して背景に描画
                 g.InterpolationMode =
                             System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                //画像を縮小表示
+                // 透過度
                 float alpha = artworkCount * 0.1F;
 
                 /*
@@ -1081,12 +1081,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 Image img;
                 if (artworkBeforeImage != null)
                 {
-
+                    // 前の画像があるときは前の画像と合成する
                     img = ImageUtils.GetCompositeAlphaImage(artworkBeforeImage,
                                                       artworkImage, alpha, isNoPicture, LinearGlobal.ColorConfig.FormBackgroundColor);
                 }
                 else
                 {
+                    // 前の画像がないときはそのまま表示
                     img = artworkImage;
                 }
                 g.DrawImage(img, 0, 0, picArtwork.Width, picArtwork.Height);
@@ -2843,14 +2844,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             picArtwork.Tag = picture;
 
+
             artworkImage = ImageUtils.GetResizedImage(picture, 150, 150);
 
             bool isEnd = false;
             while (!isEnd)
             {
                 artworkCount += artworkOffset;
-
-                //refreshArtwork(isNoPicture);
 
 
                 Action uiAction = () =>

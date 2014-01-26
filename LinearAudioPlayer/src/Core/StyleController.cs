@@ -1,5 +1,6 @@
 ﻿
 using System.Drawing;
+using FINALSTREAM.Commons.Utils;
 using FINALSTREAM.LinearAudioPlayer.Setting;
 
 namespace FINALSTREAM.LinearAudioPlayer.Core
@@ -44,6 +45,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         private void createNoPictureImage()
         {
             Image noPicture = Image.FromFile(LinearGlobal.StyleDirectory + "\\nocover.png");
+            noPicture = ImageUtils.GetResizedImage(noPicture, noPicture.Width, noPicture.Height);
             NoPictureImage = new Bitmap(noPicture.Width, noPicture.Height);
             using (var g = Graphics.FromImage(NoPictureImage))
             {
