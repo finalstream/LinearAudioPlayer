@@ -967,6 +967,21 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 }
             }*/
 
+            Action saveTagAction = () =>
+            {
+                var saveTagResult = LinearAudioPlayer.PlayController.saveTag();
+                if (saveTagResult.Count > 0)
+                {
+                    Action uiAction = () =>
+                    {
+                        LinearAudioPlayer.PlayController.saveTagEnd(saveTagResult);
+                    };
+                    LinearGlobal.MainForm.ListForm.BeginInvoke(uiAction);
+                }
+            };
+            LinearAudioPlayer.WorkerThread.EnqueueTask(saveTagAction);
+
+            // TODO:いる？
             if (LinearGlobal.StockTagEditList.Count > 0)
             {
                 Action getPcitureAction = () =>
