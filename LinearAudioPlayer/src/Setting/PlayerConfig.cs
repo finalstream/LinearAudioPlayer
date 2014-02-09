@@ -178,7 +178,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             RestMaxCount = -1;
             this.AudioFileAutoRegistInfo = new AudioFileRegistInfo();
             IsAutoUpdate = true;
-            MovieSearchUrl = "http://www.youtube.com/results?search_query=#KEYWORD#";
+            MovieSearchUrl = "http://www.youtube.com/results?search_sort=video_view_count&search_query=#KEYWORD#";
         }
 
     }
