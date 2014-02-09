@@ -220,11 +220,23 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             {
                 picArtwork.Visible = true;
                 txtAlbumDescription.Visible = true;
-                //ltTitle.Visible = true;
+                if (!String.IsNullOrEmpty(labelTitle.Text.Trim()))
+                {
+                    // TODO:もっといいやり方にする
+                    ltTitle.Visible = true;
+                }
                 labelTitle.Visible = true;
-                //ltArtist.Visible = true;
+                if (!String.IsNullOrEmpty(labelArtist.Text.Trim()))
+                {
+                    // TODO:もっといいやり方にする
+                    ltArtist.Visible = true;
+                }
                 labelArtist.Visible = true;
-                //ltAlbum.Visible = true;
+                if (!String.IsNullOrEmpty(labelAlbum.Text.Trim()))
+                {
+                    // TODO:もっといいやり方にする
+                    ltAlbum.Visible = true;
+                }
                 labelAlbum.Visible = true;
                 ltLastfm.Visible = true;
                 labelLastfm.Visible = true;
