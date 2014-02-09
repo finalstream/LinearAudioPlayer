@@ -2998,6 +2998,19 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
         }
 
+        private void folderOpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int rowNo = LinearAudioPlayer.GridController.getActiveRowNo();
+
+            if (rowNo != -1)
+            {
+                // エクスプローラで格納されている場所を開く
+                System.Diagnostics.Process.Start(
+                    "EXPLORER.EXE", @"/n,/select," + StringUtils.addDoubleQuotation(
+                        LinearAudioPlayer.GridController.Grid[rowNo, (int)GridController.EnuGrid.FILEPATH].Value.ToString()));
+            }
+        }
+
     }
 
     

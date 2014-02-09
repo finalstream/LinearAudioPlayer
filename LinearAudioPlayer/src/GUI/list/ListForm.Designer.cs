@@ -37,6 +37,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListForm));
             this.playlistContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -150,7 +151,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.grid = new FINALSTREAM.Commons.Grid.SourceGridEx();
             this.databaseList = new FINALSTREAM.Commons.Controls.ComboBoxEx();
             this.filteringBox = new FINALSTREAM.Commons.Controls.TextBoxEx();
-            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playlistContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeSwitch)).BeginInit();
@@ -189,11 +190,19 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.editTagToolStripMenuItem,
             this.getTagToolStripMenuItem,
             this.toolStripSeparator7,
+            this.SortToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.SortToolStripMenuItem});
+            this.folderOpenToolStripMenuItem});
             this.playlistContextMenuStrip.Name = "contextMenuStrip";
-            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 292);
+            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 314);
             this.playlistContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.playlistContextMenuStrip_Opening);
+            // 
+            // playToolStripMenuItem
+            // 
+            this.playToolStripMenuItem.Name = "playToolStripMenuItem";
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.playToolStripMenuItem.Text = "いますぐ再生する";
+            this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -1206,12 +1215,12 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.filteringBox.TextChanged += new System.EventHandler(this.filteringBox_TextChanged);
             this.filteringBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.filteringBox_MouseDoubleClick);
             // 
-            // playToolStripMenuItem
+            // folderOpenToolStripMenuItem
             // 
-            this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.playToolStripMenuItem.Text = "いますぐ再生する";
-            this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
+            this.folderOpenToolStripMenuItem.Name = "folderOpenToolStripMenuItem";
+            this.folderOpenToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.folderOpenToolStripMenuItem.Text = "格納フォルダを開く";
+            this.folderOpenToolStripMenuItem.Click += new System.EventHandler(this.folderOpenToolStripMenuItem_Click);
             // 
             // ListForm
             // 
@@ -1411,6 +1420,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private ToolStripSeparator toolStripSeparator8;
         private ToolStripMenuItem adAmazonToolStripMenuItem;
         private ToolStripMenuItem playToolStripMenuItem;
+        private ToolStripMenuItem folderOpenToolStripMenuItem;
 
     }
 }
