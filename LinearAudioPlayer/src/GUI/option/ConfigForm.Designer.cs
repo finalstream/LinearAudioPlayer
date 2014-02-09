@@ -67,6 +67,9 @@
             this.label16 = new System.Windows.Forms.Label();
             this.tabOption3 = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.numWEBUIPort = new System.Windows.Forms.NumericUpDown();
+            this.comboWebUITheme = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
             this.labelOpenWEBUI = new System.Windows.Forms.Label();
             this.checkWEBUIEnable = new System.Windows.Forms.CheckBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -130,9 +133,7 @@
             this.columnAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReStart = new System.Windows.Forms.Button();
-            this.label25 = new System.Windows.Forms.Label();
-            this.comboWebUITheme = new System.Windows.Forms.ComboBox();
-            this.numWEBUIPort = new System.Windows.Forms.NumericUpDown();
+            this.linkLabelStyleDownload = new System.Windows.Forms.LinkLabel();
             this.tabSetting.SuspendLayout();
             this.tabOption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPlayCountUpRatio)).BeginInit();
@@ -143,6 +144,7 @@
             this.groupBox7.SuspendLayout();
             this.tabOption3.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numWEBUIPort)).BeginInit();
             this.tabDisplay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbMiniVisualLevel)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -158,7 +160,6 @@
             this.contextMenuStrip1.SuspendLayout();
             this.grpColorProfile.SuspendLayout();
             this.tabPlugin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numWEBUIPort)).BeginInit();
             this.SuspendLayout();
             // 
             // tabSetting
@@ -563,6 +564,38 @@
             this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "WEB UI";
+            // 
+            // numWEBUIPort
+            // 
+            this.numWEBUIPort.Location = new System.Drawing.Point(68, 62);
+            this.numWEBUIPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numWEBUIPort.Name = "numWEBUIPort";
+            this.numWEBUIPort.Size = new System.Drawing.Size(61, 19);
+            this.numWEBUIPort.TabIndex = 16;
+            this.numWEBUIPort.ValueChanged += new System.EventHandler(this.numWEBUIPort_ValueChanged);
+            // 
+            // comboWebUITheme
+            // 
+            this.comboWebUITheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboWebUITheme.FormattingEnabled = true;
+            this.comboWebUITheme.Location = new System.Drawing.Point(185, 61);
+            this.comboWebUITheme.Name = "comboWebUITheme";
+            this.comboWebUITheme.Size = new System.Drawing.Size(143, 20);
+            this.comboWebUITheme.TabIndex = 15;
+            this.comboWebUITheme.SelectedIndexChanged += new System.EventHandler(this.comboWebUITheme_SelectedIndexChanged);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(135, 64);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(44, 12);
+            this.label25.TabIndex = 8;
+            this.label25.Text = "UIテーマ";
             // 
             // labelOpenWEBUI
             // 
@@ -1010,6 +1043,7 @@
             // 
             // tabStyle
             // 
+            this.tabStyle.Controls.Add(this.linkLabelStyleDownload);
             this.tabStyle.Controls.Add(this.buttonPackStyle);
             this.tabStyle.Controls.Add(this.checkRandomStyle);
             this.tabStyle.Controls.Add(this.btnImportStyle);
@@ -1035,7 +1069,7 @@
             // checkRandomStyle
             // 
             this.checkRandomStyle.AutoSize = true;
-            this.checkRandomStyle.Location = new System.Drawing.Point(218, 13);
+            this.checkRandomStyle.Location = new System.Drawing.Point(14, 9);
             this.checkRandomStyle.Name = "checkRandomStyle";
             this.checkRandomStyle.Size = new System.Drawing.Size(131, 16);
             this.checkRandomStyle.TabIndex = 10;
@@ -1242,37 +1276,19 @@
             this.btnReStart.UseVisualStyleBackColor = true;
             this.btnReStart.Click += new System.EventHandler(this.btnReStart_Click);
             // 
-            // label25
+            // linkLabelStyleDownload
             // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(135, 64);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(44, 12);
-            this.label25.TabIndex = 8;
-            this.label25.Text = "UIテーマ";
-            // 
-            // comboWebUITheme
-            // 
-            this.comboWebUITheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboWebUITheme.FormattingEnabled = true;
-            this.comboWebUITheme.Location = new System.Drawing.Point(185, 61);
-            this.comboWebUITheme.Name = "comboWebUITheme";
-            this.comboWebUITheme.Size = new System.Drawing.Size(143, 20);
-            this.comboWebUITheme.TabIndex = 15;
-            this.comboWebUITheme.SelectedIndexChanged += new System.EventHandler(this.comboWebUITheme_SelectedIndexChanged);
-            // 
-            // numWEBUIPort
-            // 
-            this.numWEBUIPort.Location = new System.Drawing.Point(68, 62);
-            this.numWEBUIPort.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numWEBUIPort.Name = "numWEBUIPort";
-            this.numWEBUIPort.Size = new System.Drawing.Size(61, 19);
-            this.numWEBUIPort.TabIndex = 16;
-            this.numWEBUIPort.ValueChanged += new System.EventHandler(this.numWEBUIPort_ValueChanged);
+            this.linkLabelStyleDownload.ActiveLinkColor = System.Drawing.SystemColors.Highlight;
+            this.linkLabelStyleDownload.AutoSize = true;
+            this.linkLabelStyleDownload.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabelStyleDownload.LinkColor = System.Drawing.SystemColors.Highlight;
+            this.linkLabelStyleDownload.Location = new System.Drawing.Point(188, 11);
+            this.linkLabelStyleDownload.Name = "linkLabelStyleDownload";
+            this.linkLabelStyleDownload.Size = new System.Drawing.Size(162, 12);
+            this.linkLabelStyleDownload.TabIndex = 12;
+            this.linkLabelStyleDownload.TabStop = true;
+            this.linkLabelStyleDownload.Text = "オンラインで追加のスタイルを取得";
+            this.linkLabelStyleDownload.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelStyleDownload_LinkClicked);
             // 
             // ConfigForm
             // 
@@ -1307,6 +1323,7 @@
             this.tabOption3.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numWEBUIPort)).EndInit();
             this.tabDisplay.ResumeLayout(false);
             this.tabDisplay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbMiniVisualLevel)).EndInit();
@@ -1331,7 +1348,6 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.grpColorProfile.ResumeLayout(false);
             this.tabPlugin.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numWEBUIPort)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1441,5 +1457,6 @@
         private System.Windows.Forms.ComboBox comboWebUITheme;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.NumericUpDown numWEBUIPort;
+        private System.Windows.Forms.LinkLabel linkLabelStyleDownload;
     }
 }

@@ -832,6 +832,11 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             LinearGlobal.LinearConfig.ViewConfig.WebInterfaceTheme = comboWebUITheme.Text;
         }
 
+        private void linkLabelStyleDownload_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.finalstream.net/linearsg/");
+        }
+
 
     }
 }
