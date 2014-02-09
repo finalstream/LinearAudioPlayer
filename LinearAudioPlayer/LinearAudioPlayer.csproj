@@ -455,6 +455,7 @@
     <Content Include="style\GRed\medley.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="style\GRed\movie.png" />
     <Content Include="style\GRed\nocover.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -555,6 +556,7 @@
     <Content Include="style\KURO2\medley.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="style\KURO2\movie.png" />
     <Content Include="style\KURO2\nocover.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -655,6 +657,7 @@
     <Content Include="style\Lyrids\medley.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="style\Lyrids\movie.png" />
     <Content Include="style\Lyrids\nocover.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

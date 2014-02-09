@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Net;
+using System.Web;
 using System.Windows.Forms;
 using FINALSTREAM.Commons.Controls;
 using FINALSTREAM.Commons.Controls.Toast;
@@ -181,11 +182,12 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             this.filteringBox.Location = new Point(this.picSearch.Location.X + this.picSearch.Width + 4, diffYComboPosition + diffYFilteringBox);
             this.picTag.Location = new Point(filteringBox.Location.X + filteringBox.Width + 5, yStartPosition);
+            this.picMovie.Location = new Point(picTag.Location.X + picTag.Width + 5, yStartPosition+1);
 
-            this.gridInfo.Location = new Point(this.picTag.Location.X + this.picTag.Width + 14, yStartPosition);
+            this.gridInfo.Location = new Point(this.picMovie.Location.X + this.picMovie.Width + 14, yStartPosition);
             //this.gridInfo.Location = new Point(filteringBox.Location.X + filteringBox.Width + 5, yStartPosition);
             //this.gridInfo.Location = new Point(lblShuffle.Location.X + lblShuffle.Width + 5, yStartPosition);
-            this.gridInfo.Size = new Size(this.Width - this.picDatabase.Width - this.databaseList.Width - this.picPlaylistMode.Width - this.picShuffle.Width -this.picMedley.Width -this.picLinkLibrary.Width - this.lblShuffle.Width - this.lblMedley.Width - this.filteringBox.Width - this.picSearch.Width - this.lblLinkLibrary.Width - this.picTag.Width - this.lblPlaylistMode.Width - this.picClose.Width - this.picLimit.Width - 72, this.filteringBox.Height);
+            this.gridInfo.Size = new Size(this.Width - this.picDatabase.Width - this.databaseList.Width - this.picPlaylistMode.Width - this.picShuffle.Width - this.picMedley.Width - this.picLinkLibrary.Width - this.lblShuffle.Width - this.lblMedley.Width - this.filteringBox.Width - this.picSearch.Width - this.lblLinkLibrary.Width - this.picTag.Width - this.picMovie.Width - this.lblPlaylistMode.Width - this.picClose.Width - this.picLimit.Width - 74, this.filteringBox.Height);
 
             //this.picTag.Location = new Point(this.gridInfo.Location.X + this.gridInfo.Width + 7, yStartPosition);
             //this.picClose.Location = new Point(this.picTag.Location.X + this.picTag.Width + 14, yStartPosition);
@@ -335,6 +337,14 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 this.picLinkLibrary.Load(LinearGlobal.StyleDirectory + "linklibrary.png");
             }
             this.picTag.Load(LinearGlobal.StyleDirectory + "tag.png");
+
+            string movieIconPath = LinearGlobal.StyleDirectory + "movie.png";
+            if (!File.Exists(movieIconPath))
+            {
+                movieIconPath = LinearGlobal.DefaultStyleDirectory + "movie.png";
+            }
+            this.picMovie.Load(movieIconPath);
+
             this.picSearch.Load(LinearGlobal.StyleDirectory + "search.png");
             //this.picInterrupt.Load(LinearGlobal.StyleDirectory + "interrupt_off.png");
             this.picClose.Load(LinearGlobal.StyleDirectory + "close.png");
@@ -3020,6 +3030,34 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 System.Diagnostics.Process.Start(
                     "EXPLORER.EXE", @"/n,/select," + StringUtils.addDoubleQuotation(
                         LinearAudioPlayer.GridController.Grid[rowNo, (int)GridController.EnuGrid.FILEPATH].Value.ToString()));
+            }
+        }
+
+        private void picMovie_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                string keyword = "";
+                if (!String.IsNullOrEmpty(filteringBox.Text))
+                {
+                    keyword = filteringBox.Text;
+                }
+                else
+                {
+                    // フィルタリングボックスが空だったら再生中のアイテムで検索
+                    if (LinearGlobal.CurrentPlayItemInfo != null)
+                    {
+                        keyword = LinearGlobal.CurrentPlayItemInfo.Title + " " + LinearGlobal.CurrentPlayItemInfo.Artist;
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(keyword))
+                {
+                    // ブラウザで開く
+                    keyword = HttpUtility.UrlEncode(keyword);
+                    System.Diagnostics.Process.Start(
+                        LinearGlobal.LinearConfig.PlayerConfig.MovieSearchUrl.Replace("#KEYWORD#", keyword));
+                }
             }
         }
 

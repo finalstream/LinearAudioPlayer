@@ -287,6 +287,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             setting.PlayerConfig.RestMaxCount = LinearGlobal.LinearConfig.PlayerConfig.RestMaxCount;
             setting.PlayerConfig.AudioFileAutoRegistInfo =
                 LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo;
+            setting.PlayerConfig.MovieSearchUrl = LinearGlobal.LinearConfig.PlayerConfig.MovieSearchUrl;
 
             // サウンド設定
             // サイレントボリューム前の値を復元する

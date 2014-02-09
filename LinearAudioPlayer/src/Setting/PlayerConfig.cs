@@ -36,6 +36,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         public bool IsLinkLibrary { get; set; }
         public bool IsAutoUpdate { get; set; }
 
+        public string MovieSearchUrl { get; set; }
+
         /// <summary>
         /// 除外するプラグイン
         /// </summary>
@@ -176,6 +178,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             RestMaxCount = -1;
             this.AudioFileAutoRegistInfo = new AudioFileRegistInfo();
             IsAutoUpdate = true;
+            MovieSearchUrl = "http://www.youtube.com/results?search_query=#KEYWORD#";
         }
 
     }

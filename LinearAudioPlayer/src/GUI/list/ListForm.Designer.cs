@@ -152,6 +152,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.databaseList = new FINALSTREAM.Commons.Controls.ComboBoxEx();
             this.filteringBox = new FINALSTREAM.Commons.Controls.TextBoxEx();
             this.folderOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.picMovie = new System.Windows.Forms.PictureBox();
             this.playlistContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeSwitch)).BeginInit();
@@ -172,6 +173,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             ((System.ComponentModel.ISupportInitialize)(this.picLinkLibrary)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMedley)).BeginInit();
             this.medleyContextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picMovie)).BeginInit();
             this.SuspendLayout();
             // 
             // playlistContextMenuStrip
@@ -194,7 +196,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.toolStripMenuItem1,
             this.folderOpenToolStripMenuItem});
             this.playlistContextMenuStrip.Name = "contextMenuStrip";
-            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 314);
+            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 292);
             this.playlistContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.playlistContextMenuStrip_Opening);
             // 
             // playToolStripMenuItem
@@ -1222,10 +1224,20 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.folderOpenToolStripMenuItem.Text = "格納フォルダを開く";
             this.folderOpenToolStripMenuItem.Click += new System.EventHandler(this.folderOpenToolStripMenuItem_Click);
             // 
+            // picMovie
+            // 
+            this.picMovie.Location = new System.Drawing.Point(488, 21);
+            this.picMovie.Name = "picMovie";
+            this.picMovie.Size = new System.Drawing.Size(16, 16);
+            this.picMovie.TabIndex = 54;
+            this.picMovie.TabStop = false;
+            this.picMovie.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picMovie_MouseDown);
+            // 
             // ListForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(587, 306);
+            this.Controls.Add(this.picMovie);
             this.Controls.Add(this.lblMedley);
             this.Controls.Add(this.picMedley);
             this.Controls.Add(this.labelTitle);
@@ -1298,6 +1310,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             ((System.ComponentModel.ISupportInitialize)(this.picLinkLibrary)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMedley)).EndInit();
             this.medleyContextMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picMovie)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1421,6 +1434,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private ToolStripMenuItem adAmazonToolStripMenuItem;
         private ToolStripMenuItem playToolStripMenuItem;
         private ToolStripMenuItem folderOpenToolStripMenuItem;
+        private PictureBox picMovie;
 
     }
 }
