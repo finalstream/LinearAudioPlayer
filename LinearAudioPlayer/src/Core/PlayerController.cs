@@ -473,7 +473,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             // レーティング設定
             LinearGlobal.MainForm.setRating(gi.Rating);
 
-            LinearGlobal.MainForm.setTitleCentering();
+            if (LinearGlobal.LinearConfig.ViewConfig.TitleScrollMode == LinearEnum.TitleScrollMode.ROLL)
+            {
+                LinearGlobal.MainForm.setTitleCentering();
+            }
 
             // タイマー開始
             LinearGlobal.MainForm.ListForm.setProgressBarMax((int)_playEngine.getLength());

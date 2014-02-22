@@ -821,7 +821,12 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         {
             if (LinearGlobal.LinearConfig.ViewConfig.isTitleCentering)
             {
-                this.lblTitle.Left = ((picDisplay.Width - picRating.Width - miniProgressSeekBar.Width - lblTime.Width - lblPlayMode.Width - picSpectrum.Width)/2) - (lblTitle.Width/2);
+                this.lblTitle.Left = ((picDisplay.Width - picRating.Width - miniProgressSeekBar.Width - lblTime.Width -
+                                       lblPlayMode.Width - picSpectrum.Width - 10)/2) - (lblTitle.Width/2);
+            }
+            else
+            {
+                this.lblTitle.Left = 0;
             }
         }
 

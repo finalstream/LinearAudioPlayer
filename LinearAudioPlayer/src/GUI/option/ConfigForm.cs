@@ -312,6 +312,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         private void checkTitleCentering_CheckedChanged(object sender, EventArgs e)
         {
             LinearGlobal.LinearConfig.ViewConfig.isTitleCentering = checkTitleCentering.Checked;
+            if (LinearGlobal.MainForm != null)
+            {
+                LinearGlobal.MainForm.setTitleCentering();
+            }
         }
 
         private void radioTitleScrollLoop_CheckedChanged(object sender, EventArgs e)
@@ -330,6 +334,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         {
             LinearGlobal.TitleDisplayScroll = true;
             LinearGlobal.LinearConfig.ViewConfig.TitleScrollMode = LinearEnum.TitleScrollMode.ROLL;
+            if (LinearGlobal.MainForm != null)
+            {
+                LinearGlobal.MainForm.setTitleCentering();
+            }
         }
 
 
@@ -337,6 +345,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         {
             LinearGlobal.TitleDisplayScroll = false;
             LinearGlobal.LinearConfig.ViewConfig.TitleScrollMode = LinearEnum.TitleScrollMode.NONE;
+            if (LinearGlobal.MainForm != null)
+            {
+                LinearGlobal.MainForm.setTitleCentering();
+            }
         }
 
         private void checkNotificationWindow_CheckedChanged(object sender, EventArgs e)
