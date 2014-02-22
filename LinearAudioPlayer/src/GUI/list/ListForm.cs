@@ -1489,7 +1489,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             IList<string> dbList =
                 FileUtils.getFilePathListWithExtFilter(
                 new string[] { LinearGlobal.DatabaseDirectory },
-                SearchOption.AllDirectories,
+                SearchOption.TopDirectoryOnly,
                 new string[]{".db"});
 
             databaseList.Items.Clear();
