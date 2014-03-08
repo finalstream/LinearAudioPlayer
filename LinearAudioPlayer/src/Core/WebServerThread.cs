@@ -57,6 +57,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 {
                     // HTTP通信中に終了されたらどうしようもないので例外を握りつぶす
                 }
+
                 HttpListenerRequest req = context.Request;
                 HttpListenerResponse res = context.Response;
 
@@ -83,6 +84,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                         byte[] content = File.ReadAllBytes(path);
                         //string s = File.ReadAllText(path, Encoding.UTF8);
                         //byte[] content = Encoding.UTF8.GetBytes(s);
+                        res.Headers[HttpResponseHeader.ContentType] = GuessContentType(Path.GetExtension(path));
                         res.OutputStream.Write(content, 0, content.Length);
                     }
                 }
@@ -94,54 +96,55 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     WebServiceResponseInfo response = new WebServiceResponseInfo();
                     var dict = req.QueryString;
                     var reqParamJsonString = JsonConvert.SerializeObject(
-                                        dict.AllKeys.ToDictionary(k => k, k => dict[k])
-                                );
-                
+                        dict.AllKeys.ToDictionary(k => k, k => dict[k])
+                        );
+
                     Debug.WriteLine("req data: " + reqParamJsonString);
-                    WebServiceRequestInfo request = JsonConvert.DeserializeObject<WebServiceRequestInfo>(reqParamJsonString);
+                    WebServiceRequestInfo request =
+                        JsonConvert.DeserializeObject<WebServiceRequestInfo>(reqParamJsonString);
 
                     response.action = request.action;
                     switch (request.action)
                     {
                         case "play":
                             Action playAction = () =>
-                            {
-                                LinearAudioPlayer.PlayController.play(LinearGlobal.CurrentPlayItemInfo.Id,
-                                                                      false, false);
-                            };
+                                {
+                                    LinearAudioPlayer.PlayController.play(LinearGlobal.CurrentPlayItemInfo.Id,
+                                                                            false, false);
+                                };
                             LinearGlobal.MainForm.BeginInvoke(playAction);
                             break;
                         case "pause":
                             Action pauseAction = () =>
-                            {
-                                LinearAudioPlayer.PlayController.pause();
-                            };
+                                {
+                                    LinearAudioPlayer.PlayController.pause();
+                                };
                             LinearGlobal.MainForm.BeginInvoke(pauseAction);
                             break;
                         case "stop":
                             Action stopAction = () =>
-                            {
-                                LinearAudioPlayer.PlayController.stop();
-                            };
+                                {
+                                    LinearAudioPlayer.PlayController.stop();
+                                };
                             LinearGlobal.MainForm.BeginInvoke(stopAction);
                             break;
 
                         case "previous":
                             Action previouspAction = () =>
-                            {
-                                LinearAudioPlayer.PlayController.previousPlay();
-                            };
+                                {
+                                    LinearAudioPlayer.PlayController.previousPlay();
+                                };
                             LinearGlobal.MainForm.BeginInvoke(previouspAction);
                             break;
 
                         case "forward":
                             Action forwardAction = () =>
-                            {
-                                if (LinearAudioPlayer.PlayController.isPlaying())
                                 {
-                                    LinearAudioPlayer.PlayController.endOfStream();
-                                }
-                            };
+                                    if (LinearAudioPlayer.PlayController.isPlaying())
+                                    {
+                                        LinearAudioPlayer.PlayController.endOfStream();
+                                    }
+                                };
                             LinearGlobal.MainForm.BeginInvoke(forwardAction);
                             break;
 
@@ -149,7 +152,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             Action volDownAction = () =>
                                 {
                                     int vol = LinearGlobal.Volume;
-                                    vol-= 5;
+                                    vol -= 5;
                                     if (vol < 0)
                                     {
                                         vol = 0;
@@ -162,33 +165,34 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
                         case "volup":
                             Action volUpAction = () =>
-                            {
-                                int vol = LinearGlobal.Volume;
-                                vol += 5;
-                                if (vol > 100)
                                 {
-                                    vol = 100;
-                                }
-                                LinearGlobal.Volume = vol;
-                                LinearGlobal.MainForm.ListForm.setVolume();
-                                
-                            };
+                                    int vol = LinearGlobal.Volume;
+                                    vol += 5;
+                                    if (vol > 100)
+                                    {
+                                        vol = 100;
+                                    }
+                                    LinearGlobal.Volume = vol;
+                                    LinearGlobal.MainForm.ListForm.setVolume();
+
+                                };
                             LinearGlobal.MainForm.BeginInvoke(volUpAction);
                             break;
 
                         case "getplayinfo":
                             response.playInfo = LinearGlobal.CurrentPlayItemInfo;
 
-                            response.seekRatio = (int) (((float)LinearAudioPlayer.PlayController.getPosition() /
-                                                        (float)LinearAudioPlayer.PlayController.getLength()) * 100);
+                            response.seekRatio = (int) (((float) LinearAudioPlayer.PlayController.getPosition()/
+                                                            (float) LinearAudioPlayer.PlayController.getLength())*100);
                             break;
 
                         case "seek":
                             Action seekAction = () =>
-                            {
-                                double value = ((double)LinearAudioPlayer.PlayController.getLength()) * request.seekPosition;
-                                LinearAudioPlayer.PlayController.setPosition((uint)value);
-                            };
+                                {
+                                    double value = ((double) LinearAudioPlayer.PlayController.getLength())*
+                                                    request.seekPosition;
+                                    LinearAudioPlayer.PlayController.setPosition((uint) value);
+                                };
                             LinearGlobal.MainForm.ListForm.BeginInvoke(seekAction);
                             break;
 
@@ -206,11 +210,33 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
         }
 
+        static string GuessContentType(string ext)
+        {
+            switch (ext)
+            {
+                case ".js":
+                    return "text/javascript";
+                case ".htm":
+                case ".html":
+                    return "text/html";
+                case ".png":
+                    return "image/png";
+                case ".jpg":
+                    return "image/jpg";
+                case ".css":
+                    return "text/css";
+
+                default:
+                    return "application/octet-stream";
+            }
+        }
+
         public void Kill()
         {
             listener.Close();
             webServerThread.Abort();
             webServerThread.Join();
         }
+        
     }
 }
