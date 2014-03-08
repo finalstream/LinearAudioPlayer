@@ -11,5 +11,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         public string action { get; set; }
         public PlayItemInfo playInfo { get; set; }
         public int seekRatio { get; set; }
+        public bool isPlaying { get; set; }
+        public bool isPaused { get; set; }
+        public int volume { get; set; }
     }
 }

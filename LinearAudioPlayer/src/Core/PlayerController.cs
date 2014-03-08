@@ -936,6 +936,15 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             return _playEngine.isPlaying(MainChannel);
         }
 
+        /// <summary>
+        /// 一時停止中であるか確認する
+        /// </summary>
+        /// <returns></returns>
+        public bool isPaused()
+        {
+            return _playEngine.isPasued();
+        }
+
 
         public float[] getSpectrum()
         {

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Windows.Forms;
@@ -74,6 +75,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     }
 
                     reqPath = reqPath.Replace("/", "\\");
+                    reqPath = Regex.Replace(reqPath, "\\?.*", "");
 
                     // リクエストされたURLからファイルのパスを求める
                     string path = docRoot + reqPath;
@@ -160,7 +162,9 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                     LinearGlobal.Volume = vol;
                                     LinearGlobal.MainForm.ListForm.setVolume();
                                 };
-                            LinearGlobal.MainForm.BeginInvoke(volDownAction);
+                            var voldownActionResult = LinearGlobal.MainForm.BeginInvoke(volDownAction);
+                            voldownActionResult.AsyncWaitHandle.WaitOne();
+                            response.volume = LinearGlobal.Volume;
                             break;
 
                         case "volup":
@@ -176,14 +180,25 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                     LinearGlobal.MainForm.ListForm.setVolume();
 
                                 };
-                            LinearGlobal.MainForm.BeginInvoke(volUpAction);
+                            var volupActionResult = LinearGlobal.MainForm.BeginInvoke(volUpAction);
+                            volupActionResult.AsyncWaitHandle.WaitOne();
+                            response.volume = LinearGlobal.Volume;
                             break;
 
                         case "getplayinfo":
-                            response.playInfo = LinearGlobal.CurrentPlayItemInfo;
-
-                            response.seekRatio = (int) (((float) LinearAudioPlayer.PlayController.getPosition()/
-                                                            (float) LinearAudioPlayer.PlayController.getLength())*100);
+                            if (LinearAudioPlayer.PlayController != null)
+                            {
+                                response.playInfo = LinearGlobal.CurrentPlayItemInfo;
+                                response.isPlaying = LinearAudioPlayer.PlayController.isPlaying();
+                                response.isPaused = LinearAudioPlayer.PlayController.isPaused();
+                                response.seekRatio = (int)(((float)LinearAudioPlayer.PlayController.getPosition() /
+                                                                (float)LinearAudioPlayer.PlayController.getLength()) * 100);
+                                if (response.seekRatio == 100)
+                                {
+                                    response.seekRatio = 0;
+                                }
+                            }
+                            
                             break;
 
                         case "seek":

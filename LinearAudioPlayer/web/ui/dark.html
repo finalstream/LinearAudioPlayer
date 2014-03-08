@@ -6,13 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="../css/bootstrap-drak.min.css" rel="stylesheet">
+    <link type="text/css" href="../css/bootstrap-drak.min.css" rel="stylesheet">
     <!-- No Flat Design <link href="css/bootstrap-theme.min.css" rel="stylesheet"> -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/common.js"></script>
+    <script src="../js/common.js?20140308"></script>
     
   </head>
   <body>
@@ -28,6 +28,19 @@
     <div class="container">
       <div id="error-message" class="alert alert-danger alert-dismissable">
         <strong>Error!</strong> Linear Audio Player is not running.
+      </div>
+    </div>
+    
+    <!-- status-message -->
+    <div class="container">
+      <div id="status-message" class="alert alert-warning alert-dismissable">
+        Linear Audio Player is <span id="play-status"></span>.
+      </div>
+    </div>
+    
+    <!-- success-message -->
+    <div class="container">
+      <div id="success-message" class="alert alert-success ">
       </div>
     </div>
     
