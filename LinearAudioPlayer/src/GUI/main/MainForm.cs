@@ -1107,7 +1107,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 ListForm.Show();
                 ListForm.Height = LinearGlobal.LinearConfig.ViewConfig.ListSize.Height;
                 // クリックレス機能のためアクティブにする
-                this.Activate();
+                //this.Activate();
                 syncFormPosSize();
                 // フォーカス移動
                 LinearAudioPlayer.GridController.setFocusRowNo(

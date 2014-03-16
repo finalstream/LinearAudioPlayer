@@ -57,12 +57,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.editTagToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getTagToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ディレクトリ直下ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.階層を保持ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortDefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ディレクトリ直下ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.階層を保持ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.picVolumeBar = new System.Windows.Forms.PictureBox();
             this.picVolumeSwitch = new System.Windows.Forms.PictureBox();
             this.picSearch = new System.Windows.Forms.PictureBox();
@@ -151,7 +152,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.grid = new FINALSTREAM.Commons.Grid.SourceGridEx();
             this.databaseList = new FINALSTREAM.Commons.Controls.ComboBoxEx();
             this.filteringBox = new FINALSTREAM.Commons.Controls.TextBoxEx();
-            this.folderOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.picMovie = new System.Windows.Forms.PictureBox();
             this.playlistContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeBar)).BeginInit();
@@ -339,6 +339,29 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(205, 6);
             // 
+            // SortToolStripMenuItem
+            // 
+            this.SortToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sortDefaultToolStripMenuItem,
+            this.sortManualToolStripMenuItem});
+            this.SortToolStripMenuItem.Name = "SortToolStripMenuItem";
+            this.SortToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.SortToolStripMenuItem.Text = "並び替え";
+            // 
+            // sortDefaultToolStripMenuItem
+            // 
+            this.sortDefaultToolStripMenuItem.Name = "sortDefaultToolStripMenuItem";
+            this.sortDefaultToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.sortDefaultToolStripMenuItem.Text = "デフォルト";
+            this.sortDefaultToolStripMenuItem.Click += new System.EventHandler(this.sortDefaultToolStripMenuItem_Click);
+            // 
+            // sortManualToolStripMenuItem
+            // 
+            this.sortManualToolStripMenuItem.Name = "sortManualToolStripMenuItem";
+            this.sortManualToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.sortManualToolStripMenuItem.Text = "オリジナルソート";
+            this.sortManualToolStripMenuItem.Click += new System.EventHandler(this.sortManualToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -362,28 +385,12 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.階層を保持ToolStripMenuItem.Text = "階層構造を保持して出力...";
             this.階層を保持ToolStripMenuItem.Click += new System.EventHandler(this.階層を保持ToolStripMenuItem_Click);
             // 
-            // SortToolStripMenuItem
+            // folderOpenToolStripMenuItem
             // 
-            this.SortToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sortDefaultToolStripMenuItem,
-            this.sortManualToolStripMenuItem});
-            this.SortToolStripMenuItem.Name = "SortToolStripMenuItem";
-            this.SortToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.SortToolStripMenuItem.Text = "並び替え";
-            // 
-            // sortDefaultToolStripMenuItem
-            // 
-            this.sortDefaultToolStripMenuItem.Name = "sortDefaultToolStripMenuItem";
-            this.sortDefaultToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.sortDefaultToolStripMenuItem.Text = "デフォルト";
-            this.sortDefaultToolStripMenuItem.Click += new System.EventHandler(this.sortDefaultToolStripMenuItem_Click);
-            // 
-            // sortManualToolStripMenuItem
-            // 
-            this.sortManualToolStripMenuItem.Name = "sortManualToolStripMenuItem";
-            this.sortManualToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.sortManualToolStripMenuItem.Text = "オリジナルソート";
-            this.sortManualToolStripMenuItem.Click += new System.EventHandler(this.sortManualToolStripMenuItem_Click);
+            this.folderOpenToolStripMenuItem.Name = "folderOpenToolStripMenuItem";
+            this.folderOpenToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.folderOpenToolStripMenuItem.Text = "格納フォルダを開く";
+            this.folderOpenToolStripMenuItem.Click += new System.EventHandler(this.folderOpenToolStripMenuItem_Click);
             // 
             // picVolumeBar
             // 
@@ -1216,13 +1223,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.filteringBox.TabIndex = 4;
             this.filteringBox.TextChanged += new System.EventHandler(this.filteringBox_TextChanged);
             this.filteringBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.filteringBox_MouseDoubleClick);
-            // 
-            // folderOpenToolStripMenuItem
-            // 
-            this.folderOpenToolStripMenuItem.Name = "folderOpenToolStripMenuItem";
-            this.folderOpenToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.folderOpenToolStripMenuItem.Text = "格納フォルダを開く";
-            this.folderOpenToolStripMenuItem.Click += new System.EventHandler(this.folderOpenToolStripMenuItem_Click);
             // 
             // picMovie
             // 

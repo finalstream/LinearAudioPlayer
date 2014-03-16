@@ -1329,13 +1329,28 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.gridInfo.Text = rowCount.ToString() + " items [" + timestring + "]";
         }
 
+
+
         public void showToastMessage(string message)
         {
-            ToastManager.Show(LinearGlobal.MainForm.ListForm, message,
-                              LinearGlobal.ColorConfig.PlayingColor,
-                              LinearGlobal.ColorConfig.FirstRowBackgroundColor,
-                              LinearGlobal.ColorConfig.FontColor,
-                3000);
+            if (this.Visible)
+            {
+                ToastManager.Show(LinearGlobal.MainForm.ListForm, message,
+                                  LinearGlobal.ColorConfig.PlayingColor,
+                                  LinearGlobal.ColorConfig.FirstRowBackgroundColor,
+                                  LinearGlobal.ColorConfig.FontColor,
+                                  3000,
+                                  -50);
+            }
+            else
+            {
+                ToastManager.Show(LinearGlobal.MainForm, message,
+                                  LinearGlobal.ColorConfig.PlayingColor,
+                                  LinearGlobal.ColorConfig.FirstRowBackgroundColor,
+                                  LinearGlobal.ColorConfig.FontColor,
+                                  3000,
+                                  +5);
+            }
         }
 
         /*
