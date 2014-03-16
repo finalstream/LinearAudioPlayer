@@ -99,7 +99,6 @@
 	      error: function (XMLHttpRequest, textStatus, errorThrow){
 	      	$("#status-message").hide();
 	        $("#error-message").fadeIn("slow");
-	        //clearTimeout(pollingTimer);
 	      }
 	    });
 	    
