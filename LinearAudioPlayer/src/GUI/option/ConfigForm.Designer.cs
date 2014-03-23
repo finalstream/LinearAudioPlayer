@@ -109,6 +109,7 @@
             this.lblfadeDuration = new System.Windows.Forms.Label();
             this.numudFadeDuration = new System.Windows.Forms.NumericUpDown();
             this.tabStyle = new System.Windows.Forms.TabPage();
+            this.linkLabelStyleDownload = new System.Windows.Forms.LinkLabel();
             this.buttonPackStyle = new System.Windows.Forms.Button();
             this.checkRandomStyle = new System.Windows.Forms.CheckBox();
             this.btnImportStyle = new System.Windows.Forms.Button();
@@ -133,7 +134,6 @@
             this.columnAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReStart = new System.Windows.Forms.Button();
-            this.linkLabelStyleDownload = new System.Windows.Forms.LinkLabel();
             this.tabSetting.SuspendLayout();
             this.tabOption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPlayCountUpRatio)).BeginInit();
@@ -602,7 +602,7 @@
             this.labelOpenWEBUI.AutoSize = true;
             this.labelOpenWEBUI.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.labelOpenWEBUI.ForeColor = System.Drawing.Color.Blue;
-            this.labelOpenWEBUI.Location = new System.Drawing.Point(210, 37);
+            this.labelOpenWEBUI.Location = new System.Drawing.Point(263, 36);
             this.labelOpenWEBUI.Name = "labelOpenWEBUI";
             this.labelOpenWEBUI.Size = new System.Drawing.Size(77, 12);
             this.labelOpenWEBUI.TabIndex = 5;
@@ -1056,6 +1056,20 @@
             this.tabStyle.Text = "Style";
             this.tabStyle.UseVisualStyleBackColor = true;
             // 
+            // linkLabelStyleDownload
+            // 
+            this.linkLabelStyleDownload.ActiveLinkColor = System.Drawing.SystemColors.Highlight;
+            this.linkLabelStyleDownload.AutoSize = true;
+            this.linkLabelStyleDownload.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabelStyleDownload.LinkColor = System.Drawing.SystemColors.Highlight;
+            this.linkLabelStyleDownload.Location = new System.Drawing.Point(188, 11);
+            this.linkLabelStyleDownload.Name = "linkLabelStyleDownload";
+            this.linkLabelStyleDownload.Size = new System.Drawing.Size(162, 12);
+            this.linkLabelStyleDownload.TabIndex = 12;
+            this.linkLabelStyleDownload.TabStop = true;
+            this.linkLabelStyleDownload.Text = "オンラインで追加のスタイルを取得";
+            this.linkLabelStyleDownload.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelStyleDownload_LinkClicked);
+            // 
             // buttonPackStyle
             // 
             this.buttonPackStyle.Location = new System.Drawing.Point(181, 272);
@@ -1275,20 +1289,6 @@
             this.btnReStart.Text = "ReStart";
             this.btnReStart.UseVisualStyleBackColor = true;
             this.btnReStart.Click += new System.EventHandler(this.btnReStart_Click);
-            // 
-            // linkLabelStyleDownload
-            // 
-            this.linkLabelStyleDownload.ActiveLinkColor = System.Drawing.SystemColors.Highlight;
-            this.linkLabelStyleDownload.AutoSize = true;
-            this.linkLabelStyleDownload.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkLabelStyleDownload.LinkColor = System.Drawing.SystemColors.Highlight;
-            this.linkLabelStyleDownload.Location = new System.Drawing.Point(188, 11);
-            this.linkLabelStyleDownload.Name = "linkLabelStyleDownload";
-            this.linkLabelStyleDownload.Size = new System.Drawing.Size(162, 12);
-            this.linkLabelStyleDownload.TabIndex = 12;
-            this.linkLabelStyleDownload.TabStop = true;
-            this.linkLabelStyleDownload.Text = "オンラインで追加のスタイルを取得";
-            this.linkLabelStyleDownload.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelStyleDownload_LinkClicked);
             // 
             // ConfigForm
             // 

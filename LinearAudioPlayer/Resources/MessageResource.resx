@@ -190,4 +190,7 @@
   <data name="W0004" xml:space="preserve">
     <value>監視フォルダ、保管フォルダ、対象データベースのすべてが指定されていないため、有効にできません。</value>
   </data>
+  <data name="W0005" xml:space="preserve">
+    <value>管理者権限がないため、WEBUIを有効にできませんでした。管理者権限で起動してください。</value>
+  </data>
 </root>

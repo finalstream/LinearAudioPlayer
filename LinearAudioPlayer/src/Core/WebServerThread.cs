@@ -9,7 +9,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Windows.Forms;
+using FINALSTREAM.Commons.Utils;
 using FINALSTREAM.LinearAudioPlayer.Info;
+using FINALSTREAM.LinearAudioPlayer.Resources;
 using Newtonsoft.Json;
 
 namespace FINALSTREAM.LinearAudioPlayer.Core
@@ -34,6 +36,13 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
         private void webServerProc()
         {
+            // 管理者権限がない場合は起動しない
+            if (!WindowsUtils.IsExecuteAdminRole())
+            {
+                MessageUtils.showMessage(MessageBoxIcon.Warning, MessageResource.W0005);
+                return;
+            }
+
             listener = new HttpListener();
             listener.Prefixes.Add(prefix); // プレフィックスの登録
             try
@@ -248,7 +257,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
         public void Kill()
         {
-            listener.Close();
+            if (listener != null)
+            {
+                listener.Close();
+            }
             webServerThread.Abort();
             webServerThread.Join();
         }
