@@ -2491,6 +2491,11 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             LinearAudioPlayer.PlayController.addInterruptItem(LinearAudioPlayer.GridController.getSelectRowNoList());
+            if (LinearAudioPlayer.LinkGridController.mode ==
+                                       LinkGridController.EnuMode.NOWPLAYING)
+            {
+                LinearAudioPlayer.LinkGridController.reloadGrid();
+            }
         }
 
         private void gridInfo_MouseDoubleClick(object sender, MouseEventArgs e)

@@ -71,7 +71,13 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             {
                 // 既存のリストに割り込み
                 GridItemInfo gi = (GridItemInfo)LinearAudioPlayer.GridController.getRowGridItem(rowNo);
-                playingList.AddAfter(playingList.First, gi);
+                gi.IsInterrupt = true;
+                var interruptNode = playingList.Find(playingList.LastOrDefault(g => g.IsInterrupt));
+                if (interruptNode == null)
+                {
+                    interruptNode = playingList.First;
+                }
+                playingList.AddAfter(interruptNode, gi);
 
                 if (LinearGlobal.LinearConfig.PlayerConfig.RestCount != -1)
                 {

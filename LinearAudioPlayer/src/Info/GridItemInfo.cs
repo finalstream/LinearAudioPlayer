@@ -41,6 +41,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         public bool IsNoPicture { get; set; }
         public Image Picture { get; set; }
         public string PictureUrl { get; set; }
+        public bool IsInterrupt { get; set; }
 
         public string Option
         {
