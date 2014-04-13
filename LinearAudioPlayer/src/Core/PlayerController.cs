@@ -343,22 +343,13 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             LinearAudioPlayer.GridController.setRowColor(rowNo, GridController.EnuPlayType.NOPLAY);
         }
 
-        /// <summary>
-        /// 割り込みリストに追加
-        /// </summary>
-        /// <param name="gridRowNo"></param>
-        public void addInterruptItem(int gridRowNo)
-        {
-            List<int> rowNoList = new List<int>();
-            rowNoList.Add(gridRowNo);
-            addInterruptItem(rowNoList);
-        }
+
 
         /// <summary>
         /// 割り込みリストに追加
         /// </summary>
         /// <param name="rowNolist"></param>
-        public void addInterruptItem(IList<int> rowNoList)
+        public void addInterruptItem(IList<int> rowNoList, bool isInterrupt)
         {
            foreach (var rowNo in rowNoList)
             {
@@ -373,6 +364,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 LinearGlobal.MainForm.ListForm.InterruptForm.InterruptListBox.Items.Add(iii);
                  * */
                 playingListController.interruptRowNo(rowNo);
+            }
+            if (!isInterrupt)
+            {
+                playingListController.ClearInterrupt();
             }
             LinearGlobal.MainForm.setTitle(createTitle());
         }

@@ -2235,11 +2235,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
         }
 
-        private void addInsertToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            LinearAudioPlayer.PlayController.addInterruptItem(LinearAudioPlayer.GridController.getSelectRowNoList());
-        }
 
         private void picSearch_MouseDown(object sender, MouseEventArgs e)
         {
@@ -2490,7 +2485,28 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            LinearAudioPlayer.PlayController.addInterruptItem(LinearAudioPlayer.GridController.getSelectRowNoList());
+            LinearAudioPlayer.PlayController.addInterruptItem(LinearAudioPlayer.GridController.getSelectRowNoList(), true);
+            if (LinearAudioPlayer.LinkGridController.mode ==
+                                       LinkGridController.EnuMode.NOWPLAYING)
+            {
+                LinearAudioPlayer.LinkGridController.reloadGrid();
+            }
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            var noList = new List<int>();
+            int i = LinearAudioPlayer.GridController.getActiveRowNo();
+            if (i == -1)
+            {
+                return;
+            }
+            while (i <= Grid.Rows.Count - 1)
+            {
+                noList.Add(i);
+                i++;
+            }
+            LinearAudioPlayer.PlayController.addInterruptItem(noList, false);
             if (LinearAudioPlayer.LinkGridController.mode ==
                                        LinkGridController.EnuMode.NOWPLAYING)
             {
@@ -3080,7 +3096,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 }
             }
         }
-
     }
 
     

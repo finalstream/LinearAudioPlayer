@@ -153,6 +153,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.databaseList = new FINALSTREAM.Commons.Controls.ComboBoxEx();
             this.filteringBox = new FINALSTREAM.Commons.Controls.TextBoxEx();
             this.picMovie = new System.Windows.Forms.PictureBox();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.playlistContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeSwitch)).BeginInit();
@@ -181,6 +182,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.playlistContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.playToolStripMenuItem,
             this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
             this.toolStripSeparator4,
             this.addToolStripMenuItem,
             this.pathcopyToolStripMenuItem,
@@ -196,7 +198,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.toolStripMenuItem1,
             this.folderOpenToolStripMenuItem});
             this.playlistContextMenuStrip.Name = "contextMenuStrip";
-            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 292);
+            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 336);
             this.playlistContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.playlistContextMenuStrip_Opening);
             // 
             // playToolStripMenuItem
@@ -1233,6 +1235,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.picMovie.TabStop = false;
             this.picMovie.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picMovie_MouseDown);
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(208, 22);
+            this.toolStripMenuItem3.Text = "次はここから再生する";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
             // ListForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1435,6 +1444,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private ToolStripMenuItem playToolStripMenuItem;
         private ToolStripMenuItem folderOpenToolStripMenuItem;
         private PictureBox picMovie;
+        private ToolStripMenuItem toolStripMenuItem3;
 
     }
 }

@@ -308,5 +308,13 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 }
             }
         }
+
+        public void ClearInterrupt()
+        {
+            foreach (var gridItemInfo in playingList.Where((g=> g.IsInterrupt)))
+            {
+                gridItemInfo.IsInterrupt = false;
+            }
+        }
     }
 }
