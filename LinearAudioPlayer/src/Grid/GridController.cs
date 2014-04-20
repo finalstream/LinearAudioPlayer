@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using DevAge.ComponentModel.Converter;
 using DevAge.Drawing;
 using DevAge.Drawing.VisualElements;
 using FINALSTREAM.Commons.Archive;
@@ -14,6 +17,9 @@ using System.Drawing;
 using FINALSTREAM.LinearAudioPlayer.Info;
 using FINALSTREAM.Commons.Utils;
 using FINALSTREAM.LinearAudioPlayer.GUI;
+using SourceGrid.Cells.Editors;
+using SourceGrid.Cells.Models;
+using SourceGrid.Cells.Virtual;
 using BorderStyle = System.Windows.Forms.BorderStyle;
 using ContentAlignment = DevAge.Drawing.ContentAlignment;
 using TextRenderer = System.Windows.Forms.TextRenderer;
@@ -346,8 +352,12 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
 
             // Time
             Grid[0, (int)EnuGrid.TIME] = new SourceGrid.Cells.ColumnHeader(Properties.LabelResource.grid_Time);
+            var ch = Grid[0, (int)EnuGrid.TIME] as SourceGrid.Cells.ColumnHeader;
+            ch.AutomaticSortEnabled = false;
             Grid[0, (int)EnuGrid.TIME].Column.Width =
                 LinearGlobal.LinearConfig.ViewConfig.ColumnHeaderWidth[(int)EnuGrid.TIME];
+            Grid[0, (int) EnuGrid.TIME].AddController(sortableHeader);
+            Grid[0, (int)EnuGrid.TIME].AddController(columnHeaderClickEvent);
 
             // Bitrate
             Grid[0, (int)EnuGrid.BITRATE] = new SourceGrid.Cells.ColumnHeader(Properties.LabelResource.grid_BitRate);
@@ -372,9 +382,13 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
 
             // Date
             Grid[0, (int)EnuGrid.DATE] = new SourceGrid.Cells.ColumnHeader(Properties.LabelResource.grid_Date);
+            var ch2 = Grid[0, (int)EnuGrid.DATE] as SourceGrid.Cells.ColumnHeader;
+            ch2.AutomaticSortEnabled = false;
             Grid[0, (int)EnuGrid.DATE].Column.Width =
                 LinearGlobal.LinearConfig.ViewConfig.ColumnHeaderWidth[(int)EnuGrid.DATE];
             //Grid[0, (int) EnuGrid.DATE].Column.Width = 0;
+            Grid[0, (int)EnuGrid.DATE].AddController(sortableHeader);
+            Grid[0, (int)EnuGrid.DATE].AddController(columnHeaderClickEvent);
 
             // Rating
             Grid[0, (int)EnuGrid.RATING] = new SourceGrid.Cells.ColumnHeader(Properties.LabelResource.grid_Rating);
@@ -518,16 +532,20 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             Grid[i, (int)EnuGrid.TRACK].AddController(doubleclickController);
 
             // Time
-            Grid[i, (int)EnuGrid.TIME] = new Cell(gi.Time);
-            string time = gi.Time;
-            if (!String.IsNullOrEmpty(time))
-            {
-                if (time.Length < 6)
-                {
-                    time = "0:" + time;
-                }
-                Grid[i, (int) EnuGrid.TIME].Tag = TimeSpan.Parse(time).TotalSeconds;
-            }
+            var len = new ViewLength(gi.Time);
+            Grid[i, (int)EnuGrid.TIME] = new Cell(len.LengthString);
+            Grid[i, (int) EnuGrid.TIME].Tag = len.Length;
+            //var mc = new ModelContainer();
+            //mc.ValueModel = new ValueModel(len.Length);
+            //Grid[i, (int) EnuGrid.TIME].Model = mc;
+            //Grid[i, (int)EnuGrid.TIME].Value = len.Length;
+            //var edit = new SourceGrid.Cells.Editors.TextBox(typeof(string));
+            //var cnv = new DateTimeTypeConverter("H m ss");
+            //edit.TypeConverter = cnv;
+            //var context = new CellContext(Grid, new Position(i, (int)EnuGrid.TIME));
+            //edit.SetCellValue(context, len.Length);
+            //Grid[i, (int)EnuGrid.TIME].Editor = edit;
+            //Grid[i, (int) EnuGrid.TIME].Editor.EnableEdit = false;
             Grid[i, (int)EnuGrid.TIME].AddController(doubleclickController);
 
             // Bitrate
@@ -615,6 +633,28 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
 
            
             
+        }
+
+        
+        private class ViewLength
+        {
+
+            public ViewLength(string time)
+            {
+                LengthString = time;
+                if (!String.IsNullOrEmpty(time))
+                {
+                    if (time.Length < 6)
+                    {
+                        time = "0:" + time;
+                    }
+                    Length = TimeSpan.Parse(time).TotalSeconds;
+                }
+            }
+            public string LengthString { get; set; }
+
+            public double Length { get; set; }
+
         }
 
         /// <summary>
@@ -1084,17 +1124,88 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
                     if (sender.Position.Column == (int)EnuGrid.ICON)
                     {
                         SourceGrid.Grid grid = (SourceGrid.Grid)sender.Grid;
-                        SourceGrid.Cells.ColumnHeader header = (SourceGrid.Cells.ColumnHeader)grid[sender.Position.Row,(int)EnuGrid.ID];
-                        if(header.SortStyle == DevAge.Drawing.HeaderSortStyle.Ascending) {
+                        SourceGrid.Cells.ColumnHeader header;
+                        
+                        header =
+                                (SourceGrid.Cells.ColumnHeader) grid[sender.Position.Row, (int) EnuGrid.ID];
+
+
+                        if (header.SortStyle == DevAge.Drawing.HeaderSortStyle.Ascending)
+                        {
                             header.Sort(false);
-                        }else
+                        }
+                        else
                         {
                             header.Sort(true);
                         }
+
+                    }
+                    else if (sender.Position.Column == (int)EnuGrid.TIME || sender.Position.Column == (int)EnuGrid.DATE)
+                    {
+                         SourceGrid.Grid grid = (SourceGrid.Grid)sender.Grid;
+                        SourceGrid.Cells.ColumnHeader header;
+
+                        header = (SourceGrid.Cells.ColumnHeader)grid[sender.Position.Row, sender.Position.Column];
+                        header.SortComparer = new TagCellComparer();
                     }
                     
                 }
                
+            }
+        }
+
+        /// <summary>
+        /// A comparer for the Cell class. (Not for CellVirtual). Using the value of the cell.
+        /// </summary>
+        public class TagCellComparer : IComparer
+        {
+            public virtual System.Int32 Compare(System.Object x, System.Object y)
+            {
+                //Cell object
+                if (x == null && y == null)
+                    return 0;
+                if (x == null)
+                    return -1;
+                if (y == null)
+                    return 1;
+
+                if (x is IComparable)
+                {
+                    if (x.GetType().Equals(y.GetType()) == false)
+                        return -1;
+                    return ((IComparable)x).CompareTo(y);
+                }
+                if (y is IComparable)
+                {
+                    if (x.GetType().Equals(y.GetType()) == false)
+                        return -1;
+                    return (-1 * ((IComparable)y).CompareTo(x));
+                }
+
+                //Cell.Value object
+                object vx = ((ICell)x).Tag;
+                object vy = ((ICell)y).Tag;
+                if (vx == null && vy == null)
+                    return 0;
+                if (vx == null)
+                    return -1;
+                if (vy == null)
+                    return 1;
+
+                if (vx is IComparable)
+                {
+                    if (vx.GetType().Equals(vy.GetType()) == false)
+                        return -1;
+                    return ((IComparable)vx).CompareTo(vy);
+                }
+                if (vy is IComparable)
+                {
+                    if (vx.GetType().Equals(vy.GetType()) == false)
+                        return -1;
+                    return (-1 * ((IComparable)vy).CompareTo(vx));
+                }
+
+                throw new ArgumentException("Invalid cell object, no IComparable interface found");
             }
         }
 
