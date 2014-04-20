@@ -118,6 +118,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             // WEBUI設定
             this.checkWEBUIEnable.Checked = linearConfig.ViewConfig.UseWebInterface;
             this.numWEBUIPort.Value = linearConfig.ViewConfig.WebInterfaceListenPort;
+            numWEBUIPort.Enabled = checkWEBUIEnable.Checked;
+            labelOpenWEBUI.Enabled = checkWEBUIEnable.Checked;
+            comboWebUITheme.Enabled = checkWEBUIEnable.Checked;
 
             comboWebUITheme.Items.Clear();
             var filePaths = FileUtils.getFilePathList(

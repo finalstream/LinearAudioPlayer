@@ -1663,12 +1663,13 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 sqltran.Commit();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 if (sqltran.Connection.State != ConnectionState.Closed)
                 {
                     sqltran.Rollback();
                 }
+                LinearAudioPlayer.writeErrorMessage(ex);
                 //MessageUtils.showMessage(MessageBoxIcon.Error,
                 //    MessageResource.E0002 + "\n" + ex.Message);
             }
