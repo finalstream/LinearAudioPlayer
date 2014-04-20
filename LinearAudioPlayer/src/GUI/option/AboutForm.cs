@@ -39,7 +39,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             System.Diagnostics.FileVersionInfo jsonver = System.Diagnostics.FileVersionInfo.GetVersionInfo("lib\\json\\Newtonsoft.Json.dll");
 
             string mes = "\r\nCommon Library:\r\nFinalstream Commons Library ver." + fcver.FileVersion + "\r\nCopyright © 2008-2014 FINALSTREAM.\r\nhttp://www.finalstream.net/";
-            mes += "\r\n\r\nPlay Engine:\r\nPowered by FMOD Sound System ver." + fmodver.FileVersion + "\r\nCopyright © Firelight Technologies Pty, Ltd., 1994-2013.\r\nhttp://www.fmod.org/";
+            mes += "\r\n\r\nPlay Engine:\r\nPowered by FMOD Sound System ver." + fmodver.FileVersion + "\r\nCopyright © Firelight Technologies Pty, Ltd., 1994-2014.\r\nhttp://www.fmod.org/";
             mes += "               \r\n\r\nPowered by BASS Audio Library ver." + bassver.FileVersion + "\r\nCopyright © 1999-2013 Un4seen Developments Ltd.\r\nhttp://www.un4seen.com/";
             mes += "               \r\nPowered by BASS.NET ver." + bassnetver.FileVersion + "\r\nCopyright © 2005-2013 by radio42, Hamburg, Germany\r\nhttp://www.bass.radio42.com/";
             mes += "\r\n\r\nDatabase Engine:\r\nPowered by System.Data.SQLite ver." + sqlitever.FileVersion + "\r\nhttp://system.data.sqlite.org/";
