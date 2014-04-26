@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinearAudioPlayer", "LinearAudioPlayer\LinearAudioPlayer.csproj", "{E276D428-CA93-4F4D-AD5C-31BEA709BC14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FMOD", "FMOD\FMOD.csproj", "{C163056A-8A15-4CA2-B41D-F1AB548E4E6A}"
@@ -18,10 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "taglibSharp", "..\taglibSharp\taglibSharp\taglibSharp.csproj", "{30AE67F0-D3A5-423B-90CF-E08D67762F10}"
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -118,8 +114,8 @@ Global
 		{0FD61074-0E04-4A52-AF30-2812D7BA2174}.Release|x86.Build.0 = Release|x86
 		{6BC75860-6850-4A9D-BE95-6DBAA6DF8AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6BC75860-6850-4A9D-BE95-6DBAA6DF8AD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6BC75860-6850-4A9D-BE95-6DBAA6DF8AD1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{6BC75860-6850-4A9D-BE95-6DBAA6DF8AD1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6BC75860-6850-4A9D-BE95-6DBAA6DF8AD1}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{6BC75860-6850-4A9D-BE95-6DBAA6DF8AD1}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{6BC75860-6850-4A9D-BE95-6DBAA6DF8AD1}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{6BC75860-6850-4A9D-BE95-6DBAA6DF8AD1}.Debug|x86.Build.0 = Debug|Any CPU
 		{6BC75860-6850-4A9D-BE95-6DBAA6DF8AD1}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
@@ -135,8 +131,8 @@ Global
 		{6BC75860-6850-4A9D-BE95-6DBAA6DF8AD1}.Release|x86.Build.0 = Release|Any CPU
 		{9AB77310-4A8B-46DE-A7BE-79E23D52C7E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9AB77310-4A8B-46DE-A7BE-79E23D52C7E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9AB77310-4A8B-46DE-A7BE-79E23D52C7E2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9AB77310-4A8B-46DE-A7BE-79E23D52C7E2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9AB77310-4A8B-46DE-A7BE-79E23D52C7E2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{9AB77310-4A8B-46DE-A7BE-79E23D52C7E2}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{9AB77310-4A8B-46DE-A7BE-79E23D52C7E2}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{9AB77310-4A8B-46DE-A7BE-79E23D52C7E2}.Debug|x86.Build.0 = Debug|Any CPU
 		{9AB77310-4A8B-46DE-A7BE-79E23D52C7E2}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
@@ -152,8 +148,8 @@ Global
 		{9AB77310-4A8B-46DE-A7BE-79E23D52C7E2}.Release|x86.Build.0 = Release|Any CPU
 		{30AE67F0-D3A5-423B-90CF-E08D67762F10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30AE67F0-D3A5-423B-90CF-E08D67762F10}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30AE67F0-D3A5-423B-90CF-E08D67762F10}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{30AE67F0-D3A5-423B-90CF-E08D67762F10}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{30AE67F0-D3A5-423B-90CF-E08D67762F10}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{30AE67F0-D3A5-423B-90CF-E08D67762F10}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{30AE67F0-D3A5-423B-90CF-E08D67762F10}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{30AE67F0-D3A5-423B-90CF-E08D67762F10}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
 		{30AE67F0-D3A5-423B-90CF-E08D67762F10}.Deploy|Any CPU.Build.0 = Debug|Any CPU
@@ -168,5 +164,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal

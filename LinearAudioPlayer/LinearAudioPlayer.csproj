@@ -89,19 +89,17 @@
       <HintPath>..\..\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SgmlReaderDll">
-      <HintPath>..\..\lib\SgmlReaderDll.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SourceGrid">
-      <HintPath>..\..\lib\SourceGrid.dll</HintPath>
+      <HintPath>..\packages\SourceGrid.4.4.0\lib\net35\SourceGrid.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\..\lib\System.Data.SQLite.DLL</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.90.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\sqlite\System.Data.SQLite.DLL</HintPath>
     </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -301,6 +299,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="config\config is output here">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="db\blank.dbbase">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -325,6 +326,10 @@
     <None Include="lib\migemo\dict\zen2han.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="log\log is output here">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -337,7 +342,9 @@
     <Compile Include="src\Setting\LinearConfig.cs" />
     <Compile Include="src\Setting\SettingManager.cs" />
     <Compile Include="src\Utils\UpdateUtils.cs" />
-    <None Include="sql\default.json" />
+    <None Include="sql\default.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="web\fonts\glyphicons-halflings-regular.eot" />
     <None Include="web\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="web\fonts\glyphicons-halflings-regular.woff" />
@@ -370,6 +377,12 @@
     <Content Include="lib\fmod\fmodex.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="lib\google\GAPI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\json\Newtonsoft.Json.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="lib\microsoft\Microsoft.WindowsAPICodePack.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -388,15 +401,27 @@
     <Content Include="lib\rest\LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lib\sevenzip\7z.dll" />
-    <Content Include="lib\sevenzip\SevenZipSharp.dll" />
+    <Content Include="lib\sevenzip\7z.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\sevenzip\SevenZipSharp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\sourcegrid\SourceGrid.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="lib\sqlite\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="lib\sqlite\System.Data.SQLite.DLL">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="plugin\Finalstream.LinearAudioPlayer.Plugin.LastFm.dll" />
+    <Content Include="lib\taglib\taglib-sharp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="plugin\Finalstream.LinearAudioPlayer.Plugin.LastFm.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="style\GRed\audio.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -442,7 +467,9 @@
     <Content Include="style\GRed\database.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="style\GRed\disable.png" />
+    <Content Include="style\GRed\disable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="style\GRed\limit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -455,7 +482,9 @@
     <Content Include="style\GRed\medley.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="style\GRed\movie.png" />
+    <Content Include="style\GRed\movie.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="style\GRed\nocover.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -543,7 +572,9 @@
     <Content Include="style\KURO2\database.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="style\KURO2\disable.png" />
+    <Content Include="style\KURO2\disable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="style\KURO2\limit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -556,7 +587,9 @@
     <Content Include="style\KURO2\medley.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="style\KURO2\movie.png" />
+    <Content Include="style\KURO2\movie.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="style\KURO2\nocover.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -644,7 +677,9 @@
     <Content Include="style\Lyrids\database.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="style\Lyrids\disable.png" />
+    <Content Include="style\Lyrids\disable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="style\Lyrids\limit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -657,7 +692,9 @@
     <Content Include="style\Lyrids\medley.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="style\Lyrids\movie.png" />
+    <Content Include="style\Lyrids\movie.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="style\Lyrids\nocover.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -761,18 +798,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="config\" />
     <Folder Include="lib\bass\plugin\" />
-    <Folder Include="lib\google\" />
-    <Folder Include="lib\sourcegrid\" />
-    <Folder Include="lib\taglib\" />
-    <Folder Include="log\" />
     <Folder Include="update\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if /I "$(ConfigurationName)" == "Releases" Eazfuscator.NET.exe "$(TargetPath)" --msbuild-project-path "$(ProjectPath)" --msbuild-project-configuration "$(ConfigurationName)" --msbuild-project-platform "$(PlatformName)" --msbuild-solution-path "$(SolutionPath)" -n --newline-flush -v 3.1
-move /Y "$(TargetDir)Bass.Net.dll" "$(TargetDir)lib\bass"
+    <PostBuildEvent>move /Y "$(TargetDir)Bass.Net.dll" "$(TargetDir)lib\bass"
 move /Y "$(TargetDir)FMOD.dll" "$(TargetDir)lib\fmod"
 move /Y "$(TargetDir)System.Data.SQLite.DLL" "$(TargetDir)lib\sqlite"
 move /Y "$(TargetDir)SourceGrid.dll" "$(TargetDir)lib\sourcegrid"
