@@ -158,7 +158,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
             }
 
-            if (!File.Exists(pii.FilePath))
+            if (!File.Exists(pii.FilePath) && LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.MUSIC)
             {
                 // 解凍失敗
                 return "";

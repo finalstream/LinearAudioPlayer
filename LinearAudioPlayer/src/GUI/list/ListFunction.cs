@@ -59,95 +59,109 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             RegistMode registMode
             )
         {
-
-            // ファイル更新日時の降順でソート
             List<string[]> sortFilelist = new List<string[]>();
-            foreach (var filepath in fileList)
+
+            if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.MUSIC)
             {
-                string[] fileInfo;
-
-                if (Directory.Exists(filepath))
+                // ファイル更新日時の降順でソート
+                foreach (var filepath in fileList)
                 {
-                    // ディレクトリの場合
-                    //IList<string> dirFiles = FileUtils.getFilePathList(filepath, SearchOption.AllDirectories);
+                    string[] fileInfo;
 
-                    // ディレクトリ自身
-                    if (!filepath.Equals(LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory))
+                    if (Directory.Exists(filepath))
                     {
-                        fileInfo = new string[3];
-                        fileInfo[0] = filepath;
-                        fileInfo[1] = Directory.GetCreationTime(filepath).ToString("yyyyMMddHHmmss");
+                        // ディレクトリの場合
+                        //IList<string> dirFiles = FileUtils.getFilePathList(filepath, SearchOption.AllDirectories);
 
-                        sortFilelist.Add(fileInfo);
-                    } else
-                    {
-                        // 監視ディレクトリの場合は同階層のファイルをリストアップする
-                        var monitorFileList = FileUtils.getFilePathListWithExtFilter(filepath,
-                                                                                   SearchOption.TopDirectoryOnly,
-                                                                                   LinearGlobal.SupportAudioExtensionAry);
-
-                        foreach (var f in monitorFileList)
+                        // ディレクトリ自身
+                        if (
+                            !filepath.Equals(
+                                LinearGlobal.LinearConfig.PlayerConfig.AudioFileAutoRegistInfo.MonitoringDirectory))
                         {
                             fileInfo = new string[3];
-                            fileInfo[0] = f;
-                            fileInfo[1] = File.GetCreationTime(f).ToString("yyyyMMddHHmmss");
+                            fileInfo[0] = filepath;
+                            fileInfo[1] = Directory.GetCreationTime(filepath).ToString("yyyyMMddHHmmss");
 
                             sortFilelist.Add(fileInfo);
                         }
-                    }
+                        else
+                        {
+                            // 監視ディレクトリの場合は同階層のファイルをリストアップする
+                            var monitorFileList = FileUtils.getFilePathListWithExtFilter(filepath,
+                                SearchOption.TopDirectoryOnly,
+                                LinearGlobal.SupportAudioExtensionAry);
 
-                    // ディレクトリ配下のアーカイブファイル
-                    IList<string> dirFiles = FileUtils.getFilePathListWithExtFilter(filepath,
-                                                                                    SearchOption.AllDirectories,
-                                                                                    LinearConst.
-                                                                                        ARCHIVE_EXTENSION_ARY);
-                    foreach (var dirFile in dirFiles)
+                            foreach (var f in monitorFileList)
+                            {
+                                fileInfo = new string[3];
+                                fileInfo[0] = f;
+                                fileInfo[1] = File.GetCreationTime(f).ToString("yyyyMMddHHmmss");
+
+                                sortFilelist.Add(fileInfo);
+                            }
+                        }
+
+                        // ディレクトリ配下のアーカイブファイル
+                        IList<string> dirFiles = FileUtils.getFilePathListWithExtFilter(filepath,
+                            SearchOption.AllDirectories,
+                            LinearConst.
+                                ARCHIVE_EXTENSION_ARY);
+                        foreach (var dirFile in dirFiles)
+                        {
+                            fileInfo = new string[3];
+                            fileInfo[0] = dirFile;
+                            fileInfo[1] = File.GetCreationTime(dirFile).ToString("yyyyMMddHHmmss");
+
+                            sortFilelist.Add(fileInfo);
+                        }
+
+                        // 配下のディレクトリ
+                        dirFiles = Directory.GetDirectories(filepath, "*", SearchOption.AllDirectories);
+                        foreach (var dirFile in dirFiles)
+                        {
+                            //if (((IList<string>)LinearGlobal.SupportExtensionAry).Contains(
+                            //    Path.GetExtension(dirFile).ToLower()))
+                            //{
+                            fileInfo = new string[3];
+                            fileInfo[0] = dirFile;
+                            fileInfo[1] = Directory.GetCreationTime(dirFile).ToString("yyyyMMddHHmmss");
+
+                            sortFilelist.Add(fileInfo);
+                            //}
+                        }
+                    }
+                    else
                     {
+                        // ファイル
                         fileInfo = new string[3];
-                        fileInfo[0] = dirFile;
-                        fileInfo[1] = File.GetCreationTime(dirFile).ToString("yyyyMMddHHmmss");
+                        fileInfo[0] = filepath;
+                        fileInfo[1] = File.GetCreationTime(filepath).ToString("yyyyMMddHHmmss");
 
                         sortFilelist.Add(fileInfo);
                     }
 
-                    // 配下のディレクトリ
-                   dirFiles = Directory.GetDirectories(filepath, "*", SearchOption.AllDirectories);
-                    foreach (var dirFile in dirFiles)
+                }
+
+                sortFilelist.Sort(delegate(string[] a, string[] b)
+                {
+                    if (a[1] != b[1])
                     {
-                        //if (((IList<string>)LinearGlobal.SupportExtensionAry).Contains(
-                        //    Path.GetExtension(dirFile).ToLower()))
-                        //{
-                            fileInfo = new string[3];
-                            fileInfo[0] = dirFile;
-                        fileInfo[1] = Directory.GetCreationTime(dirFile).ToString("yyyyMMddHHmmss");
-
-                            sortFilelist.Add(fileInfo);
-                        //}
+                        return string.Compare(a[1], b[1]);
                     }
-                }
-                else
-                {
-                    // ファイル
-                    fileInfo = new string[3];
-                    fileInfo[0] = filepath;
-                    fileInfo[1] = File.GetCreationTime(filepath).ToString("yyyyMMddHHmmss");
-
-                    sortFilelist.Add(fileInfo);
-                }
-
+                    else
+                    {
+                        return StringUtils.CompareNatural(b[0], a[0]);
+                    }
+                });
             }
-
-            sortFilelist.Sort(delegate(string[] a, string[] b)
+            else
             {
-                if (a[1] != b[1])
-                {
-                    return string.Compare(a[1], b[1]);
-                }
-                else
-                {
-                    return StringUtils.CompareNatural(b[0], a[0]);
-                }
-            });
+                // RADIO
+                var fileInfo = new string[3];
+                fileInfo[0] = fileList[0];
+
+                sortFilelist.Add(fileInfo);
+            }
 
 
             if (registMode != RegistMode.AUTOREGIST)
@@ -222,7 +236,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                         audioFileList.Add(fileInfo[2]);
                     }
                     else if (!((IList<string>)LinearConst.ARCHIVE_EXTENSION_ARY).Contains(
-                        Path.GetExtension(filePath).ToLower()))
+                        Path.GetExtension(filePath).ToLower()) && LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.MUSIC)
                     {
 
                         isArchive = false;
@@ -286,6 +300,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                             }
                         }
 
+                    } else if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO)
+                    {
+                        // RADIO
+                        audioFileList.Add(fileInfo[0]);
                     }
                     else
                     {
@@ -350,9 +368,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                             continue;
                         }
 
-                        if (RegistMode.NORMAL.Equals(registMode) ||
+                        if ((RegistMode.NORMAL.Equals(registMode) ||
                            (!RegistMode.NORMAL.Equals(registMode)
                             && !StringUtils.contains(audioFile, LinearGlobal.LinearConfig.PlayerConfig.ExclusionKeywords)))
+                            || LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO)
                         {
                             // 既にDB存在するか確認
                             paramList.Clear();

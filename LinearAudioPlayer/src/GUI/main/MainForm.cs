@@ -345,7 +345,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             LinearGlobal.MainForm.ListForm.setProgressBarValue((int) LinearAudioPlayer.PlayController.getPosition());
             LinearGlobal.MainForm.setMiniProgressSeekBarValue((int)LinearAudioPlayer.PlayController.getPosition());
             // Windows7 TaskBar
-            if (WindowsUtils.IsWindows7Later())
+            if (WindowsUtils.IsWindows7Later() && LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.MUSIC)
             {
                 TaskbarManager.Instance.SetProgressValue((int) ListForm.progressSeekBar.Value, 100);
             }
