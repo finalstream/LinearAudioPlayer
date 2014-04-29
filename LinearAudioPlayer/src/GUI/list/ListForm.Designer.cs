@@ -825,7 +825,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.picArtwork.BackColor = System.Drawing.Color.Transparent;
             this.picArtwork.Location = new System.Drawing.Point(199, 47);
             this.picArtwork.Name = "picArtwork";
-            this.picArtwork.Size = new System.Drawing.Size(116, 116);
+            this.picArtwork.Size = new System.Drawing.Size(150, 150);
             this.picArtwork.TabIndex = 39;
             this.picArtwork.TabStop = false;
             this.picArtwork.Visible = false;

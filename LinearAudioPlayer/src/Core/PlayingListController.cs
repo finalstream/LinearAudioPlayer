@@ -119,6 +119,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 }
 
                 var nowNode = playingList.First;
+                nowNode.Value.IsInterrupt = false;
                 playingList.RemoveFirst();
                 playingList.AddLast(nowNode);
 

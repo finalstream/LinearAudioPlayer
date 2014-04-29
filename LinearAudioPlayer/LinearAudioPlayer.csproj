@@ -387,7 +387,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="lib\finalstream\Finalstream.LinearAudioPlayer.Plugin.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="lib\fmod\fmodex.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
