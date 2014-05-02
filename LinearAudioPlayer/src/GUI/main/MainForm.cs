@@ -34,6 +34,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         private bool _isTaskTrayBeforeOpen = false;
         private ConfigForm _configForm = null;
         private LinearGradientBrush gb;
+        //private SolidBrush solidBrush;
         private bool isInputTaskTray = false;
 
         private static Bitmap ratingFavoriteImage;
@@ -1231,6 +1232,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 colorConfig.SpectrumLevelHightLevelColor,
                 colorConfig.SpectrumLevelLowLevelColor,
                 LinearGradientMode.Vertical);
+            //solidBrush = new SolidBrush(colorConfig.SpectrumLevelLowLevelColor);
         }
 
         /// <summary>
@@ -1604,9 +1606,20 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 rect.Y = spectrumHeight - hh - 2.0f;
                 rect.Height = hh;
 
+                //int c = (int)(Math.Pow(0.03, fftdata[count4]) * 255);
                 //g.FillRectangle(gb, count3, (int) height - 2.0f, 2.0f,
                 //                (float)Math.Ceiling(spectrumHeight - height));
+                
                 g.FillRectangle(gb, rect);
+
+                //solidBrush.Color = Color.FromArgb((int) c, LinearGlobal.ColorConfig.SpectrumLevelLowLevelColor);
+                //g.FillRectangle(solidBrush, rect);
+                /*
+                solidBrush.Color = Color.FromArgb((int)c, LinearGlobal.ColorConfig.SpectrumLevelLowLevelColor);
+                g.FillRectangle(solidBrush, rect);
+                solidBrush.Color = Color.FromArgb(255 - (int)c, LinearGlobal.ColorConfig.SpectrumLevelLowLevelColor);
+                g.FillRectangle(solidBrush, rect);
+                */
                 count3 += 2.0f;
                 count3++;
 

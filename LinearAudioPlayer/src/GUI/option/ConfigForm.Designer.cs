@@ -1315,11 +1315,6 @@
             0,
             0,
             0});
-            this.numMiniVisualLineCount.Minimum = new decimal(new int[] {
-            6,
-            0,
-            0,
-            0});
             this.numMiniVisualLineCount.Name = "numMiniVisualLineCount";
             this.numMiniVisualLineCount.Size = new System.Drawing.Size(43, 19);
             this.numMiniVisualLineCount.TabIndex = 17;
