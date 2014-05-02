@@ -56,6 +56,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.fadeEffectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoFittoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TaskTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.helptoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,8 +76,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.miniProgressSeekBar = new FINALSTREAM.Commons.Controls.VistaProgressBar();
             this.picDisplay = new FINALSTREAM.Commons.Controls.PictureBoxEx();
             this.popupNotifier = new FINALSTREAM.Commons.Controls.PopupNotifier();
-            this.helptoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.picPlaylist)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFwd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picStop)).BeginInit();
@@ -189,7 +189,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(209, 282);
+            this.contextMenuStrip.Size = new System.Drawing.Size(209, 260);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // toolStripSeparator2
@@ -277,6 +277,18 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.TaskTrayToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.TaskTrayToolStripMenuItem.Text = "タスクトレイ格納";
             this.TaskTrayToolStripMenuItem.Click += new System.EventHandler(this.TaskTrayToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(205, 6);
+            // 
+            // helptoolStripMenuItem
+            // 
+            this.helptoolStripMenuItem.Name = "helptoolStripMenuItem";
+            this.helptoolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.helptoolStripMenuItem.Text = "Help";
+            this.helptoolStripMenuItem.Click += new System.EventHandler(this.helptoolStripMenuItem_Click);
             // 
             // versionToolStripMenuItem
             // 
@@ -452,18 +464,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.popupNotifier.TitlePadding = new System.Windows.Forms.Padding(5, 5, 0, 0);
             this.popupNotifier.TitleText = null;
             this.popupNotifier.Click += new System.EventHandler(this.popupNotifier_Click);
-            // 
-            // helptoolStripMenuItem
-            // 
-            this.helptoolStripMenuItem.Name = "helptoolStripMenuItem";
-            this.helptoolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.helptoolStripMenuItem.Text = "Help";
-            this.helptoolStripMenuItem.Click += new System.EventHandler(this.helptoolStripMenuItem_Click);
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(205, 6);
             // 
             // MainForm
             // 

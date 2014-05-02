@@ -25,6 +25,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
         public bool isTitleCentering { get; set; }
         public LinearEnum.TitleScrollMode TitleScrollMode { get; set; }
         public int MiniVisualizationLevel { get; set; }
+        public int MiniVisualizationLineCount { get; set; }
         public bool isNotificationWindow { get; set; }
         public bool isSlidePIP { get; set; }
         public Point TagEditDialogLocation { get; set; }
@@ -161,6 +162,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             this.AlbumJudgeCount = 10;
             this.WebInterfaceListenPort = 8888;
             this.WebInterfaceTheme = "light";
+            this.MiniVisualizationLineCount = 12;
         }
 
     }

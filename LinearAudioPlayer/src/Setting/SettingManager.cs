@@ -251,6 +251,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             setting.ViewConfig.FontBold = LinearGlobal.LinearConfig.ViewConfig.FontBold;
             setting.ViewConfig.GroupListOrder = LinearGlobal.LinearConfig.ViewConfig.GroupListOrder;
             setting.ViewConfig.AlbumJudgeCount = LinearGlobal.LinearConfig.ViewConfig.AlbumJudgeCount;
+            setting.ViewConfig.MiniVisualizationLineCount =
+                LinearGlobal.LinearConfig.ViewConfig.MiniVisualizationLineCount;
 
             // プレイヤー設定
             setting.PlayerConfig.PlayMode = (int)LinearGlobal.PlayMode;

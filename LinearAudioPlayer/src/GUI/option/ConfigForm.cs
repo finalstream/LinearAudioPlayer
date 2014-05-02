@@ -138,6 +138,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
                 (decimal) linearConfig.SoundConfig.FadeDuration;
 
             this.tbMiniVisualLevel.Value = linearConfig.ViewConfig.MiniVisualizationLevel;
+            this.numMiniVisualLineCount.Value = linearConfig.ViewConfig.MiniVisualizationLineCount;
 
             // 再生方式
             if (linearConfig.EngineConfig.PlayEngine == LinearEnum.PlayEngine.FMOD)
@@ -850,6 +851,12 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
         private void linkLabelStyleDownload_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.finalstream.net/linearsg/");
+        }
+
+        private void numMiniVisualLineCount_ValueChanged(object sender, EventArgs e)
+        {
+            LinearGlobal.LinearConfig.ViewConfig.MiniVisualizationLineCount = (int)numMiniVisualLineCount.Value;
+            changeStyle(styleList.Text);
         }
 
 

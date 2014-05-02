@@ -75,16 +75,12 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.tabDisplay = new System.Windows.Forms.TabPage();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tbMiniVisualLevel = new System.Windows.Forms.TrackBar();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkSlidePIP = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.numudPIPViewDuration = new System.Windows.Forms.NumericUpDown();
             this.checkNotificationWindow = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.radioTitleScrollNone = new System.Windows.Forms.RadioButton();
@@ -134,6 +130,13 @@
             this.columnAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReStart = new System.Windows.Forms.Button();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbMiniVisualLevel = new System.Windows.Forms.TrackBar();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numMiniVisualLineCount = new System.Windows.Forms.NumericUpDown();
+            this.label24 = new System.Windows.Forms.Label();
             this.tabSetting.SuspendLayout();
             this.tabOption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPlayCountUpRatio)).BeginInit();
@@ -146,7 +149,6 @@
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWEBUIPort)).BeginInit();
             this.tabDisplay.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbMiniVisualLevel)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPIPViewDuration)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -160,6 +162,9 @@
             this.contextMenuStrip1.SuspendLayout();
             this.grpColorProfile.SuspendLayout();
             this.tabPlugin.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbMiniVisualLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMiniVisualLineCount)).BeginInit();
             this.SuspendLayout();
             // 
             // tabSetting
@@ -640,11 +645,8 @@
             // 
             // tabDisplay
             // 
-            this.tabDisplay.Controls.Add(this.label11);
-            this.tabDisplay.Controls.Add(this.label10);
-            this.tabDisplay.Controls.Add(this.tbMiniVisualLevel);
+            this.tabDisplay.Controls.Add(this.groupBox10);
             this.tabDisplay.Controls.Add(this.groupBox4);
-            this.tabDisplay.Controls.Add(this.label7);
             this.tabDisplay.Controls.Add(this.groupBox2);
             this.tabDisplay.Location = new System.Drawing.Point(4, 22);
             this.tabDisplay.Name = "tabDisplay";
@@ -653,35 +655,6 @@
             this.tabDisplay.Text = "Display";
             this.tabDisplay.UseVisualStyleBackColor = true;
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(340, 163);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(17, 12);
-            this.label11.TabIndex = 11;
-            this.label11.Text = "弱";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(136, 163);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(17, 12);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "強";
-            // 
-            // tbMiniVisualLevel
-            // 
-            this.tbMiniVisualLevel.AutoSize = false;
-            this.tbMiniVisualLevel.LargeChange = 1;
-            this.tbMiniVisualLevel.Location = new System.Drawing.Point(157, 161);
-            this.tbMiniVisualLevel.Name = "tbMiniVisualLevel";
-            this.tbMiniVisualLevel.Size = new System.Drawing.Size(177, 14);
-            this.tbMiniVisualLevel.TabIndex = 9;
-            this.tbMiniVisualLevel.Value = 5;
-            this.tbMiniVisualLevel.ValueChanged += new System.EventHandler(this.tbMiniVisualLevel_ValueChanged);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.checkSlidePIP);
@@ -689,7 +662,7 @@
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.numudPIPViewDuration);
             this.groupBox4.Controls.Add(this.checkNotificationWindow);
-            this.groupBox4.Location = new System.Drawing.Point(13, 186);
+            this.groupBox4.Location = new System.Drawing.Point(13, 206);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(344, 90);
             this.groupBox4.TabIndex = 8;
@@ -764,15 +737,6 @@
             this.checkNotificationWindow.Text = "曲が変わったときに通知する";
             this.checkNotificationWindow.UseVisualStyleBackColor = true;
             this.checkNotificationWindow.CheckedChanged += new System.EventHandler(this.checkNotificationWindow_CheckedChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 163);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(118, 12);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "MiniVisualizationLevel";
             // 
             // groupBox2
             // 
@@ -1290,6 +1254,91 @@
             this.btnReStart.UseVisualStyleBackColor = true;
             this.btnReStart.Click += new System.EventHandler(this.btnReStart_Click);
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.label24);
+            this.groupBox10.Controls.Add(this.numMiniVisualLineCount);
+            this.groupBox10.Controls.Add(this.label7);
+            this.groupBox10.Controls.Add(this.label11);
+            this.groupBox10.Controls.Add(this.label10);
+            this.groupBox10.Controls.Add(this.tbMiniVisualLevel);
+            this.groupBox10.Location = new System.Drawing.Point(13, 161);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(344, 45);
+            this.groupBox10.TabIndex = 12;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "MiniVisualization";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(130, 20);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(25, 12);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Low";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(311, 18);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(28, 12);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "High";
+            // 
+            // tbMiniVisualLevel
+            // 
+            this.tbMiniVisualLevel.AutoSize = false;
+            this.tbMiniVisualLevel.LargeChange = 1;
+            this.tbMiniVisualLevel.Location = new System.Drawing.Point(152, 18);
+            this.tbMiniVisualLevel.Name = "tbMiniVisualLevel";
+            this.tbMiniVisualLevel.Size = new System.Drawing.Size(157, 14);
+            this.tbMiniVisualLevel.TabIndex = 12;
+            this.tbMiniVisualLevel.Value = 5;
+            this.tbMiniVisualLevel.ValueChanged += new System.EventHandler(this.tbMiniVisualLevel_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(96, 20);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(32, 12);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Level";
+            // 
+            // numMiniVisualLineCount
+            // 
+            this.numMiniVisualLineCount.Location = new System.Drawing.Point(43, 18);
+            this.numMiniVisualLineCount.Maximum = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            this.numMiniVisualLineCount.Minimum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.numMiniVisualLineCount.Name = "numMiniVisualLineCount";
+            this.numMiniVisualLineCount.Size = new System.Drawing.Size(43, 19);
+            this.numMiniVisualLineCount.TabIndex = 17;
+            this.numMiniVisualLineCount.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.numMiniVisualLineCount.ValueChanged += new System.EventHandler(this.numMiniVisualLineCount_ValueChanged);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(11, 20);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(26, 12);
+            this.label24.TabIndex = 18;
+            this.label24.Text = "Line";
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1326,8 +1375,6 @@
             this.groupBox9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWEBUIPort)).EndInit();
             this.tabDisplay.ResumeLayout(false);
-            this.tabDisplay.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbMiniVisualLevel)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPIPViewDuration)).EndInit();
@@ -1349,6 +1396,10 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.grpColorProfile.ResumeLayout(false);
             this.tabPlugin.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbMiniVisualLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMiniVisualLineCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1387,7 +1438,6 @@
         private System.Windows.Forms.RadioButton radioTitleScrollRoll;
         private System.Windows.Forms.RadioButton radioTitleScrollReflect;
         private System.Windows.Forms.RadioButton radioTitleScrollLoop;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RadioButton radioTitleScrollNone;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label8;
@@ -1395,9 +1445,6 @@
         private System.Windows.Forms.NumericUpDown numudPIPViewDuration;
         private System.Windows.Forms.CheckBox checkNotificationWindow;
         private System.Windows.Forms.CheckBox checkSlidePIP;
-        private System.Windows.Forms.TrackBar tbMiniVisualLevel;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button btnSelectTempDir;
         private System.Windows.Forms.Label label12;
@@ -1459,5 +1506,12 @@
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.NumericUpDown numWEBUIPort;
         private System.Windows.Forms.LinkLabel linkLabelStyleDownload;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.NumericUpDown numMiniVisualLineCount;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TrackBar tbMiniVisualLevel;
     }
 }

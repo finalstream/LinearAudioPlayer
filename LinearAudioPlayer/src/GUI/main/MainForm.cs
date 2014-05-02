@@ -670,7 +670,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             int heightDisplayItem = this.picDisplay.Size.Height - diffDisplayHeightDisplayItemHeight;
             int widthTime = TextRenderer.MeasureText("99:99", lblTime.Font).Width;
             this.lblTime.Size = new Size(widthTime, heightDisplayItem);
-            this.picSpectrum.Size = new Size(28 - diffSpectrum, heightDisplayItem - diffDisplayHeightSpectrumHeight  +1);
+            this.picSpectrum.Size = new Size((int) (10 + (int) ((3 * LinearGlobal.LinearConfig.ViewConfig.MiniVisualizationLineCount) - diffSpectrum)), heightDisplayItem - diffDisplayHeightSpectrumHeight  +1);
             int widthPlayMode = TextRenderer.MeasureText("Random", lblPlayMode.Font).Width;
             this.lblPlayMode.Size = new Size(widthPlayMode, heightDisplayItem);
             int widthBitRate = TextRenderer.MeasureText("99999", lblBitRate.Font).Width;
@@ -1516,6 +1516,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         }
 
 
+        float[] levels = { 4.0f, 3.7f, 3.4f, 3.1f, 2.8f, 2.5f, 2.2f, 1.9f, 1.6f , 1.3f, 1.0f };
 
         private void drawSpectrum(Graphics g)
         {
@@ -1530,8 +1531,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             //{
             //float max = 0.005f;
 
-            float[] spectrum = LinearAudioPlayer.PlayController.getSpectrum();
-
+            float[] fftdata = LinearAudioPlayer.PlayController.getSpectrum();
+            int h = this.picSpectrum.Height;
+            int w = this.picSpectrum.Width;
+            int n = fftdata.Length;
+            float ww = (float)w / n;
+            var rect = new RectangleF();
+            rect.Width = ww;
             /*
             for (count2 = 511; count2 < 2047; count2++)
             {
@@ -1558,18 +1564,20 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
             //picSpectrum.Location = new Point(1000 , picSpectrum.Location.Y);
             //picSpectrum.Size = new Size(1000, picSpectrum.Size.Height);
-            for (count4 = 0; count4 < 6;)
+            for (count4 = 0; count4 < LinearGlobal.LinearConfig.ViewConfig.MiniVisualizationLineCount;)
             {
                 //if (count2 % 512 == 0)
                 //{
                 float height;
 
-                height = (spectrum[count2 - 1]/(LinearGlobal.LinearConfig.ViewConfig.MiniVisualizationLevel*0.1f))*
-                         spectrumHeight;
+                height = (float)(fftdata[count2 - 1] * h * count2 / levels[LinearGlobal.LinearConfig.ViewConfig.MiniVisualizationLevel]);
+
+                //height = (spectrum[count2 - 1]/(LinearGlobal.LinearConfig.ViewConfig.MiniVisualizationLevel*0.1f))*
+                //         spectrumHeight;
                 //height = (spectrum[count2 - 1] )*
                 //         picSpectrum.Size.Height;
 
-
+                /*
                 if (height >= spectrumHeight)
                 {
                     height = spectrumHeight;
@@ -1578,15 +1586,27 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 if (height < 0)
                 {
                     height = 0;
-                }
+                }*/
 
-                height = spectrumHeight  - height;
+                //height = spectrumHeight  - height;
 
 
                 gb.GammaCorrection = true;
 
-                g.FillRectangle(gb, count3, (int) height - 2.0f, 2.0f,
-                                (float)Math.Ceiling(spectrumHeight - height));
+                var hh = (float) Math.Ceiling(height);
+                if (hh >= 2.0f)
+                {
+                    hh = hh*2.0f;
+                }
+
+                rect.X = count3;
+                rect.Width = 2.0f;
+                rect.Y = spectrumHeight - hh - 2.0f;
+                rect.Height = hh;
+
+                //g.FillRectangle(gb, count3, (int) height - 2.0f, 2.0f,
+                //                (float)Math.Ceiling(spectrumHeight - height));
+                g.FillRectangle(gb, rect);
                 count3 += 2.0f;
                 count3++;
 
