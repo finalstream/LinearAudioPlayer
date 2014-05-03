@@ -1518,7 +1518,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         }
 
 
-        float[] levels = { 4.0f, 3.7f, 3.4f, 3.1f, 2.8f, 2.5f, 2.2f, 1.9f, 1.6f , 1.3f, 1.0f };
+        //float[] levels = { 4.0f, 3.7f, 3.4f, 3.1f, 2.8f, 2.5f, 2.2f, 1.9f, 1.6f , 1.3f, 1.0f };
+        float[] levels = { 3.0f, 2.0f, 1.8f, 1.6f, 1.4f, 1.2f, 1.0f, 0.8f, 0.6f, 0.4f, 0.2f };
 
         private void drawSpectrum(Graphics g)
         {
@@ -1598,7 +1599,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 var hh = (float) Math.Ceiling(height);
                 if (hh >= 2.0f)
                 {
-                    hh = hh*2.0f;
+                    hh = hh;
                 }
 
                 rect.X = count3;
