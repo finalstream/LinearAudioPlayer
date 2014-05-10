@@ -324,20 +324,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 LinearAudioPlayer.PlayController.isUpdateMetadata())
             {
 
-                // グリッド更新
-                int curRowNo = LinearAudioPlayer.GridController.Find((int) GridController.EnuGrid.ID,
-                                                                     LinearGlobal.CurrentPlayItemInfo.Id.ToString());
+                UpdateRadioInfo();
 
-                LinearAudioPlayer.GridController.setRadioStatus(curRowNo);
-
-                LinearGlobal.MainForm.lblTitle.Text = LinearAudioPlayer.GridController.getValue(curRowNo,
-                                                                                                (int)
-                                                                                                GridController.EnuGrid.
-                                                                                                    ARTIST);
-                LinearGlobal.MainForm.lblBitRate.Text = LinearAudioPlayer.GridController.getValue(curRowNo,
-                                                                                                  (int)
-                                                                                                  GridController.EnuGrid
-                                                                                                      .BITRATE);
             }
 
             // 時間表示取得
@@ -405,6 +393,21 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 }
             } 
 
+        }
+
+        public void UpdateRadioInfo()
+        {
+            // グリッド更新
+            int curRowNo = LinearAudioPlayer.GridController.Find((int)GridController.EnuGrid.ID,
+                                                                 LinearGlobal.CurrentPlayItemInfo.Id.ToString());
+
+            var si = LinearAudioPlayer.GridController.getRadioStatus(LinearAudioPlayer.GridController.getValue(curRowNo, (int)GridController.EnuGrid.FILEPATH));
+            LinearAudioPlayer.GridController.setRadioStatus(curRowNo, si);
+
+            LinearGlobal.MainForm.setTitle(LinearAudioPlayer.GridController.getValue(curRowNo,
+                (int)
+                    GridController.EnuGrid.
+                        ARTIST));
         }
 
         private void afterPlayCountUpPlugin()
@@ -1597,10 +1600,11 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 gb.GammaCorrection = true;
 
                 var hh = (float) Math.Ceiling(height);
+                /*
                 if (hh >= 2.0f)
                 {
                     hh = hh;
-                }
+                }*/
 
                 rect.X = count3;
                 rect.Width = 2.0f;

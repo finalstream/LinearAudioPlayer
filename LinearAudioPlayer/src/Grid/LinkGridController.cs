@@ -5,6 +5,7 @@ using System.Data.SQLite;
 using DevAge.Drawing;
 using FINALSTREAM.Commons.Database;
 using FINALSTREAM.Commons.Grid;
+using FINALSTREAM.Commons.Utils;
 using FINALSTREAM.LinearAudioPlayer.Database;
 using FINALSTREAM.LinearAudioPlayer.Setting;
 using SourceGrid;
@@ -108,8 +109,9 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
         public void setColorProfile(ColorConfig colorConfig)
         {
             ((SourceGrid.Selection.RowSelection)Grid.Selection).Border = DevAge.Drawing.RectangleBorder.NoBorder;
-            //((SourceGrid.Selection.RowSelection)Grid.Selection).BackColor = colorConfig.SelectRowColor;
-            //((SourceGrid.Selection.RowSelection)Grid.Selection).FocusBackColor = ((SourceGrid.Selection.RowSelection)Grid.Selection).BackColor;
+            ((SourceGrid.Selection.RowSelection) Grid.Selection).BackColor = Color.FromArgb(100,
+                ColorUtils.GetLighterColor(colorConfig.FormBackgroundColor, 10));
+            ((SourceGrid.Selection.RowSelection)Grid.Selection).FocusBackColor = ((SourceGrid.Selection.RowSelection)Grid.Selection).BackColor;
             // セルビュー作成
             createCellView(colorConfig);
             setHeader(colorConfig);
@@ -491,7 +493,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             /// </summary>
             /// <param name="sender"></param>
             /// <param name="e"></param>
-            public override void OnMouseDown(CellContext sender, MouseEventArgs e)
+            /*public override void OnMouseDown(CellContext sender, MouseEventArgs e)
             {
                 base.OnMouseDown(sender, e);
                 
@@ -531,13 +533,37 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
 
                     //LinearAudioPlayer.FilteringGridController.Grid.Focus();
                 }
-            }
+            }*/
 
             public override void OnDoubleClick(CellContext sender, EventArgs e)
             {
                 base.OnDoubleClick(sender, e);
-                LinearAudioPlayer.PlayController.playForGridNo(
-                    1, false);
+                //LinearAudioPlayer.PlayController.playForGridNo(
+                //    1, false);
+                SourceGrid.Grid grid = (SourceGrid.Grid)sender.Grid;
+
+                //LinearAudioPlayer.FilteringGridController.setRowColor(
+                //    LinearAudioPlayer.FilteringGridController.LastSelectRowNo, EnuPlayType.NOPLAY);
+
+
+                //LinearAudioPlayer.LinkGridController.setRowColor(sender.Position.Row, EnuPlayType.PLAYING);
+                //LinearAudioPlayer.GroupGridController.setRowColor(LinearAudioPlayer.GroupGridController.LastSelectRowNo, GroupGridController.EnuPlayType.NOPLAY);
+
+                //LinearGlobal.LinearConfig.PlayerConfig.SelectFilter = grid[sender.Position.Row, 0].Value.ToString();
+
+                switch (LinearAudioPlayer.LinkGridController.mode)
+                {
+                    case EnuMode.NOWPLAYING:
+                    case EnuMode.SAMEARTIST:
+                        AnyGridItemInfo anyGridItem = (AnyGridItemInfo)grid[sender.Position.Row, 0].Tag;
+                        LinearAudioPlayer.PlayController.skipPlayingList((long)anyGridItem.Value);
+                        LinearAudioPlayer.PlayController.play((long)anyGridItem.Value, false, true);
+                        break;
+
+                    case EnuMode.SIMILARARTIST:
+                        LinearGlobal.MainForm.ListForm.setFilteringText(grid[sender.Position.Row, 0].Value.ToString());
+                        break;
+                }
             }
 
         }

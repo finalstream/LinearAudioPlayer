@@ -157,10 +157,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             else
             {
                 // RADIO
-                var fileInfo = new string[3];
-                fileInfo[0] = fileList[0];
+                if (fileList.Length > 0)
+                {
+                    var fileInfo = new string[3];
+                    fileInfo[0] = fileList[0];
 
-                sortFilelist.Add(fileInfo);
+                    sortFilelist.Add(fileInfo);
+                }
             }
 
 

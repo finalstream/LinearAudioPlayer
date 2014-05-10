@@ -460,10 +460,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             LinearGlobal.CurrentPlayItemInfo.Duration = gi.Duration;
             LinearGlobal.CurrentPlayItemInfo.Rating = gi.Rating;
 
-            
 
             updateGridItem(gi, curRowNo);
-            
 
             // レーティング設定
             LinearGlobal.MainForm.setRating(gi.Rating);
@@ -574,9 +572,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
             };
             LinearAudioPlayer.WorkerThread.EnqueueTask(ac);
-
-
-            
 
         }
 
@@ -1186,6 +1181,14 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         /// <returns></returns>
         public string createTitle()
         {
+            if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO)
+            {
+                if (LinearGlobal.CurrentPlayItemInfo.FilePath == null) return "";
+                var si = LinearAudioPlayer.GridController.getRadioStatus(LinearGlobal.CurrentPlayItemInfo.FilePath);
+                var title = si.NextSong ==null ? si.CurrentSong : si.CurrentSong + " → " + si.NextSong;
+                return title;
+            }
+
             GridItemInfo gi = new GridItemInfo();
             gi.Title = LinearGlobal.CurrentPlayItemInfo.Title;
             gi.Album = LinearGlobal.CurrentPlayItemInfo.Album;

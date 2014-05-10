@@ -39,6 +39,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.playlistContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -153,7 +154,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.databaseList = new FINALSTREAM.Commons.Controls.ComboBoxEx();
             this.filteringBox = new FINALSTREAM.Commons.Controls.TextBoxEx();
             this.picMovie = new System.Windows.Forms.PictureBox();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.playlistContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeSwitch)).BeginInit();
@@ -198,7 +198,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.toolStripMenuItem1,
             this.folderOpenToolStripMenuItem});
             this.playlistContextMenuStrip.Name = "contextMenuStrip";
-            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 336);
+            this.playlistContextMenuStrip.Size = new System.Drawing.Size(209, 314);
             this.playlistContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.playlistContextMenuStrip_Opening);
             // 
             // playToolStripMenuItem
@@ -214,6 +214,13 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.toolStripMenuItem2.Size = new System.Drawing.Size(208, 22);
             this.toolStripMenuItem2.Text = "次に再生する";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(208, 22);
+            this.toolStripMenuItem3.Text = "次はここから再生する";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripSeparator4
             // 
@@ -1098,10 +1105,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.gridLink.AllowDrop = true;
             this.gridLink.BackColor = System.Drawing.SystemColors.Window;
             this.gridLink.BorderColor = System.Drawing.Color.Black;
-            this.gridLink.Cursor = System.Windows.Forms.Cursors.Hand;
             this.gridLink.EnableSort = true;
             this.gridLink.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.gridLink.IsInnerDrag = false;
+            this.gridLink.IsInnerDrag = true;
             this.gridLink.Location = new System.Drawing.Point(494, 47);
             this.gridLink.Name = "gridLink";
             this.gridLink.OptimizeMode = SourceGrid.CellOptimizeMode.ForRows;
@@ -1234,13 +1240,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.picMovie.TabIndex = 54;
             this.picMovie.TabStop = false;
             this.picMovie.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picMovie_MouseDown);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(208, 22);
-            this.toolStripMenuItem3.Text = "次はここから再生する";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // ListForm
             // 

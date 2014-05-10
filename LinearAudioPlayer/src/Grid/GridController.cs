@@ -666,7 +666,15 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
 
             if (rowNo != -1)
             {
+                
                 GridItemInfo gi = (GridItemInfo) sgi;
+
+                if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO)
+                {
+                    Grid[rowNo, (int)EnuGrid.DATE].Value = DateTimeUtils.getRelativeTimeJapaneseString(gi.Lastplaydate);
+                    return;
+                }
+
                 Grid[rowNo, (int)EnuGrid.TITLE].Value = gi.Title;
                 //Grid[rowNo, (int)EnuGrid.PLAYCOUNT].View.TextAlignment = DevAge.Drawing.ContentAlignment.BottomLeft;
                 ///Grid[rowNo, (int)EnuGrid.TITLE].ToolTipText = gi.Title;
@@ -1000,27 +1008,34 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
             }
         }
 
-        
 
-        public void setRadioStatus(int rowNo)
+        public ShoutcastInfo getRadioStatus(string serverUrl)
         {
-            if (!"OFF AIR".Equals(Grid[rowNo, (int)GridController.EnuGrid.BITRATE].Value))
-            {
-                ShoutcastManager sm = new ShoutcastManager(getValue(rowNo, (int) EnuGrid.FILEPATH));
-                string[] status = sm.getPlayStatus();
+            ShoutcastManager sm = new ShoutcastManager(serverUrl);
+            return sm.GetStatus();
+        }
 
-                if (status != null)
-                {
-                    Grid[rowNo, (int)GridController.EnuGrid.ARTIST].Value = status[6];
-                    Grid[rowNo, (int)GridController.EnuGrid.ALBUM].Value = status[0] + " / " + status[3];
-                    Grid[rowNo, (int)GridController.EnuGrid.BITRATE].Value = status[5] + "kbps";
-                }
-                else
-                {
-                    Grid[rowNo, (int) GridController.EnuGrid.ARTIST].Value = "";
-                    Grid[rowNo, (int)GridController.EnuGrid.ALBUM].Value =  "";
-                    Grid[rowNo, (int)GridController.EnuGrid.BITRATE].Value = "OFF AIR";
-                }
+
+        public void setRadioStatus(int rowNo, ShoutcastInfo shoutcastInfo)
+        {
+
+            if (shoutcastInfo != null)
+            {
+                Grid[rowNo, (int)GridController.EnuGrid.TITLE].Value = shoutcastInfo.StationName;
+                Grid[rowNo, (int)GridController.EnuGrid.ARTIST].Value = shoutcastInfo.CurrentSong;
+                Grid[rowNo, (int)GridController.EnuGrid.ALBUM].Value = shoutcastInfo.Listener;
+                Grid[rowNo, (int)GridController.EnuGrid.BITRATE].Value = shoutcastInfo.BitRate + "kbps";
+                Grid[rowNo, (int)GridController.EnuGrid.GENRE].Value = shoutcastInfo.Genre;
+                Grid[rowNo, (int)GridController.EnuGrid.TRACK].Value = "";
+            }
+            else
+            {
+                Grid[rowNo, (int)GridController.EnuGrid.TITLE].Value = "";
+                Grid[rowNo, (int)GridController.EnuGrid.ARTIST].Value = "";
+                Grid[rowNo, (int)GridController.EnuGrid.ALBUM].Value = "";
+                Grid[rowNo, (int)GridController.EnuGrid.BITRATE].Value = "OFF AIR";
+                Grid[rowNo, (int)GridController.EnuGrid.GENRE].Value = "";
+                Grid[rowNo, (int)GridController.EnuGrid.TRACK].Value = "";
             }
             
         }

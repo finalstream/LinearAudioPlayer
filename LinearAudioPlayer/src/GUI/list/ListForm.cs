@@ -424,6 +424,22 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                     reloadDatabase(true);
                     setFilteringList();
                 }
+
+                if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO )
+                {
+                    int i = 0;
+                    foreach (var dragFile in _dragFiles)
+                    {
+                        if (Path.GetExtension(dragFile) == ".pls")
+                        {
+                            // plsファイル
+                            var pls = new PlsParser(File.OpenText(dragFile));
+                            _dragFiles[i] = pls.getUrlList()[0];
+                        }
+                        i++;
+                    }
+                }
+
                 grid.Focus();
                 dragContextMenuStrip.Show(this, this.PointToClient(Cursor.Position));
 
@@ -688,6 +704,19 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 LinearUtils.connectDatabase(databaseList.Text);
                 // フィルタリングリストクリア
 
+                // DBモード設定
+                if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO) LinearAudioPlayer.PlayController.stop(); 
+                if (LinearConst.RADIO_MODE_TITLE.Equals(databaseList.Text))
+                {
+                    LinearGlobal.DatabaseMode = LinearEnum.DatabaseMode.RADIO;
+                    timerRadio.Start();
+                }
+                else
+                {
+                    LinearGlobal.DatabaseMode = LinearEnum.DatabaseMode.MUSIC;
+                    timerRadio.Stop();
+                }
+
                 // CurrentIdリセット
                 LinearGlobal.CurrentPlayItemInfo.Id = -1;
 
@@ -700,23 +729,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 setGroupList();
                 
 
-                // DBモード設定
-                if (LinearConst.RADIO_MODE_TITLE.Equals(databaseList.Text))
-                {
-                    LinearGlobal.DatabaseMode = LinearEnum.DatabaseMode.RADIO;
-                    grid[0, (int)GridController.EnuGrid.TITLE].Value = "Station";
-                    grid[0, (int)GridController.EnuGrid.ARTIST].Value = "Now Playing";
-                    grid[0, (int)GridController.EnuGrid.ALBUM].Value = "Listener";
-                    timerRadio.Start();
-                    timerRadio_Tick(null, null);
-                } else
-                {
-                    LinearGlobal.DatabaseMode = LinearEnum.DatabaseMode.MUSIC;
-                    grid[0, (int)GridController.EnuGrid.TITLE].Value = "Title";
-                    grid[0, (int)GridController.EnuGrid.ARTIST].Value = "Artist";
-                    grid[0, (int)GridController.EnuGrid.ALBUM].Value = "Album";
-                    timerRadio.Stop();
-                }
+               
 
                 if (LinearGlobal.MainForm != null)
                 {
@@ -1062,15 +1075,15 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 return;
             }
 
-            ltTitle.Visible = true;
-            ltArtist.Visible = true;
-            ltAlbum.Visible = true;
+            
             labelTitle.Text = gi.Title;
             labelArtist.Text = gi.Artist;
-            labelAlbum.Text = gi.Album + " [" + gi.Year +  "]";
+            labelAlbum.Text = !string.IsNullOrEmpty(gi.Year) ? gi.Album + " [" + gi.Year +  "]": gi.Album;
             labelAlbum.Tag = gi.Album;
-            
-            ltLastfm.Text = "     Info    ";
+
+            ltTitle.Visible = !string.IsNullOrEmpty(labelTitle.Text) ? true : false;
+            ltArtist.Visible = !string.IsNullOrEmpty(labelArtist.Text) ? true : false;
+            ltAlbum.Visible = !string.IsNullOrEmpty(labelAlbum.Text) ? true : false;
 
             // TODO:同じ所がある
             string ext = "";
@@ -1078,7 +1091,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             {
                 ext = Path.GetExtension(gi.FilePath).ToUpper().Substring(1);
             }
-            labelLastfm.Text = gi.Time + "  " + ext + "  " + gi.Bitrate + " kbps  " + gi.PlayCount + " plays";
+            labelLastfm.Text = !string.IsNullOrEmpty(gi.Time) ? gi.Time + "  " + ext + "  " + gi.Bitrate + " kbps  " + gi.PlayCount + " plays" : "";
+            ltLastfm.Text = !string.IsNullOrEmpty(labelLastfm.Text) ? "     Info    " : "";
         }
 
         public void refreshArtwork(bool isNoPicture)
@@ -1491,6 +1505,25 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 
                 //Grid.Selection.FocusRow(1);
             }*/
+
+            if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO)
+            {
+                timerRadio_Tick(null, null);
+            }
+
+            // DBモード設定
+            if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO)
+            {
+                grid[0, (int)GridController.EnuGrid.TITLE].Value = "Station";
+                grid[0, (int)GridController.EnuGrid.ARTIST].Value = "Now Playing";
+                grid[0, (int)GridController.EnuGrid.ALBUM].Value = "Listener";
+            }
+            else
+            {
+                grid[0, (int)GridController.EnuGrid.TITLE].Value = "Title";
+                grid[0, (int)GridController.EnuGrid.ARTIST].Value = "Artist";
+                grid[0, (int)GridController.EnuGrid.ALBUM].Value = "Album";
+            }
 
         }
        
@@ -2221,17 +2254,32 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
 
         private void timerRadio_Tick(object sender, EventArgs e)
         {
-            int i = 1;
-            // グリッド更新
-
-            while (i <= Grid.Rows.Count - 1)
+            var action = new Action(() =>
             {
-                LinearAudioPlayer.GridController.setRadioStatus(i);
+                int i = 1;
+                var shoutcastInfoList = new List<ShoutcastInfo>();
+                while (i <= Grid.Rows.Count - 1)
+                {
+                    var serverUrl = LinearAudioPlayer.GridController.getValue(i, (int)GridController.EnuGrid.FILEPATH);
+                    shoutcastInfoList.Add(LinearAudioPlayer.GridController.getRadioStatus(serverUrl));
+                    i++;
+                }
 
-                Application.DoEvents();
+                var uiAction = new Action(() =>
+                {
+                    i = 1;
+                    foreach (var si in shoutcastInfoList)
+                    {
+                        LinearAudioPlayer.GridController.setRadioStatus(i, si);
+                        i++;
+                    }
+                });
+                this.BeginInvoke(uiAction);
 
-                i++;
-            }
+               
+
+            });
+            LinearAudioPlayer.WorkerThread.EnqueueTask(action);
 
         }
 
@@ -2747,6 +2795,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
         {
             if (e.Button == MouseButtons.Left)
             {
+                if (labelAlbum.Tag == null) return;
                 filteringBox.Text = labelAlbum.Tag.ToString();
             }
         }
