@@ -415,7 +415,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
                     foreach (var gridItemInfo in nowPlayings)
                     {
                         AnyGridItemInfo anyGridItem = new AnyGridItemInfo();
-                        anyGridItem.DisplayValue = gridItemInfo.Title;
+                        anyGridItem.DisplayValue = gridItemInfo.Title + " - " + gridItemInfo.Artist;
                         anyGridItem.Value = gridItemInfo.Id;
                         addItem(anyGridItem);
                     }
@@ -487,53 +487,26 @@ namespace FINALSTREAM.LinearAudioPlayer.Grid
         /// </summary>
         private class CellClickEvent : SourceGrid.Cells.Controllers.ControllerBase
         {
-
-            /// <summary>
-            /// 右クリックで選択状態にする。
-            /// </summary>
-            /// <param name="sender"></param>
-            /// <param name="e"></param>
-            /*public override void OnMouseDown(CellContext sender, MouseEventArgs e)
+            public override void OnMouseDown(CellContext sender, MouseEventArgs e)
             {
                 base.OnMouseDown(sender, e);
-                
-                if (e.Button == MouseButtons.Left)
+                if (e.Button == MouseButtons.Right && LinearAudioPlayer.LinkGridController.mode == EnuMode.NOWPLAYING)
                 {
-
-                    
-
-                    SourceGrid.Grid grid = (SourceGrid.Grid) sender.Grid;
-
-                    //LinearAudioPlayer.FilteringGridController.setRowColor(
-                    //    LinearAudioPlayer.FilteringGridController.LastSelectRowNo, EnuPlayType.NOPLAY);
-
-
-                    //LinearAudioPlayer.LinkGridController.setRowColor(sender.Position.Row, EnuPlayType.PLAYING);
-                    //LinearAudioPlayer.GroupGridController.setRowColor(LinearAudioPlayer.GroupGridController.LastSelectRowNo, GroupGridController.EnuPlayType.NOPLAY);
-
-                    //LinearGlobal.LinearConfig.PlayerConfig.SelectFilter = grid[sender.Position.Row, 0].Value.ToString();
-
-                    switch (LinearAudioPlayer.LinkGridController.mode)
+                    var sel = LinearAudioPlayer.LinkGridController.getActiveRowNo();
+                    if (sel != -1)
                     {
-                            case EnuMode.NOWPLAYING:
-                            case EnuMode.SAMEARTIST:
-                            AnyGridItemInfo anyGridItem = (AnyGridItemInfo) grid[sender.Position.Row, 0].Tag;
-                            LinearAudioPlayer.PlayController.skipPlayingList((long)anyGridItem.Value);
-                            LinearAudioPlayer.PlayController.play((long) anyGridItem.Value, false, true);
-                            break;
+                        var ai =
+                        (AnyGridItemInfo)
+                            LinearAudioPlayer.LinkGridController.Grid[
+                                sel, (int)LinkGridController.EnuGrid.LINKTITILE].Tag;
+                        LinearAudioPlayer.PlayController.removePlayingList((long)ai.Value);
+                        LinearAudioPlayer.LinkGridController.reloadGrid();
+                        LinearAudioPlayer.LinkGridController.Grid.Selection.FocusRow(sel);
+                        LinearGlobal.MainForm.setTitle(LinearAudioPlayer.PlayController.createTitle());
 
-                            case EnuMode.SIMILARARTIST:
-                            LinearGlobal.MainForm.ListForm.setFilteringText(grid[sender.Position.Row, 0].Value.ToString());
-                            break;
                     }
-                    
-
-                    
-                    //LinearGlobal.MainForm.ListForm.setGroupMode();
-
-                    //LinearAudioPlayer.FilteringGridController.Grid.Focus();
                 }
-            }*/
+            }
 
             public override void OnDoubleClick(CellContext sender, EventArgs e)
             {

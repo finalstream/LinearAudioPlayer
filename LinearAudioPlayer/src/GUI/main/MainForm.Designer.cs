@@ -323,7 +323,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             // 
             // timerMain
             // 
-            this.timerMain.Tick += new System.EventHandler((sender, e) => this.timerMain_Tick(sender, e));
+            this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
             // 
             // areaSizeChangeRight
             // 

@@ -146,6 +146,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.playtimeShortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playtimeLongToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playtimeHalfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.picMovie = new System.Windows.Forms.PictureBox();
             this.gridLink = new FINALSTREAM.Commons.Grid.SourceGridEx();
             this.gridGroup = new FINALSTREAM.Commons.Grid.SourceGridEx();
             this.gridFiltering = new FINALSTREAM.Commons.Grid.SourceGridEx();
@@ -153,7 +154,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.grid = new FINALSTREAM.Commons.Grid.SourceGridEx();
             this.databaseList = new FINALSTREAM.Commons.Controls.ComboBoxEx();
             this.filteringBox = new FINALSTREAM.Commons.Controls.TextBoxEx();
-            this.picMovie = new System.Windows.Forms.PictureBox();
             this.playlistContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVolumeSwitch)).BeginInit();
@@ -238,7 +238,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             // addURLToolStripMenuItem
             // 
             this.addURLToolStripMenuItem.Name = "addURLToolStripMenuItem";
-            this.addURLToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.addURLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.addURLToolStripMenuItem.Text = "URL";
             this.addURLToolStripMenuItem.Click += new System.EventHandler(this.addURLToolStripMenuItem_Click);
             // 
@@ -1100,6 +1100,15 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.playtimeHalfToolStripMenuItem.Text = "ハーフ(50-70%)";
             this.playtimeHalfToolStripMenuItem.Click += new System.EventHandler(this.playtimeHalfToolStripMenuItem_Click);
             // 
+            // picMovie
+            // 
+            this.picMovie.Location = new System.Drawing.Point(488, 21);
+            this.picMovie.Name = "picMovie";
+            this.picMovie.Size = new System.Drawing.Size(16, 16);
+            this.picMovie.TabIndex = 54;
+            this.picMovie.TabStop = false;
+            this.picMovie.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picMovie_MouseDown);
+            // 
             // gridLink
             // 
             this.gridLink.AllowDrop = true;
@@ -1117,6 +1126,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.gridLink.TabStop = true;
             this.gridLink.ToolTipText = "";
             this.gridLink.Visible = false;
+            this.gridLink.DragDrop += new System.Windows.Forms.DragEventHandler(this.gridLink_DragDrop);
             // 
             // gridGroup
             // 
@@ -1231,15 +1241,6 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
             this.filteringBox.TabIndex = 4;
             this.filteringBox.TextChanged += new System.EventHandler(this.filteringBox_TextChanged);
             this.filteringBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.filteringBox_MouseDoubleClick);
-            // 
-            // picMovie
-            // 
-            this.picMovie.Location = new System.Drawing.Point(488, 21);
-            this.picMovie.Name = "picMovie";
-            this.picMovie.Size = new System.Drawing.Size(16, 16);
-            this.picMovie.TabIndex = 54;
-            this.picMovie.TabStop = false;
-            this.picMovie.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picMovie_MouseDown);
             // 
             // ListForm
             // 

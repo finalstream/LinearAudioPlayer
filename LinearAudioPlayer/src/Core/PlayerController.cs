@@ -1958,5 +1958,15 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         {
             playingListController.skipPlayingList(id);
         }
+
+        public void resortPlayingList(IEnumerable<long> ids)
+        {
+            playingListController.resortPlayingList(ids);
+        }
+
+        public void removePlayingList(long id)
+        {
+            playingListController.removePlayingList(id);
+        }
     }
 }

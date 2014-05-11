@@ -317,5 +317,32 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 gridItemInfo.IsInterrupt = false;
             }
         }
+
+        public void resortPlayingList(IEnumerable<long> ids)
+        {
+            ids = ids.Reverse();
+
+            foreach (var id in ids)
+            {
+                // idを探す
+                var gi = playingList.FirstOrDefault(g => g.Id == id);
+                if (gi != null)
+                {
+                    playingList.Remove(gi);
+                    playingList.AddAfter(playingList.First ,gi);
+                }
+            }
+
+        }
+
+        public void removePlayingList(long id)
+        {
+            // idを探す
+            var gi = playingList.FirstOrDefault(g => g.Id == id);
+            if (gi != null)
+            {
+                playingList.Remove(gi);
+            }
+        }
     }
 }

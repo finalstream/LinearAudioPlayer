@@ -3145,6 +3145,27 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                 }
             }
         }
+
+        private void gridLink_DragDrop(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                if (LinearAudioPlayer.LinkGridController.mode != LinkGridController.EnuMode.NOWPLAYING) return;
+
+                var list = new List<long>();
+                foreach (var row in LinearAudioPlayer.LinkGridController.getAllRowsInfo())
+                {
+                    var ai =
+                        (AnyGridItemInfo)
+                            LinearAudioPlayer.LinkGridController.Grid[
+                                row.Index, (int) LinkGridController.EnuGrid.LINKTITILE].Tag;
+                    list.Add((long) ai.Value);
+                }
+                
+                LinearAudioPlayer.PlayController.resortPlayingList(list);
+                LinearGlobal.MainForm.setTitle(LinearAudioPlayer.PlayController.createTitle());
+            }
+        }
     }
 
     
