@@ -435,7 +435,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="plugin\Finalstream.LinearAudioPlayer.Plugin.LastFm.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="style\GRed\audio.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
