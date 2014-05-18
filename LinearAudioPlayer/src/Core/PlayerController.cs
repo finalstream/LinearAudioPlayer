@@ -403,7 +403,12 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             gi.Rating = pii.Rating;
             gi.PlayCount = pii.PlayCount;
 
-            
+            ShoutcastInfo shoutcastInfo = null;
+            if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO)
+            {
+                shoutcastInfo = LinearAudioPlayer.GridController.getRadioStatus(gi.FilePath);
+                gi.Title = shoutcastInfo.StationName;
+            }
 
             if (!String.IsNullOrEmpty(gi.Time))
             {
@@ -483,12 +488,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
             if (LinearGlobal.LinearConfig.ViewConfig.TitleScrollMode != LinearEnum.TitleScrollMode.ROLL)
             {
-                LinearGlobal.MainForm.setTitle(createTitle());
+                LinearGlobal.MainForm.setTitle(createTitle(shoutcastInfo));
             }
-
-            
-
-
             
 
             // 再生中リスト更新
@@ -1179,13 +1180,16 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         /// </summary>
         /// <param name="gi"></param>
         /// <returns></returns>
-        public string createTitle()
+        public string createTitle(ShoutcastInfo shoutcastInfo = null)
         {
-            if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO)
+            if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO && shoutcastInfo == null)
             {
                 if (LinearGlobal.CurrentPlayItemInfo.FilePath == null) return "";
-                var si = LinearAudioPlayer.GridController.getRadioStatus(LinearGlobal.CurrentPlayItemInfo.FilePath);
-                var title = si.NextSong ==null ? si.CurrentSong : si.CurrentSong + " → " + si.NextSong;
+                shoutcastInfo = LinearAudioPlayer.GridController.getRadioStatus(LinearGlobal.CurrentPlayItemInfo.FilePath);
+            }
+            if (LinearGlobal.DatabaseMode == LinearEnum.DatabaseMode.RADIO)
+            {
+                var title = shoutcastInfo.NextSong == null ? shoutcastInfo.CurrentSong : shoutcastInfo.CurrentSong + " → " + shoutcastInfo.NextSong;
                 return title;
             }
 
