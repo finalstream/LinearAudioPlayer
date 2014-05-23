@@ -138,7 +138,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
                 (decimal) linearConfig.SoundConfig.FadeDuration;
 
             this.tbMiniVisualLevel.Value = linearConfig.ViewConfig.MiniVisualizationLevel;
-            this.numMiniVisualLineCount.Value = linearConfig.ViewConfig.MiniVisualizationLineCount;
+            
 
             // 再生方式
             if (linearConfig.EngineConfig.PlayEngine == LinearEnum.PlayEngine.FMOD)
@@ -222,8 +222,8 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
                 comboTargetDatabase.FindStringExact(linearConfig.PlayerConfig.AudioFileAutoRegistInfo.TargetDatabase);
 
             this.checkAutoRegist.Checked = linearConfig.PlayerConfig.AudioFileAutoRegistInfo.IsEnable;
-            
 
+            this.numMiniVisualLineCount.Value = linearConfig.ViewConfig.MiniVisualizationLineCount;
         }
 
         public void backupConfig(LinearConfig linearConfig)
