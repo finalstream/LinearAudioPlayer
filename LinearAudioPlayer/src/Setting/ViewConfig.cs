@@ -162,7 +162,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Setting
             this.AlbumJudgeCount = 10;
             this.WebInterfaceListenPort = 8888;
             this.WebInterfaceTheme = "light";
-            this.MiniVisualizationLineCount = 12;
+            this.MiniVisualizationLineCount = 24;
         }
 
     }

@@ -7,6 +7,7 @@
 	  var isChangeTrack = false;  // track change flag
 	  var stopCount = 0;
 	  var hideMessageTimer;
+	  var beforeId = -1;
 
 	  $("#error-message").hide();
 	  $("#status-message").hide();
@@ -14,10 +15,11 @@
 	  
 	  // init request
 	  polling();
+	  $("#rating-on").hide();
 	  
 	  // polling
 	  function polling() {
-	    requestAction({ action:"getplayinfo"});
+	    requestAction({action:"getplayinfo"});
 	    clearTimeout(pollingTimer);
 	    pollingTimer = setTimeout(function(){ 
 	      polling();
@@ -27,14 +29,14 @@
 	  // ajax request
 	  function requestAction(req) {
 	  
-	    
+	    /*
 	    switch(req.action) {
 	          case "previous":
 	          case "forward":
 	            break;
 	          case "getplayinfo":
 	            break;
-	    }
+	    }*/
 	    
 	    //console.log("requestAction: " + action);
 	    $.ajax({
@@ -48,11 +50,15 @@
 	        $("#error-message").fadeOut();
 	        
 	        switch(res.action) {
-	          case "previous":
-	          case "forward":
-	            isChangeTrack = true;
-	            break;
+	          //case "previous":
+	          //case "forward":
+	            //isChangeTrack = true;
+	          //  break;
 	          case "getplayinfo":
+	          	
+	          	if (res.playInfo.Id != beforeId) {
+	          		isChangeTrack = true;
+	          	}
 	          	
 	          	if (res.isPaused || !res.isPlaying) {
 	          		// Paused or Stopped
@@ -84,15 +90,20 @@
 	                    {duration: "slow"});
 	                  isChangeTrack = false;
 	              });
-	              
+	              // reload now playing
+	              requestAction({action:"getnowplaying"});
 	            }
 	            $('.progress-bar').css("width",res.seekRatio + "%");
+	            beforeId = res.playInfo.Id;
 	            break;
 	          case "voldown":
 	          case "volup":
 	          	$("#success-message").text("change volume : " + res.volume);
 	          	$("#success-message").fadeIn();
 	          	hideMessageTimer = setTimeout(function() { $("#success-message").fadeOut(); }, 2000);
+	          	break;
+	          case "getnowplaying":
+	          	reloadNowPlaying(res.nowPlaying);
 	          	break;
 	        }
 	      },
@@ -107,7 +118,41 @@
 	  function setPlayInfo(playInfo) {
 	    $("#title").text(playInfo.Title);
 	    $("#artist").text(playInfo.Artist);
-	    $("#album").text(playInfo.Album);
+	    var year = "";
+	    if (playInfo.Year.length == 4) {
+	    	year = " [" + playInfo.Year + "]";
+	    }
+	    $("#album").text(playInfo.Album + year);
+	    if (playInfo.Rating == 9) {
+		  	$("#rating-on").show();
+		  	$("#rating-off").hide();
+		} else {
+			$("#rating-on").hide();
+		  	$("#rating-off").show();
+		}
+	  }
+	  
+	  function reloadNowPlaying(nowPlaying) {
+	  	
+	  	$("#now_playing").find("tr:not(:first)").remove();
+	  	
+	  	var i = 1;
+	  	$(nowPlaying).each(function() {
+	  		$("#now_playing").append($("<tr>")
+	  				.attr("id", $(this)[0])
+	  			.append($("<td>")
+	  				.text(i)
+	  			)
+	  			.append($("<td>")
+	  				.text($(this)[1])
+	  			)
+	  			.append($("<td>")
+	  				.text($(this)[2])
+	  			)
+	  		);
+	  		i++;
+	  	});
+	  	
 	  }
 	  
 	  // bind

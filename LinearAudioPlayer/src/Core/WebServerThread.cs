@@ -219,7 +219,9 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                 };
                             LinearGlobal.MainForm.ListForm.BeginInvoke(seekAction);
                             break;
-
+                        case "getnowplaying":
+                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(10).Select(gi=> new object[] { gi.Id, gi.Title, gi.Artist }).ToArray();
+                            break;
                     }
 
 
