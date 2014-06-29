@@ -144,9 +144,15 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         {
             if (playingList.Count > 0)
             {
-                var lastNode = playingList.Last;
-                playingList.RemoveLast();
-                playingList.AddFirst(lastNode);
+                // 最後のノードがスキップだったらもっかいループ
+                LinkedListNode<GridItemInfo> lastNode;
+                do
+                {
+                    lastNode = playingList.Last;
+                    playingList.RemoveLast();
+                    playingList.AddFirst(lastNode);
+                } while (lastNode.Value.IsSkipped);
+                
                 return lastNode.Value.Id;
             }
             else
@@ -264,6 +270,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 {
                     // todo:最終再生日時だけで十分？
                     gridItemInfo.Lastplaydate = gi.Lastplaydate;
+                    gridItemInfo.IsSkipped = false;
                     break;
                 }
             }
@@ -274,7 +281,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         {
             if (playingList.Count > 0)
             {
-                return playingList.Where(p=>!LinearGlobal.invalidIdTable.Contains(p.Id)).Skip(1).Take(listcount).ToArray();
+                return playingList.Where(p=>!LinearGlobal.invalidIdTable.Contains(p.Id)).Take(listcount).ToArray();
             }
             else
             {
@@ -288,24 +295,33 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             bool isHit = false;
             List<GridItemInfo> removeList = new List<GridItemInfo>();
 
+            var i = 0;
             foreach (var gi in playingList)
             {
-                if (gi.Id == id)
+                if (i == 0)
+                {
+                    // 最初はスキップ扱いしない
+                    removeList.Add(gi);
+                } else if (gi.Id == id)
                 {
                     isHit = true;
                     break;
                 }
                 else
                 {
+                    gi.IsSkipped = true;
                     removeList.Add(gi);
                 }
+                i++;
             }
 
             if (isHit)
             {
                 foreach (var gi in removeList.ToArray())
                 {
+                    //playingList.Remove(gi);
                     playingList.Remove(gi);
+                    playingList.AddLast(gi);
                 }
             }
         }

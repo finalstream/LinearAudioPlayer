@@ -31,6 +31,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         public string AlbumDescription { get; set; }
         // TODO: このデータをもたせる場所は本来ここではない。
         public bool IsChangeAlbum { get; set; }
+        public bool IsSkipped { get; set; }
 
         int _rating = 0;
         int _playCount = 0;
