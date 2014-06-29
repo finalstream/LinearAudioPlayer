@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DevAge.Drawing.VisualElements;
+using Image = System.Drawing.Image;
 
 namespace FINALSTREAM.LinearAudioPlayer.Info
 {
@@ -24,6 +26,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         public long PlayCountUpSecond { set; get; }
         public string LastPlayDate { set; get; }
         public string AlbumDescription { set; get; }
+        public Image Artwork { set; get; }
 
         public override string ToString()
         {

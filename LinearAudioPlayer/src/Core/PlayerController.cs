@@ -437,6 +437,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             LinearGlobal.CurrentPlayItemInfo.Option = pii.Option;
             LinearGlobal.CurrentPlayItemInfo.ArtworkUrl = gi.PictureUrl;
             LinearGlobal.CurrentPlayItemInfo.LastPlayDate = gi.Lastplaydate;
+            LinearGlobal.CurrentPlayItemInfo.Artwork = null;
             
 
             // 現在RowNoの色を変更する
@@ -519,6 +520,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                     // アートワークが埋め込まれてなかったらネットワークから取得
                     {
                         LinearAudioPlayer.PlayController.getPicture(gi);
+                        LinearGlobal.CurrentPlayItemInfo.Artwork = gi.Picture;
                         LinearGlobal.MainForm.setNotificationWindow(gi);
 
                         Action showNotificationAc = () =>

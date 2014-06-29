@@ -15,5 +15,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         public bool isPaused { get; set; }
         public int volume { get; set; }
         public object[][] nowPlaying { get; set; }
+        public string artworkUrl { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -256,6 +257,35 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                 };
                             LinearGlobal.MainForm.BeginInvoke(skipNowPlayingAction);
                             
+                            break;
+                        case "getartwork":
+                            if (LinearGlobal.CurrentPlayItemInfo.Artwork != null)
+                            {
+                                try
+                                {
+                                    Bitmap thumbnail = new Bitmap(128, 128);
+                                    using (Graphics g = Graphics.FromImage(thumbnail))
+                                    {
+                                        g.InterpolationMode =
+                                            System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                                        g.DrawImage(LinearGlobal.CurrentPlayItemInfo.Artwork, 0, 0, 128, 128);
+                                    }
+                                    thumbnail.Save(
+                                        Application.StartupPath +
+                                        Path.Combine(LinearConst.WEB_DIRECTORY_NAME, "img\\artwork.png"),
+                                        System.Drawing.Imaging.ImageFormat.Png);
+                                    thumbnail.Dispose();
+                                    response.artworkUrl = "../img/artwork.png";
+                                }
+                                catch (Exception)
+                                {
+                                    response.artworkUrl = "";
+                                }
+                            }
+                            else
+                            {
+                                response.artworkUrl = "";
+                            }
                             break;
                     }
 
