@@ -9,7 +9,10 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Windows.Forms;
+using FINALSTREAM.Commons.Database;
 using FINALSTREAM.Commons.Utils;
+using FINALSTREAM.LinearAudioPlayer.Database;
+using FINALSTREAM.LinearAudioPlayer.Grid;
 using FINALSTREAM.LinearAudioPlayer.Info;
 using FINALSTREAM.LinearAudioPlayer.Resources;
 using Newtonsoft.Json;
@@ -221,6 +224,38 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             break;
                         case "getnowplaying":
                             response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(10).Select(gi=> new object[] { gi.Id, gi.Title, gi.Artist }).ToArray();
+                            break;
+                        case "ratingon":
+                        case "ratingoff":
+                            if (request.id == -1) break;
+                            LinearEnum.RatingValue rating = request.action == "ratingon" ? LinearEnum.RatingValue.FAVORITE : LinearEnum.RatingValue.NORMAL;
+
+                            Action setRatingAction = () =>
+                            {
+                                var rowIndex = LinearAudioPlayer.GridController.Find((int)GridController.EnuGrid.ID, request.id.ToString());
+                                if (rowIndex != -1)
+                                {
+                                    LinearAudioPlayer.GridController.setRatingIcon(rowIndex, rating);
+                                }
+                                if (request.id == LinearGlobal.CurrentPlayItemInfo.Id)
+                                {
+                                    LinearGlobal.MainForm.setRating((int)rating);
+                                }
+                            };
+                            LinearGlobal.MainForm.ListForm.BeginInvoke(setRatingAction);
+                            
+                            SQLiteManager.Instance.executeNonQuery(
+                                SQLBuilder.updateRating(
+                                    request.id, rating));
+                            break;
+                        case "skipnowplaying":
+                            Action skipNowPlayingAction = () =>
+                                {
+                                    LinearAudioPlayer.PlayController.skipPlayingList(request.id);
+                                    LinearAudioPlayer.PlayController.play(request.id, false, true);
+                                };
+                            LinearGlobal.MainForm.BeginInvoke(skipNowPlayingAction);
+                            
                             break;
                     }
 

@@ -8,6 +8,7 @@
 	  var stopCount = 0;
 	  var hideMessageTimer;
 	  var beforeId = -1;
+	  var currentId = -1;
 
 	  $("#error-message").hide();
 	  $("#status-message").hide();
@@ -116,6 +117,7 @@
 	  }
 	  
 	  function setPlayInfo(playInfo) {
+	    currentId = playInfo.Id;
 	    $("#title").text(playInfo.Title);
 	    $("#artist").text(playInfo.Artist);
 	    var year = "";
@@ -137,9 +139,10 @@
 	  	$("#now_playing").find("tr:not(:first)").remove();
 	  	
 	  	var i = 1;
-	  	$(nowPlaying).each(function() {
+	  	$(nowPlaying).each(function () {
+		    var id = $(this)[0];
 	  		$("#now_playing").append($("<tr>")
-	  				.attr("id", $(this)[0])
+	  				.attr("id", id)
 	  			.append($("<td>")
 	  				.text(i)
 	  			)
@@ -149,6 +152,9 @@
 	  			.append($("<td>")
 	  				.text($(this)[2])
 	  			)
+                .on("click", function(event) {
+                    requestAction({ id: id, action: "skipnowplaying" });
+			    })
 	  		);
 	  		i++;
 	  	});
@@ -197,5 +203,17 @@
 	    //console.log(seekVal);
 	    requestAction({action: "seek", seekPosition: seekVal});
 	  });
+
+	  $("#button-group #rating-on").on("click", function (event) {
+	      requestAction({ id: currentId, action: "ratingoff" });
+	  });
+
+	  $("#button-group #rating-off").on("click", function (event) {
+	      requestAction({ id: currentId, action: "ratingon" });
+	  });
 	  
+	  $("#button-group #rating-off").on("click", function (event) {
+	      requestAction({ id: currentId, action: "ratingon" });
+	  });
+
 	});

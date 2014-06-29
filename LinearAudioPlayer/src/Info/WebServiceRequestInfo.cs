@@ -7,6 +7,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
 {
     public class WebServiceRequestInfo
     {
+        public long id { get; set; }
+
         /// <summary>
         /// Action Name
         /// </summary>
