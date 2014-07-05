@@ -245,7 +245,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SQLResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>SQLResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
       <CustomToolNamespace>FINALSTREAM.LinearAudioPlayer.Resources</CustomToolNamespace>
     </EmbeddedResource>

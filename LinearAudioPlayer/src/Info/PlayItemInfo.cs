@@ -27,6 +27,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         public string LastPlayDate { set; get; }
         public string AlbumDescription { set; get; }
         public Image Artwork { set; get; }
+        public TimeSpan LossTime { get; set; }
 
         public override string ToString()
         {

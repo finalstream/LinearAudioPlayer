@@ -322,6 +322,8 @@ namespace FINALSTREAM.LinearAudioPlayer
         static public void endApplication()
         {
 
+            LinearAudioPlayer.PlayController.UpdatePlayHistory();
+
             while (true)
             {
                 // ワーカースレッドが終わるまで待ち合わせる

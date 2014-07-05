@@ -27,7 +27,9 @@ namespace FINALSTREAM.LinearAudioPlayer
 
         // 再生回数カウントアップストップウオッチ
         public static System.Diagnostics.Stopwatch PlayCountUpStopwatch = new System.Diagnostics.Stopwatch();
-        
+
+        public static System.Diagnostics.Stopwatch PlayLossTimeStopwatch = new System.Diagnostics.Stopwatch();
+
         private static string[] _supportAudioExtensionAry;
 
         private static string _applicationVersion = "beta";

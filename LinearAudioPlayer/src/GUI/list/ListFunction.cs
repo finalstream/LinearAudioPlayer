@@ -1133,6 +1133,9 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI
                     SQLiteManager.Instance.executeNonQuery(
                         SQLBuilder.deleteRecord(
                             LinearEnum.PlaylistMode.NORMAL, targetId, false));
+                    // PLAYHISTORYから削除
+                    SQLiteManager.Instance.executeNonQuery(SQLResource.SQL055, new SQLiteParameter("Id", targetId));
+
                     // SPECIALLISTから削除
                     //SQLiteUtils.executeNonQuery(
                     //    SQLBuilder.deleteRecord(

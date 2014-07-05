@@ -257,6 +257,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 return;
             }
 
+            UpdatePlayHistory();
+
 
             // 再生前処理
             pii.FilePath = beforePlay(pii);
@@ -311,6 +313,33 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 
             }
 
+        }
+
+        public void UpdatePlayHistory()
+        {
+            if (LinearGlobal.CurrentPlayItemInfo.Id != -1 && LinearGlobal.CurrentPlayItemInfo.LastPlayDate != null)
+            {
+                // 再生履歴を更新
+                var playtime = DateTime.Now - DateTime.ParseExact(LinearGlobal.CurrentPlayItemInfo.LastPlayDate, "yyyy-MM-dd HH:mm:ss", null);
+
+                // ロス分をとる
+                if (LinearGlobal.PlayLossTimeStopwatch.IsRunning) LinearGlobal.PlayLossTimeStopwatch.Stop();
+                playtime = playtime.Subtract(LinearGlobal.PlayLossTimeStopwatch.Elapsed);
+
+                if (playtime.TotalSeconds >= 10)
+                {
+                    Action ac = () =>
+                    {
+                        var paramList = new List<DbParameter>();
+
+                        paramList.Add(new SQLiteParameter("Id", LinearGlobal.CurrentPlayItemInfo.Id));
+                        paramList.Add(new SQLiteParameter("PlayTime", playtime.TotalSeconds));
+                        paramList.Add(new SQLiteParameter("PlayDateTime", LinearGlobal.CurrentPlayItemInfo.LastPlayDate));
+                        SQLiteManager.Instance.executeNonQuery(SQLResource.SQL054, paramList);
+                    };
+                    LinearAudioPlayer.WorkerThread.EnqueueTask(ac);
+                }
+            }
         }
 
         /// <summary>
@@ -438,6 +467,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             LinearGlobal.CurrentPlayItemInfo.ArtworkUrl = gi.PictureUrl;
             LinearGlobal.CurrentPlayItemInfo.LastPlayDate = gi.Lastplaydate;
             LinearGlobal.CurrentPlayItemInfo.Artwork = null;
+            LinearGlobal.CurrentPlayItemInfo.LossTime = TimeSpan.MinValue;
             
 
             // 現在RowNoの色を変更する
@@ -484,6 +514,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             Debug.WriteLine("total:" + LinearAudioPlayer.GridController.getRowCount() + " " + "current:" + pii.GridRowNo);
 
             // 再生回数カウントストップウオッチ開始
+            LinearGlobal.PlayLossTimeStopwatch.Reset();
             LinearGlobal.PlayCountUpStopwatch.Reset();
             LinearGlobal.PlayCountUpStopwatch.Start();
 
@@ -784,6 +815,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             if (!_playEngine.isPasued())
             {
                 // ポーズ
+                LinearGlobal.PlayLossTimeStopwatch.Start();
                 LinearGlobal.PlayCountUpStopwatch.Stop();
                 startFadeOut(MainChannel, true);
                 result = _playEngine.pause();
@@ -795,6 +827,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             else
             {
                 // 再開
+                LinearGlobal.PlayLossTimeStopwatch.Stop();
                 LinearGlobal.PlayCountUpStopwatch.Start();
                 
                 result = _playEngine.pause();
@@ -818,6 +851,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
         /// </summary>
         public void stop()
         {
+            LinearGlobal.PlayLossTimeStopwatch.Start();
             LinearGlobal.PlayCountUpStopwatch.Stop();
             // フェードアウトストップ
             startFadeOut(MainChannel, true);

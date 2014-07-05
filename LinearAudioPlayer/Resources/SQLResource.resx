@@ -452,4 +452,12 @@ ORDER BY ID ASC
 LIMIT 1)</value>
     <comment>アルバム説明更新用SQL</comment>
   </data>
+  <data name="SQL054" xml:space="preserve">
+    <value>INSERT INTO PLAYHISTORY(ID, PLAYTIME, PLAYDATETIME) VALUES (:Id, :PlayTime, :PlayDateTime)</value>
+    <comment>再生履歴挿入用SQL</comment>
+  </data>
+  <data name="SQL055" xml:space="preserve">
+    <value>DELETE FROM PLAYHISTORY WHERE ID =:Id</value>
+    <comment>再生履歴削除用SQL</comment>
+  </data>
 </root>
