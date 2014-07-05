@@ -19,5 +19,19 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         /// </summary>
         public double seekPosition { get; set; }
 
+        /// <summary>
+        /// Skip
+        /// </summary>
+        public int skip { get; set; }
+
+        /// <summary>
+        /// Take
+        /// </summary>
+        public int take { get; set; }
+
+        /// <summary>
+        /// ArtworkSize
+        /// </summary>
+        public int artworkSize { get; set; }
     }
 }

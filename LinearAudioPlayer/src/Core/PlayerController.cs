@@ -1960,6 +1960,11 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             return playingListController.getNowPlayingList(listcount);
         }
 
+        public GridItemInfo[] getNowPlayingList(int skipcount, int takecount)
+        {
+            return playingListController.getNowPlayingList(skipcount, takecount);
+        }
+
         public void skipPlayingList(long id)
         {
             playingListController.skipPlayingList(id);

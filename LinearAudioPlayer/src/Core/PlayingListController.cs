@@ -290,8 +290,22 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
             
         }
 
+        public GridItemInfo[] getNowPlayingList(int skipcount, int takecount)
+        {
+            if (playingList.Count > 0)
+            {
+                return playingList.Where(p => !LinearGlobal.invalidIdTable.Contains(p.Id)).Skip(skipcount).Take(takecount).ToArray();
+            }
+            else
+            {
+                return new GridItemInfo[] { };
+            }
+
+        }
+
         public void skipPlayingList(long id)
         {
+            if (playingList.First.Value.Id == id) return; 
             bool isHit = false;
             List<GridItemInfo> removeList = new List<GridItemInfo>();
 

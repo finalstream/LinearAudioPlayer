@@ -226,6 +226,9 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                         case "getnowplaying":
                             response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(10).Select(gi=> new object[] { gi.Id, gi.Title, gi.Artist }).ToArray();
                             break;
+                        case "addnowplaying":
+                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(request.skip, request.take).Select(gi => new object[] { gi.Id, gi.Title, gi.Artist }).ToArray();
+                            break;
                         case "ratingon":
                         case "ratingoff":
                             if (request.id == -1) break;
@@ -263,12 +266,12 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             {
                                 try
                                 {
-                                    Bitmap thumbnail = new Bitmap(128, 128);
+                                    Bitmap thumbnail = new Bitmap(request.artworkSize, request.artworkSize);
                                     using (Graphics g = Graphics.FromImage(thumbnail))
                                     {
                                         g.InterpolationMode =
                                             System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                                        g.DrawImage(LinearGlobal.CurrentPlayItemInfo.Artwork, 0, 0, 128, 128);
+                                        g.DrawImage(LinearGlobal.CurrentPlayItemInfo.Artwork, 0, 0, request.artworkSize, request.artworkSize);
                                     }
                                     thumbnail.Save(
                                         Application.StartupPath +
