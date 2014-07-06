@@ -1193,31 +1193,31 @@
             this.toolStripSeparator1,
             this.削除ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 98);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 76);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.editToolStripMenuItem.Text = "編集";
             this.editToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.editToolStripMenuItem_MouseDown);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.copyToolStripMenuItem.Text = "複製";
             this.copyToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.copyToolStripMenuItem_MouseDown);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(97, 6);
             // 
             // 削除ToolStripMenuItem
             // 
             this.削除ToolStripMenuItem.Name = "削除ToolStripMenuItem";
-            this.削除ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.削除ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.削除ToolStripMenuItem.Text = "削除";
             this.削除ToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.削除ToolStripMenuItem_MouseDown);
             // 

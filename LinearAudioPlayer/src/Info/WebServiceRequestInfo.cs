@@ -33,5 +33,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         /// ArtworkSize
         /// </summary>
         public int artworkSize { get; set; }
+
+        /// <summary>
+        /// theme
+        /// </summary>
+        public string theme { get; set; }
     }
 }

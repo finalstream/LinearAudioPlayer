@@ -223,6 +223,19 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                 };
                             LinearGlobal.MainForm.ListForm.BeginInvoke(seekAction);
                             break;
+                        case "getthemelist":
+                            var themelist = new List<string>();
+                            var filePaths = FileUtils.getFilePathList(
+                            Application.StartupPath + LinearConst.WEB_DIRECTORY_NAME + "ui", SearchOption.TopDirectoryOnly);
+                            foreach (string path in filePaths)
+                            {
+                                themelist.Add(Path.GetFileNameWithoutExtension(path));
+                            }
+                            response.themeList = themelist.ToArray();
+                            break;
+                        case "switchtheme":
+                            LinearGlobal.LinearConfig.ViewConfig.WebInterfaceTheme = request.theme;
+                            break;
                         case "getnowplaying":
                             response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(10).Select(gi=> new object[] { gi.Id, gi.Title, gi.Artist }).ToArray();
                             break;

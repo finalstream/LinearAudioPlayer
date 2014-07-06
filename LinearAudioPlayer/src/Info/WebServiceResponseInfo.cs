@@ -16,5 +16,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         public int volume { get; set; }
         public object[][] nowPlaying { get; set; }
         public string artworkUrl { get; set; }
+        public string[] themeList { get; set; }
     }
 }
