@@ -786,7 +786,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
                         LinearAudioPlayer.SettingManager.LoadStyleConfig(
                              LinearGlobal.LinearConfig.ViewConfig.StyleName);
 
-            string packFileName = "LINEARS-" + styleConfig.Name + styleConfig.Version;
+            string packFileName = "LINEARS-" + styleList.Text + styleConfig.Version;
             string packDir = Application.StartupPath + "\\stylepackage";
             DirectoryUtils.createDir(packDir);
             string packFilePath = packDir + "\\" + packFileName + ".zip";
@@ -795,10 +795,10 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
 
             string archiveIncludePath = packFileName;
             // style 
-            archiveIncludePath += "\\style\\" + styleConfig.Name + "\\";
+            archiveIncludePath += "\\style\\" + styleList.Text + "\\";
 
             string styleDir = Application.StartupPath + LinearConst.STYLE_DIRECTORY_NAME +
-                              styleConfig.Name;
+                              styleList.Text;
 
             foreach (string filePath in Directory.GetFiles(styleDir))
             {

@@ -75,6 +75,13 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.tabDisplay = new System.Windows.Forms.TabPage();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.numMiniVisualLineCount = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbMiniVisualLevel = new System.Windows.Forms.TrackBar();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkSlidePIP = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -130,13 +137,6 @@
             this.columnAuthor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReStart = new System.Windows.Forms.Button();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tbMiniVisualLevel = new System.Windows.Forms.TrackBar();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numMiniVisualLineCount = new System.Windows.Forms.NumericUpDown();
-            this.label24 = new System.Windows.Forms.Label();
             this.tabSetting.SuspendLayout();
             this.tabOption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPlayCountUpRatio)).BeginInit();
@@ -149,6 +149,9 @@
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWEBUIPort)).BeginInit();
             this.tabDisplay.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMiniVisualLineCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbMiniVisualLevel)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPIPViewDuration)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -162,9 +165,6 @@
             this.contextMenuStrip1.SuspendLayout();
             this.grpColorProfile.SuspendLayout();
             this.tabPlugin.SuspendLayout();
-            this.groupBox10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbMiniVisualLevel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMiniVisualLineCount)).BeginInit();
             this.SuspendLayout();
             // 
             // tabSetting
@@ -655,6 +655,86 @@
             this.tabDisplay.Text = "Display";
             this.tabDisplay.UseVisualStyleBackColor = true;
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.label24);
+            this.groupBox10.Controls.Add(this.numMiniVisualLineCount);
+            this.groupBox10.Controls.Add(this.label7);
+            this.groupBox10.Controls.Add(this.label11);
+            this.groupBox10.Controls.Add(this.label10);
+            this.groupBox10.Controls.Add(this.tbMiniVisualLevel);
+            this.groupBox10.Location = new System.Drawing.Point(13, 161);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(344, 45);
+            this.groupBox10.TabIndex = 12;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "MiniVisualization";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(11, 20);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(26, 12);
+            this.label24.TabIndex = 18;
+            this.label24.Text = "Line";
+            // 
+            // numMiniVisualLineCount
+            // 
+            this.numMiniVisualLineCount.Location = new System.Drawing.Point(43, 18);
+            this.numMiniVisualLineCount.Maximum = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            this.numMiniVisualLineCount.Name = "numMiniVisualLineCount";
+            this.numMiniVisualLineCount.Size = new System.Drawing.Size(43, 19);
+            this.numMiniVisualLineCount.TabIndex = 17;
+            this.numMiniVisualLineCount.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.numMiniVisualLineCount.ValueChanged += new System.EventHandler(this.numMiniVisualLineCount_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(96, 20);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(32, 12);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Level";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(130, 20);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(25, 12);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Low";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(311, 18);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(28, 12);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "High";
+            // 
+            // tbMiniVisualLevel
+            // 
+            this.tbMiniVisualLevel.AutoSize = false;
+            this.tbMiniVisualLevel.LargeChange = 1;
+            this.tbMiniVisualLevel.Location = new System.Drawing.Point(152, 18);
+            this.tbMiniVisualLevel.Name = "tbMiniVisualLevel";
+            this.tbMiniVisualLevel.Size = new System.Drawing.Size(157, 14);
+            this.tbMiniVisualLevel.TabIndex = 12;
+            this.tbMiniVisualLevel.Value = 5;
+            this.tbMiniVisualLevel.ValueChanged += new System.EventHandler(this.tbMiniVisualLevel_ValueChanged);
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.checkSlidePIP);
@@ -1113,31 +1193,31 @@
             this.toolStripSeparator1,
             this.削除ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 76);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 98);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.editToolStripMenuItem.Text = "編集";
             this.editToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.editToolStripMenuItem_MouseDown);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.copyToolStripMenuItem.Text = "複製";
             this.copyToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.copyToolStripMenuItem_MouseDown);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(97, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // 削除ToolStripMenuItem
             // 
             this.削除ToolStripMenuItem.Name = "削除ToolStripMenuItem";
-            this.削除ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.削除ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.削除ToolStripMenuItem.Text = "削除";
             this.削除ToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.削除ToolStripMenuItem_MouseDown);
             // 
@@ -1254,86 +1334,6 @@
             this.btnReStart.UseVisualStyleBackColor = true;
             this.btnReStart.Click += new System.EventHandler(this.btnReStart_Click);
             // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.label24);
-            this.groupBox10.Controls.Add(this.numMiniVisualLineCount);
-            this.groupBox10.Controls.Add(this.label7);
-            this.groupBox10.Controls.Add(this.label11);
-            this.groupBox10.Controls.Add(this.label10);
-            this.groupBox10.Controls.Add(this.tbMiniVisualLevel);
-            this.groupBox10.Location = new System.Drawing.Point(13, 161);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(344, 45);
-            this.groupBox10.TabIndex = 12;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "MiniVisualization";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(130, 20);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(25, 12);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "Low";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(311, 18);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(28, 12);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "High";
-            // 
-            // tbMiniVisualLevel
-            // 
-            this.tbMiniVisualLevel.AutoSize = false;
-            this.tbMiniVisualLevel.LargeChange = 1;
-            this.tbMiniVisualLevel.Location = new System.Drawing.Point(152, 18);
-            this.tbMiniVisualLevel.Name = "tbMiniVisualLevel";
-            this.tbMiniVisualLevel.Size = new System.Drawing.Size(157, 14);
-            this.tbMiniVisualLevel.TabIndex = 12;
-            this.tbMiniVisualLevel.Value = 5;
-            this.tbMiniVisualLevel.ValueChanged += new System.EventHandler(this.tbMiniVisualLevel_ValueChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(96, 20);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(32, 12);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Level";
-            // 
-            // numMiniVisualLineCount
-            // 
-            this.numMiniVisualLineCount.Location = new System.Drawing.Point(43, 18);
-            this.numMiniVisualLineCount.Maximum = new decimal(new int[] {
-            128,
-            0,
-            0,
-            0});
-            this.numMiniVisualLineCount.Name = "numMiniVisualLineCount";
-            this.numMiniVisualLineCount.Size = new System.Drawing.Size(43, 19);
-            this.numMiniVisualLineCount.TabIndex = 17;
-            this.numMiniVisualLineCount.Value = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            this.numMiniVisualLineCount.ValueChanged += new System.EventHandler(this.numMiniVisualLineCount_ValueChanged);
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(11, 20);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(26, 12);
-            this.label24.TabIndex = 18;
-            this.label24.Text = "Line";
-            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1370,6 +1370,10 @@
             this.groupBox9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWEBUIPort)).EndInit();
             this.tabDisplay.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMiniVisualLineCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbMiniVisualLevel)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numudPIPViewDuration)).EndInit();
@@ -1391,10 +1395,6 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.grpColorProfile.ResumeLayout(false);
             this.tabPlugin.ResumeLayout(false);
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbMiniVisualLevel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMiniVisualLineCount)).EndInit();
             this.ResumeLayout(false);
 
         }
