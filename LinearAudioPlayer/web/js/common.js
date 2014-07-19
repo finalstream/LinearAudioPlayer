@@ -86,7 +86,7 @@ $(document).ready(function() {
 					    } else {
 						    // fade change playinfo
 						    $("#playing_info").find("*").animate({ opacity: 0 }, "slow", function() {
-							    requestAction({ action: "getartwork" });
+						        requestAction({ action: "getartwork", artworkSize: 150 });
 							    setPlayInfo(res.playInfo);
 							    $("#playing_info").find("*").animate(
 							    { opacity: 1 },

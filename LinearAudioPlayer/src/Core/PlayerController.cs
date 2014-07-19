@@ -326,7 +326,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                 if (LinearGlobal.PlayLossTimeStopwatch.IsRunning) LinearGlobal.PlayLossTimeStopwatch.Stop();
                 playtime = playtime.Subtract(LinearGlobal.PlayLossTimeStopwatch.Elapsed);
 
-                if (playtime.TotalSeconds >= 10)
+                if (playtime.TotalSeconds >= 30)
                 {
                     Action ac = () =>
                     {

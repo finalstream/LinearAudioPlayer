@@ -16,7 +16,9 @@ using FINALSTREAM.LinearAudioPlayer.Database;
 using FINALSTREAM.LinearAudioPlayer.Grid;
 using FINALSTREAM.LinearAudioPlayer.Info;
 using FINALSTREAM.LinearAudioPlayer.Resources;
+using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
+using SearchOption = System.IO.SearchOption;
 
 namespace FINALSTREAM.LinearAudioPlayer.Core
 {
@@ -279,6 +281,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             {
                                 try
                                 {
+                                    if (request.artworkSize == 0) request.artworkSize = 150;
                                     Bitmap thumbnail = new Bitmap(request.artworkSize, request.artworkSize);
                                     using (Graphics g = Graphics.FromImage(thumbnail))
                                     {
@@ -286,12 +289,21 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                             System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                                         g.DrawImage(LinearGlobal.CurrentPlayItemInfo.Artwork, 0, 0, request.artworkSize, request.artworkSize);
                                     }
-                                    thumbnail.Save(
-                                        Application.StartupPath +
-                                        Path.Combine(LinearConst.WEB_DIRECTORY_NAME, "img\\artwork.png"),
+                                    var artworkDirectoy = Application.StartupPath +
+                                                          Path.Combine(LinearConst.WEB_DIRECTORY_NAME, "img");
+                                    var artworkFileName = string.Format("artwork-{0}.png",
+                                        LinearGlobal.CurrentPlayItemInfo.Id);
+                                    thumbnail.Save(artworkDirectoy + "\\" + artworkFileName,
                                         System.Drawing.Imaging.ImageFormat.Png);
                                     thumbnail.Dispose();
-                                    response.artworkUrl = "../img/artwork.png";
+                                    var oldfiles =
+                                        Directory.GetFiles(artworkDirectoy, "*.png")
+                                            .Where(a => Path.GetFileName(a) != artworkFileName && Path.GetFileName(a) != "blank.png");
+                                    foreach (var file in oldfiles)
+                                    {
+                                        File.Delete(file);
+                                    }
+                                    response.artworkUrl = "../img/" + artworkFileName;
                                 }
                                 catch (Exception)
                                 {

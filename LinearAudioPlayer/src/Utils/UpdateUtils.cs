@@ -118,6 +118,46 @@ namespace FINALSTREAM.LinearAudioPlayer.Utils
 
             }
 
+
+            if ("ver.0.9.4".CompareTo(LinearGlobal.LinearConfig.Version) > 0)
+            {
+                waitDialog = new WaitDialog("データベースをアップグレード中です");
+                asyncCall = new upgradeDatbase(AsynchronousMethod);
+                // asyncCall を非同期で呼び出す。
+                ar = asyncCall.BeginInvoke(null, null);
+
+                dbFileList =
+                FileUtils.getFilePathListWithExtFilter(
+                    new string[] { LinearGlobal.DatabaseDirectory },
+                    System.IO.SearchOption.TopDirectoryOnly,
+                    new string[] { ".db" });
+
+                foreach (string dbfile in dbFileList)
+                {
+                    SQLiteManager.Instance.closeDatabase();
+                    SQLiteManager.Instance.connectDatabase(dbfile);
+
+                    SQLiteTransaction sqltran = null;
+                    try
+                    {
+                        sqltran = SQLiteManager.Instance.beginTransaction();
+
+                        SQLiteManager.Instance.executeNonQuery
+                            ("DELETE FROM PLAYHISTORY WHERE PLAYTIME < 30");
+
+
+                        sqltran.Commit();
+                    }
+                    catch (SQLiteException)
+                    {
+                        sqltran.Rollback();
+                    }
+
+                    SQLiteManager.Instance.closeDatabase();
+                }
+
+            }
+
             /*
 
             //アップデートする必要がある調べる
