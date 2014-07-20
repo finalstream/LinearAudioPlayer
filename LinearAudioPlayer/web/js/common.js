@@ -9,6 +9,7 @@ $(document).ready(function() {
 	var hideMessageTimer;
 	var beforeId = -1;
 	var currentId = -1;
+	var artworkUrl = "../img/blank.png";
 
 	$("#error-message").hide();
 	$("#status-message").hide();
@@ -31,31 +32,15 @@ $(document).ready(function() {
 	// ajax request
 	function requestAction(req) {
 
-		/*
-		switch(req.action) {
-			  case "previous":
-			  case "forward":
-				break;
-			  case "getplayinfo":
-				break;
-		}*/
-
-		//console.log("requestAction: " + action);
 		$.ajax({
 			url: "LinearWebService",
 			data: req,
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function(res) {
-				//console.log("success! requestAction");
-				//console.log(res);
 				$("#error-message").fadeOut();
 
 				switch (res.action) {
-					//case "previous":
-					//case "forward":
-					//isChangeTrack = true;
-					//  break;
 				    case "getplayinfo":
 
 					    if (res.playInfo.Id != beforeId) {
@@ -84,16 +69,16 @@ $(document).ready(function() {
 						    // change playinfo
 						    setPlayInfo(res.playInfo);
 					    } else {
-						    // fade change playinfo
+					        // fade change playinfo
+					        requestAction({ action: "getartwork", artworkSize: 150 });
 						    $("#playing_info").find("*").animate({ opacity: 0 }, "slow", function() {
-						        requestAction({ action: "getartwork", artworkSize: 150 });
 							    setPlayInfo(res.playInfo);
 							    $("#playing_info").find("*").animate(
 							    { opacity: 1 },
 							    { duration: "slow" });
 							    isChangeTrack = false;
 						    });
-						    // reload now playing
+					        // reload now playing
 						    requestAction({ action: "getnowplaying" });
 					    }
 					    $('.progress-bar').css("width", res.seekRatio + "%");
@@ -115,7 +100,7 @@ $(document).ready(function() {
 					    if (res.artworkUrl == "") {
 						    setTimeout(requestAction({ action: "getartwork", artworkSize: 150 }), 1000);
 					    } else {
-						    $("#artwork").attr("src", res.artworkUrl);
+					        artworkUrl = res.artworkUrl;
 					    }
 					    break;
 				    case "getthemelist":
@@ -159,6 +144,7 @@ $(document).ready(function() {
 			$("#rating-on").hide();
 			$("#rating-off").show();
 		}
+		$("#artwork").attr("src", artworkUrl);
 	}
 
 	function reloadNowPlaying(nowPlaying, isAll) {
