@@ -460,4 +460,78 @@ LIMIT 1)</value>
     <value>DELETE FROM PLAYHISTORY WHERE ID =:Id</value>
     <comment>再生履歴削除用SQL</comment>
   </data>
+  <data name="SQL056" xml:space="preserve">
+    <value>SELECT MIN(ADDDATE) FROM PLAYLIST</value>
+    <comment>開始日時取得用SQL</comment>
+  </data>
+  <data name="SQL057" xml:space="preserve">
+    <value>SELECT COUNT(*) FROM PLAYLIST</value>
+    <comment>全トラック数取得用SQL</comment>
+  </data>
+  <data name="SQL058" xml:space="preserve">
+    <value>SELECT COUNT(*) FROM PLAYLIST WHERE RATING = 9</value>
+    <comment>お気に入り数取得用SQL</comment>
+  </data>
+  <data name="SQL059" xml:space="preserve">
+    <value>SELECT SUM(PLAYCOUNT) FROM PLAYLIST</value>
+    <comment>全再生回数取得用SQL</comment>
+  </data>
+  <data name="SQL060" xml:space="preserve">
+    <value>SELECT COUNT(*) FROM PLAYHISTORY</value>
+    <comment>全再生履歴数取得用SQL</comment>
+  </data>
+  <data name="SQL061" xml:space="preserve">
+    <value>SELECT PH.ID, TITLE, ARTIST, PLAYDATETIME 
+FROM PLAYHISTORY PH 
+INNER JOIN PLAYLIST PL 
+ON PH.ID = PL.ID 
+ORDER BY PH.PLAYDATETIME DESC, PH.ROWID DESC 
+LIMIT :Limit OFFSET :Offset</value>
+    <comment>最近の再生履歴取得用SQL</comment>
+  </data>
+  <data name="SQL062" xml:space="preserve">
+    <value>SELECT ifnull(ARTIST,''), COUNT(*) AS CNT , CAST(SUM(PH.PLAYTIME) as int) AS PT
+FROM PLAYHISTORY PH 
+INNER JOIN PLAYLIST PL 
+ON PH.ID = PL.ID :Condition 
+GROUP BY ARTIST
+ORDER BY CNT DESC, PT DESC
+LIMIT :Limit;</value>
+    <comment>TOP ARTIST</comment>
+  </data>
+  <data name="SQL063" xml:space="preserve">
+    <value>SELECT ifnull(PL.TITLE,''), ifnull(PL.ARTIST,''), TT.CNT, TT.PT FROM(
+SELECT PH.ID, COUNT(*) AS CNT, CAST(SUM(PH.PLAYTIME) as int) AS PT
+FROM PLAYHISTORY PH 
+INNER JOIN PLAYLIST PL 
+ON PH.ID = PL.ID :Condition
+GROUP BY PH.ID
+ORDER BY CNT DESC, PT DESC
+LIMIT :Limit
+) TT
+INNER JOIN PLAYLIST PL 
+ON TT.ID = PL.ID;</value>
+    <comment>TOP TRACK</comment>
+  </data>
+  <data name="SQL064" xml:space="preserve">
+    <value>SELECT ifnull(ARTIST,''), SUM(PLAYCOUNT) AS CNT, ''
+FROM PLAYLIST PL
+WHERE ARTIST &lt;&gt; ''
+GROUP BY ARTIST
+ORDER BY CNT DESC
+LIMIT :Limit</value>
+    <comment>TOP ARTIST(all)</comment>
+  </data>
+  <data name="SQL065" xml:space="preserve">
+    <value>SELECT ifnull(PL.TITLE,''), ifnull(PL.ARTIST,''), TT.CNT, '' FROM(
+SELECT ID, SUM(PLAYCOUNT) AS CNT
+FROM PLAYLIST PL
+GROUP BY ID
+ORDER BY CNT DESC
+LIMIT :Limit
+) TT
+INNER JOIN PLAYLIST PL 
+ON TT.ID = PL.ID</value>
+    <comment>TOP TRACK(all)</comment>
+  </data>
 </root>

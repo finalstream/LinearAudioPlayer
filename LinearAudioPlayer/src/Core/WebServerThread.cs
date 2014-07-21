@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -24,6 +26,25 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 {
     public class WebServerThread
     {
+
+        enum RangeType
+        {
+            WEEKLY,
+            MONTHLY,
+            LAST3MONTHS,
+            LAST6MONTHS,
+            LAST12MONTHS,
+            ALL
+        }
+        private Dictionary<RangeType, string> _rangeDictionary = new Dictionary<RangeType, string>()
+        {
+            {RangeType.WEEKLY, "-7 days"},
+            {RangeType.MONTHLY, "-1 months"},
+            {RangeType.LAST3MONTHS, "-3 months"},
+            {RangeType.LAST6MONTHS, "-6 months"},
+            {RangeType.LAST12MONTHS, "-1 years"}
+        }; 
+
         string docRoot = ""; // ドキュメント・ルート
         string prefix = ""; // 受け付けるURL
         private HttpListener listener = null;
@@ -239,10 +260,81 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             LinearGlobal.LinearConfig.ViewConfig.WebInterfaceTheme = request.theme;
                             break;
                         case "getnowplaying":
-                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(10).Select(gi=> new object[] { gi.Id, gi.Title, gi.Artist }).ToArray();
+                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(10).Select(gi=> new TrackInfo( gi.Id, gi.Title, gi.Artist )).ToArray();
                             break;
                         case "addnowplaying":
-                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(request.skip, request.take).Select(gi => new object[] { gi.Id, gi.Title, gi.Artist }).ToArray();
+                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(request.skip, request.take).Select(gi => new TrackInfo(gi.Id, gi.Title, gi.Artist)).ToArray();
+                            break;
+                        case "getanalyzeinfo":
+                            var ai = new AnalyzeInfo();
+                            var startDate = SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL056);
+                            if (startDate != null)
+                            {
+                                ai.StartDate = startDate.ToString();
+                                ai.StartDateRelative = DateTimeUtils.getRelativeTimeString(startDate.ToString());
+                            }
+                            ai.TotalTracksCount = (long) SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL057);
+                            ai.TotalFavoriteTracksCount = (long) SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL058);
+                            ai.TotalPlayCount = (long) SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL059);
+                            ai.TotalPalyHistoryCount = (long) SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL060);
+                            response.analyzeOverview = ai;
+                            break;
+                        case "getrecentlist":
+                            var paramList = new List<DbParameter>();
+                            paramList.Add(new SQLiteParameter("Limit", request.limit));
+                            paramList.Add(new SQLiteParameter("Offset", request.offset));
+                            response.recentListen =
+                                SQLiteManager.Instance.executeQueryNormal(SQLResource.SQL061, paramList).Select(o=> new TrackInfo((long)o[0], o[1].ToString(), o[2].ToString(), DateTimeUtils.getRelativeTimeString(o[3].ToString()))).ToArray();
+                            response.pagerPrevious = request.offset == 0 ? -1 : request.offset - request.limit;
+                            response.pagerNext = response.recentListen.Length < request.limit ? -1 : request.offset + request.limit;
+                            break;
+                        case "gettopartist":
+                            var sql = SQLResource.SQL062;
+                            var rangeType = (RangeType) Enum.Parse(typeof (RangeType), request.rangeType);
+                            var where = "";
+                            if (rangeType != RangeType.ALL)
+                            {
+                                where =
+                                    string.Format(
+                                        "WHERE PH.PLAYDATETIME >= DATETIME(DATETIME('NOW','LOCALTIME'), '{0}','LOCALTIME')",
+                                        _rangeDictionary[rangeType]);
+                            }
+                            else
+                            {
+                                sql = SQLResource.SQL064;
+                            }
+                            sql = sql.Replace(":Condition", where);
+                            var topArtists = SQLiteManager.Instance.executeQueryNormal(sql, new SQLiteParameter("Limit", request.limit));
+                            double maxcount = topArtists.Max(o => (long) o[1]);
+                            response.topLists =
+                                topArtists.Select(
+                                    o =>
+                                        new TrackInfo(o[0].ToString(), (long) o[1],
+                                            (int)((int.Parse(o[1].ToString()) / maxcount) * 100), o[2].ToString())).ToArray();
+                            break;
+                        case "gettoptrack":
+                            var sql2 = SQLResource.SQL063;
+                            var rangeType2 = (RangeType)Enum.Parse(typeof(RangeType), request.rangeType);
+                            var where2 = "";
+                            if (rangeType2 != RangeType.ALL)
+                            {
+                                where2 =
+                                    string.Format(
+                                        "WHERE PH.PLAYDATETIME >= DATETIME(DATETIME('NOW','LOCALTIME'), '{0}','LOCALTIME')",
+                                        _rangeDictionary[rangeType2]);
+                            }
+                            else
+                            {
+                                sql2 = SQLResource.SQL065;
+                            }
+                            sql2 = sql2.Replace(":Condition", where2);
+                            var topTracks = SQLiteManager.Instance.executeQueryNormal(sql2, new SQLiteParameter("Limit", request.limit));
+                            double maxcount2 = topTracks.Max(o => (long)o[2]);
+                            response.topLists =
+                                topTracks.Select(
+                                    o =>
+                                        new TrackInfo(o[0].ToString() + " - " + o[1].ToString(), (long)o[2],
+                                            (int)((int.Parse(o[2].ToString()) / maxcount2) * 100), o[3].ToString())).ToArray();
                             break;
                         case "ratingon":
                         case "ratingoff":
