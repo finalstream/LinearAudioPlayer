@@ -284,7 +284,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             paramList.Add(new SQLiteParameter("Limit", request.limit));
                             paramList.Add(new SQLiteParameter("Offset", request.offset));
                             response.recentListen =
-                                SQLiteManager.Instance.executeQueryNormal(SQLResource.SQL061, paramList).Select(o=> new TrackInfo((long)o[0], o[1].ToString(), o[2].ToString(), DateTimeUtils.getRelativeTimeString(o[3].ToString()))).ToArray();
+                                SQLiteManager.Instance.executeQueryNormal(SQLResource.SQL061, paramList).Select(o=> new TrackInfo((long)o[0], o[1].ToString(), o[2].ToString(), o[3].ToString())).ToArray();
                             response.pagerPrevious = request.offset == 0 ? -1 : request.offset - request.limit;
                             response.pagerNext = response.recentListen.Length < request.limit ? -1 : request.offset + request.limit;
                             break;

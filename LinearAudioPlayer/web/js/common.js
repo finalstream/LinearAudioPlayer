@@ -172,9 +172,9 @@ $(document).ready(function() {
 	}
 
 	function setAnalyzeInfo(analyzeOverview) {
-	    $("#startDate").find("span").remove();
-	    $("#tracksCount").find("span").remove();
-	    $("#playCount").find("span").remove();
+		$("#startDate").find("span").remove();
+		$("#tracksCount").find("span").remove();
+		$("#playCount").find("span").remove();
 		$("#startDate").append($("<span>").text("since " + analyzeOverview.StartDate).append($("<small>").append(" since " + analyzeOverview.StartDateRelative)));
 		$("#tracksCount").append($("<span>").text(analyzeOverview.TotalTracksCount + " tracks ").append($("<small>").append("favorite " + analyzeOverview.TotalFavoriteTracksCount + " tracks")));
 		$("#playCount").append($("<span>").text(analyzeOverview.TotalPlayCount + " plays ").append($("<small>").append("history " + analyzeOverview.TotalPalyHistoryCount + " plays")));
@@ -242,7 +242,12 @@ $(document).ready(function() {
 						.append(this.Artist)
 					)
 					.append($("<td>")
-						.append(this.PlayDateTime)
+						.append($("<span>")
+                    .append(this.PlayDateTimeRelative)
+                        .attr("data-toggle", "tooltip")
+						.attr("data-placement", "right")
+						.attr("title", this.PlayDateTime).tooltip()
+                        )	
 					)
 				);
 			});
@@ -285,7 +290,7 @@ $(document).ready(function() {
 
 			var theme = target.attr("aria-valuetext");
 			target.find("tbody").append($("<tr>")
-				.append($("<td style='width:10%'>")
+				.append($("<td style='width:5%'>")
 					.append(rank)
 				)
 				.append($("<td style='width:30%'>")
@@ -347,8 +352,8 @@ $(document).ready(function() {
 	});
 
 	$("#seek").on("mousedown", function(event) {
-	    var progressWidth = $("#seek").width();
-	    var progressClickX = event.pageX - $("#seek").offset().left;
+		var progressWidth = $("#seek").width();
+		var progressClickX = event.pageX - $("#seek").offset().left;
 		var seekVal = progressClickX / progressWidth;
 		//console.log(seekVal);
 		requestAction({ action: "seek", seekPosition: seekVal });
@@ -367,17 +372,17 @@ $(document).ready(function() {
 	});
 
 	$("#top_artist_tab a").on("click", function (event) {
-	    lastTopArtistRangeType = this.hash.substr(1);
+		lastTopArtistRangeType = this.hash.substr(1);
 		requestAction({ action: "gettopartist", rangeType: lastTopArtistRangeType, limit: topLimit });
 	});
 
 	$("#top_track_tab a").on("click", function (event) {
-	    lastTopTrackRangeType = this.hash.substr(1);
-	    requestAction({ action: "gettoptrack", rangeType: lastTopTrackRangeType, limit: topLimit });
+		lastTopTrackRangeType = this.hash.substr(1);
+		requestAction({ action: "gettoptrack", rangeType: lastTopTrackRangeType, limit: topLimit });
 	});
 
 	$("#menu_analyze").on("click", function (event) {
-	    refreshAnalyzeInfo();
+		refreshAnalyzeInfo();
 	});
 
 });
