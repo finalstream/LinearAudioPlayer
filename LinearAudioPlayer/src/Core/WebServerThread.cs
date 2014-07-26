@@ -254,7 +254,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             {
                                 themelist.Add(Path.GetFileNameWithoutExtension(path));
                             }
-                            response.themeList = themelist.ToArray();
+                            response.themeList = themelist.ToArray().Reverse().ToArray();
                             break;
                         case "switchtheme":
                             LinearGlobal.LinearConfig.ViewConfig.WebInterfaceTheme = request.theme;
@@ -270,7 +270,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             var startDate = SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL056);
                             if (startDate != null)
                             {
-                                ai.StartDate = startDate.ToString();
+                                ai.StartDate = startDate.ToString().Substring(0,10);
                                 ai.StartDateRelative = DateTimeUtils.getRelativeTimeString(startDate.ToString());
                             }
                             ai.TotalTracksCount = (long) SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL057);
@@ -281,12 +281,22 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             break;
                         case "getrecentlist":
                             var paramList = new List<DbParameter>();
-                            paramList.Add(new SQLiteParameter("Limit", request.limit));
+                            var recentlist = new List<TrackInfo>();
+                            var limit = request.limit;
+                            if (LinearGlobal.CurrentPlayItemInfo != null && request.offset == 0)
+                            {
+                                var ci = LinearGlobal.CurrentPlayItemInfo;
+                                recentlist.Add(new TrackInfo(ci.Id, ci.Title, ci.Artist, "", "")); // NowPlaying
+                                limit--;
+                            }
+                            paramList.Add(new SQLiteParameter("Limit", limit));
                             paramList.Add(new SQLiteParameter("Offset", request.offset));
-                            response.recentListen =
-                                SQLiteManager.Instance.executeQueryNormal(SQLResource.SQL061, paramList).Select(o=> new TrackInfo((long)o[0], o[1].ToString(), o[2].ToString(), o[3].ToString())).ToArray();
-                            response.pagerPrevious = request.offset == 0 ? -1 : request.offset - request.limit;
-                            response.pagerNext = response.recentListen.Length < request.limit ? -1 : request.offset + request.limit;
+                            recentlist.AddRange(SQLiteManager.Instance.executeQueryNormal(SQLResource.SQL061, paramList).Select(o=> new TrackInfo((long)o[0], o[1].ToString(), o[2].ToString(), o[3].ToString(), o[4].ToString())));
+                            response.recentListen = recentlist.ToArray();
+
+                            var offset = request.offset - limit < 0 ? 0 : request.offset - limit;
+                            response.pagerPrevious = request.offset == 0 ? -1 : offset;
+                            response.pagerNext = response.recentListen.Length < limit ? -1 : request.offset + limit;
                             break;
                         case "gettopartist":
                             var sql = SQLResource.SQL062;
@@ -373,6 +383,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             {
                                 try
                                 {
+                                    
                                     if (request.artworkSize == 0) request.artworkSize = 150;
                                     Bitmap thumbnail = new Bitmap(request.artworkSize, request.artworkSize);
                                     using (Graphics g = Graphics.FromImage(thumbnail))
@@ -382,20 +393,26 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                         g.DrawImage(LinearGlobal.CurrentPlayItemInfo.Artwork, 0, 0, request.artworkSize, request.artworkSize);
                                     }
                                     var artworkDirectoy = Application.StartupPath +
-                                                          Path.Combine(LinearConst.WEB_DIRECTORY_NAME, "img");
-                                    var artworkFileName = string.Format("artwork-{0}.png",
+                                                          Path.Combine(Path.Combine(LinearConst.WEB_DIRECTORY_NAME, "img"), "artwork");
+                                    Directory.CreateDirectory(artworkDirectoy);
+                                    var artworkFileName = string.Format("{0}.png",
                                         LinearGlobal.CurrentPlayItemInfo.Id);
-                                    thumbnail.Save(artworkDirectoy + "\\" + artworkFileName,
+                                    var artworkThumbFileName = string.Format("{0}-thumb.png",
+                                        LinearGlobal.CurrentPlayItemInfo.Id);
+                                    LinearGlobal.CurrentPlayItemInfo.Artwork.Save(artworkDirectoy + "\\" + artworkFileName,
+                                        System.Drawing.Imaging.ImageFormat.Png);
+                                    thumbnail.Save(artworkDirectoy + "\\" + artworkThumbFileName,
                                         System.Drawing.Imaging.ImageFormat.Png);
                                     thumbnail.Dispose();
                                     var oldfiles =
                                         Directory.GetFiles(artworkDirectoy, "*.png")
-                                            .Where(a => Path.GetFileName(a) != artworkFileName && Path.GetFileName(a) != "blank.png");
+                                            .Where(a => Path.GetFileName(a).IndexOf(LinearGlobal.CurrentPlayItemInfo.Id.ToString()) == -1);
                                     foreach (var file in oldfiles)
                                     {
                                         File.Delete(file);
                                     }
-                                    response.artworkUrl = "../img/" + artworkFileName;
+                                    response.artworkUrl = "../img/artwork/" + artworkFileName;
+                                    response.artworkThumbUrl = "../img/artwork/" + artworkThumbFileName;
                                 }
                                 catch (Exception)
                                 {

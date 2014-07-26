@@ -481,7 +481,7 @@ LIMIT 1)</value>
     <comment>全再生履歴数取得用SQL</comment>
   </data>
   <data name="SQL061" xml:space="preserve">
-    <value>SELECT PH.ID, TITLE, ARTIST, PLAYDATETIME 
+    <value>SELECT PH.ID, TITLE, ARTIST, PLAYTIME, PLAYDATETIME 
 FROM PLAYHISTORY PH 
 INNER JOIN PLAYLIST PL 
 ON PH.ID = PL.ID 

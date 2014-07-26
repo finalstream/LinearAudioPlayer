@@ -24,6 +24,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
 
         public string TotalPlayTime { get; set; }
 
+        public string PlaySeconds { get; set; }
+
         public int Rate { get; set; }
 
         public TrackInfo(long id, string title, string artist)
@@ -33,11 +35,12 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
             Artist = artist;
         }
 
-        public TrackInfo(long id, string title, string artist, string playDateTime)
+        public TrackInfo(long id, string title, string artist, string playsec, string playDateTime)
         {
             Id = id;
             Title = title;
             Artist = artist;
+            if (!string.IsNullOrEmpty(playsec)) PlaySeconds = TimeSpan.FromSeconds(int.Parse(playsec)).ToString();
             PlayDateTime = playDateTime;
             PlayDateTimeRelative = DateTimeUtils.getRelativeTimeString(playDateTime);
         }

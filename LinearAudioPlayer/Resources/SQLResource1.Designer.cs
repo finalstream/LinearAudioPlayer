@@ -664,7 +664,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Resources {
         }
         
         /// <summary>
-        ///   SELECT PH.ID, TITLE, ARTIST, PLAYDATETIME 
+        ///   SELECT PH.ID, TITLE, ARTIST, PLAYTIME, PLAYDATETIME 
         ///FROM PLAYHISTORY PH 
         ///INNER JOIN PLAYLIST PL 
         ///ON PH.ID = PL.ID 
