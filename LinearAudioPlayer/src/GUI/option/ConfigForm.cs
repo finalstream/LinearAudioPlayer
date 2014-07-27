@@ -95,7 +95,7 @@ namespace FINALSTREAM.LinearAudioPlayer.GUI.option
             // 設定画面の位置およびサイズ復元
             this.Location = linearConfig.ViewConfig.ConfigLocation;
             //this.Size = linearConfig.ViewConfig.ConfigSize;
-            this.Size = new Size(400, 396);
+            this.Size = new Size(408, 405);
 
             this.checkResumePlay.Checked = linearConfig.PlayerConfig.ResumePlay;
             this.checkAutoUpdate.Checked = linearConfig.PlayerConfig.IsAutoUpdate;

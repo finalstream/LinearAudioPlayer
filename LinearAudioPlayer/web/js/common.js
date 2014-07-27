@@ -1,4 +1,7 @@
-
+/*!
+ * Linear Audio Player WEBUI Commons ver.0.9.4 (http://www.finalstream.net)
+ * Copyright 2014 Finalstream
+ */
 $(document).ready(function() {
 	// ready
 
@@ -364,8 +367,7 @@ $(document).ready(function() {
 
 	function getArtwork(img, keyword) {
 
-		
-		var url = "http://ajax.googleapis.com/ajax/services/search/images?q=" + keyword + "&v=1.0";
+	    var url = "http://ajax.googleapis.com/ajax/services/search/images?q=" + encodeURIComponent(keyword) + "&v=1.0";
 
 		$.ajax({
 			url: url,
