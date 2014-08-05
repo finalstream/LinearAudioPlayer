@@ -230,7 +230,7 @@ $(document).ready(function() {
 					requestAction({ id: id, action: "skipnowplaying" });
 				})
 			);
-			getArtwork(artwork, this.Title + " " + this.Artist);
+			getArtwork(artwork, this.Title + " " + this.Artist, "image-nowplaying");
 			i++;
 		});
 
@@ -289,7 +289,7 @@ $(document).ready(function() {
 						)	
 					)
 				);
-				if (this.Id != "&nbsp;") getArtwork(artwork, this.Title + " " + this.Artist);
+				if (this.Id != "&nbsp;") getArtwork(artwork, this.Title + " " + this.Artist, "image-recent");
 			});
 
 		}
@@ -359,13 +359,13 @@ $(document).ready(function() {
 					))
 				)
 			);
-			getArtwork(artwork, this.Title.replace(" - ", " "));
+			getArtwork(artwork, this.Title.replace(" - ", " "), targetList);
 			prevCount = this.Count;
 		});
 
 	}
 
-	function getArtwork(img, keyword) {
+	function getArtwork(img, keyword, imggroup) {
 
 	    var url = "http://ajax.googleapis.com/ajax/services/search/images?q=" + encodeURIComponent(keyword) + "&v=1.0";
 
@@ -379,7 +379,7 @@ $(document).ready(function() {
 					var imageData = results.shift();
 					img.attr("src", imageData.url);
 					img.on('load', function () {
-						img.wrap($("<a data-lightbox='image-1' data-title='" + keyword + "'>").attr("href", img.attr("src")));
+					    img.wrap($("<a data-lightbox='" + imggroup + "' data-title='" + keyword + "'>").attr("href", img.attr("src")));
 						img.show();
 					});
 					img.on('error', function() {

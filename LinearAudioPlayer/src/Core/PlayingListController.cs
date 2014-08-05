@@ -354,6 +354,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
 
             foreach (var id in ids)
             {
+                if(playingList.First.Value.Id == id) continue;
                 // idを探す
                 var gi = playingList.FirstOrDefault(g => g.Id == id);
                 if (gi != null)
