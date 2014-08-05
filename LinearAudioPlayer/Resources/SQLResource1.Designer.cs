@@ -664,7 +664,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Resources {
         }
         
         /// <summary>
-        ///   SELECT PH.ID, TITLE, ARTIST, PLAYTIME, PLAYDATETIME 
+        ///   SELECT PH.ID, TITLE, ARTIST, PLAYTIME, PLAYDATETIME, RATING 
         ///FROM PLAYHISTORY PH 
         ///INNER JOIN PLAYLIST PL 
         ///ON PH.ID = PL.ID 
@@ -693,7 +693,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Resources {
         }
         
         /// <summary>
-        ///   SELECT ifnull(PL.TITLE,&apos;&apos;), ifnull(PL.ARTIST,&apos;&apos;), TT.CNT, TT.PT FROM(
+        ///   SELECT ifnull(PL.TITLE,&apos;&apos;), ifnull(PL.ARTIST,&apos;&apos;), TT.CNT, TT.PT, PL.RATING FROM(
         ///SELECT PH.ID, COUNT(*) AS CNT, CAST(SUM(PH.PLAYTIME) as int) AS PT
         ///FROM PLAYHISTORY PH 
         ///INNER JOIN PLAYLIST PL 
@@ -726,7 +726,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Resources {
         }
         
         /// <summary>
-        ///   SELECT ifnull(PL.TITLE,&apos;&apos;), ifnull(PL.ARTIST,&apos;&apos;), TT.CNT, &apos;&apos; FROM(
+        ///   SELECT ifnull(PL.TITLE,&apos;&apos;), ifnull(PL.ARTIST,&apos;&apos;), TT.CNT, &apos;&apos;, PL.RATING FROM(
         ///SELECT ID, SUM(PLAYCOUNT) AS CNT
         ///FROM PLAYLIST PL
         ///GROUP BY ID

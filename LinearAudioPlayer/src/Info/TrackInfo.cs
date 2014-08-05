@@ -28,14 +28,17 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
 
         public int Rate { get; set; }
 
-        public TrackInfo(long id, string title, string artist)
+        public bool IsFavorite { get; set; }
+
+        public TrackInfo(long id, string title, string artist, int rating)
         {
             Id = id;
             Title = title;
             Artist = artist;
+            IsFavorite = rating == (int)LinearEnum.RatingValue.FAVORITE;
         }
 
-        public TrackInfo(long id, string title, string artist, string playsec, string playDateTime)
+        public TrackInfo(long id, string title, string artist, string playsec, string playDateTime, int rating)
         {
             Id = id;
             Title = title;
@@ -43,9 +46,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
             if (!string.IsNullOrEmpty(playsec)) PlaySeconds = TimeSpan.FromSeconds(int.Parse(playsec)).ToString();
             PlayDateTime = playDateTime;
             PlayDateTimeRelative = DateTimeUtils.getRelativeTimeString(playDateTime);
+            IsFavorite = rating == (int)LinearEnum.RatingValue.FAVORITE;
         }
 
-        public TrackInfo(string title,  long count,  int rate, string playtime)
+        public TrackInfo(string title,  long count,  int rate, string playtime, int rating = -1)
         {
             Title = title;
             Count = count;
@@ -59,6 +63,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
             {
                 TotalPlayTime = "";
             }
+            IsFavorite = rating == (int)LinearEnum.RatingValue.FAVORITE;
         }
 
     }

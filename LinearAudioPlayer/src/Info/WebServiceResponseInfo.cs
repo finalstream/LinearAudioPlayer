@@ -23,5 +23,6 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         public string artworkThumbUrl { get; set; }
         public string[] themeList { get; set; }
         public AnalyzeInfo analyzeOverview { get; set; }
+        public string nowThemeName { get; set; }
     }
 }

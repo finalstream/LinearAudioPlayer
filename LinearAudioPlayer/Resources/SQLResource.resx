@@ -481,7 +481,7 @@ LIMIT 1)</value>
     <comment>全再生履歴数取得用SQL</comment>
   </data>
   <data name="SQL061" xml:space="preserve">
-    <value>SELECT PH.ID, TITLE, ARTIST, PLAYTIME, PLAYDATETIME 
+    <value>SELECT PH.ID, TITLE, ARTIST, PLAYTIME, PLAYDATETIME, RATING 
 FROM PLAYHISTORY PH 
 INNER JOIN PLAYLIST PL 
 ON PH.ID = PL.ID 
@@ -500,7 +500,7 @@ LIMIT :Limit;</value>
     <comment>TOP ARTIST</comment>
   </data>
   <data name="SQL063" xml:space="preserve">
-    <value>SELECT ifnull(PL.TITLE,''), ifnull(PL.ARTIST,''), TT.CNT, TT.PT FROM(
+    <value>SELECT ifnull(PL.TITLE,''), ifnull(PL.ARTIST,''), TT.CNT, TT.PT, PL.RATING FROM(
 SELECT PH.ID, COUNT(*) AS CNT, CAST(SUM(PH.PLAYTIME) as int) AS PT
 FROM PLAYHISTORY PH 
 INNER JOIN PLAYLIST PL 
@@ -523,7 +523,7 @@ LIMIT :Limit</value>
     <comment>TOP ARTIST(all)</comment>
   </data>
   <data name="SQL065" xml:space="preserve">
-    <value>SELECT ifnull(PL.TITLE,''), ifnull(PL.ARTIST,''), TT.CNT, '' FROM(
+    <value>SELECT ifnull(PL.TITLE,''), ifnull(PL.ARTIST,''), TT.CNT, '', PL.RATING FROM(
 SELECT ID, SUM(PLAYCOUNT) AS CNT
 FROM PLAYLIST PL
 GROUP BY ID

@@ -8,6 +8,7 @@ $(document).ready(function() {
 	var pollingTimer;
 	var pollingIntervalMs = 1000; // polling interval millisecond
 	var isChangeTrack = false; // track change flag
+    var nowTheme;
 	var stopCount = 0;
 	var hideMessageTimer;
 	var beforeId = -1;
@@ -143,9 +144,11 @@ $(document).ready(function() {
 								$("<li>").append(
 								$("<a>").text(themename)
 								).on("click", function (event) {
-									requestAction({ theme: themename, action: "switchtheme" });
+								    requestAction({ theme: themename, action: "switchtheme" });
+								    nowTheme = themename;
 								}));
 						});
+					    nowTheme = res.nowThemeName;
 						break;
 					case "switchtheme":
 						location.reload();
@@ -210,6 +213,8 @@ $(document).ready(function() {
 			var id = this.Id;
 			var artwork = $(artworkTemplete);
 			artwork.hide();
+			var rating = "";
+			if (this.IsFavorite) rating = $(getRatingIcon());
 			$("#now_playing tbody").find("tr:last").before($("<tr style='height:70px'>")
 				.attr("id", id)
 				.append($("<td>")
@@ -219,8 +224,8 @@ $(document).ready(function() {
 					.addClass("hidden-xs")
 					.append(artwork)
 				)
-				.append($("<td>")
-					.text(this.Title)
+				.append($("<td>").text(this.Title)
+					.append(rating)
 				)
 				.append($("<td>")
 					.text(this.Artist)
@@ -252,13 +257,15 @@ $(document).ready(function() {
 
 			
 			$(recentListen).each(function() {
-				var id = this.Id;
+			    var id = this.Id;
 				var artwork = $(artworkTemplete);
 				artwork.hide();
+				var rating = "";
+				if (this.IsFavorite) rating = $(getRatingIcon());
 				var playseconds = this.PlaySeconds;
 				if (playseconds == null) {
 					var j = 0;
-					var message = "Now Playing";
+					var message = "Playing";
 					playseconds = $("<span>").text(message);
 					setInterval(function () {
 						j = ++j % 4;
@@ -272,7 +279,8 @@ $(document).ready(function() {
 						.append(artwork)
 					)
 					.append($("<td>")
-						.append(this.Title)
+                        .text(this.Title)
+						.append(rating)
 					)
 					.append($("<td>")
 						.append(this.Artist)
@@ -333,6 +341,8 @@ $(document).ready(function() {
 			var theme = target.attr("aria-valuetext");
 			var artwork = $(artworkTemplete);
 			artwork.hide();
+			var rating = "";
+			if (this.IsFavorite) rating = $(getRatingIcon());
 			target.find("tbody").append($("<tr style='height:70px'>")
 				.append($("<td>")
 					.append(rank)
@@ -342,7 +352,8 @@ $(document).ready(function() {
 					.append(artwork)
 				)
 				.append($("<td style='width:30%'>")
-					.append(this.Title)
+                    .text(this.Title)
+					.append(rating)
 				)
 				.append($("<td style='width:70%'>")
 					.append($("<div>").attr("class", "progress").css("width", this.Rate + "%")
@@ -397,6 +408,9 @@ $(document).ready(function() {
 
 	}
 
+    function getRatingIcon() {
+        return "<img style='padding-left:10px;padding-bottom:5px' src='../img/fav_" + nowTheme + ".png'/>";
+    }
 
 	// bind
 	$(".navbar-brand").on("click", function(event) {

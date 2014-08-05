@@ -255,15 +255,16 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                 themelist.Add(Path.GetFileNameWithoutExtension(path));
                             }
                             response.themeList = themelist.ToArray().Reverse().ToArray();
+                            response.nowThemeName = LinearGlobal.LinearConfig.ViewConfig.WebInterfaceTheme;
                             break;
                         case "switchtheme":
                             LinearGlobal.LinearConfig.ViewConfig.WebInterfaceTheme = request.theme;
                             break;
                         case "getnowplaying":
-                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(10).Select(gi=> new TrackInfo( gi.Id, gi.Title, gi.Artist )).ToArray();
+                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(10).Select(gi=> new TrackInfo( gi.Id, gi.Title, gi.Artist, gi.Rating )).ToArray();
                             break;
                         case "addnowplaying":
-                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(request.skip, request.take).Select(gi => new TrackInfo(gi.Id, gi.Title, gi.Artist)).ToArray();
+                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(request.skip, request.take).Select(gi => new TrackInfo(gi.Id, gi.Title, gi.Artist, gi.Rating)).ToArray();
                             break;
                         case "getanalyzeinfo":
                             var ai = new AnalyzeInfo();
@@ -286,12 +287,12 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             if (LinearGlobal.CurrentPlayItemInfo != null && request.offset == 0)
                             {
                                 var ci = LinearGlobal.CurrentPlayItemInfo;
-                                recentlist.Add(new TrackInfo(ci.Id, ci.Title, ci.Artist, "", "")); // NowPlaying
+                                recentlist.Add(new TrackInfo(ci.Id, ci.Title, ci.Artist, "", "", ci.Rating)); // NowPlaying
                                 limit--;
                             }
                             paramList.Add(new SQLiteParameter("Limit", limit));
                             paramList.Add(new SQLiteParameter("Offset", request.offset));
-                            recentlist.AddRange(SQLiteManager.Instance.executeQueryNormal(SQLResource.SQL061, paramList).Select(o=> new TrackInfo((long)o[0], o[1].ToString(), o[2].ToString(), o[3].ToString(), o[4].ToString())));
+                            recentlist.AddRange(SQLiteManager.Instance.executeQueryNormal(SQLResource.SQL061, paramList).Select(o=> new TrackInfo((long)o[0], o[1].ToString(), o[2].ToString(), o[3].ToString(), o[4].ToString(), int.Parse(o[5].ToString()))));
                             response.recentListen = recentlist.ToArray();
 
                             var offset = request.offset - limit < 0 ? 0 : request.offset - limit;
@@ -344,7 +345,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                 topTracks.Select(
                                     o =>
                                         new TrackInfo(o[0].ToString() + " - " + o[1].ToString(), (long)o[2],
-                                            (int)((int.Parse(o[2].ToString()) / maxcount2) * 100), o[3].ToString())).ToArray();
+                                            (int)((int.Parse(o[2].ToString()) / maxcount2) * 100), o[3].ToString(), int.Parse(o[4].ToString()))).ToArray();
                             break;
                         case "ratingon":
                         case "ratingoff":
