@@ -316,12 +316,16 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             }
                             sql = sql.Replace(":Condition", where);
                             var topArtists = SQLiteManager.Instance.executeQueryNormal(sql, new SQLiteParameter("Limit", request.limit));
-                            double maxcount = topArtists.Max(o => (long) o[1]);
-                            response.topLists =
-                                topArtists.Select(
-                                    o =>
-                                        new TrackInfo(o[0].ToString(), (long) o[1],
-                                            (int)((int.Parse(o[1].ToString()) / maxcount) * 100), o[2].ToString())).ToArray();
+                            if (topArtists.Length > 0)
+                            {
+                                double maxcount = topArtists.Max(o => (long) o[1]);
+                                response.topLists =
+                                    topArtists.Select(
+                                        o =>
+                                            new TrackInfo(o[0].ToString(), (long) o[1],
+                                                (int) ((int.Parse(o[1].ToString())/maxcount)*100), o[2].ToString()))
+                                        .ToArray();
+                            }
                             break;
                         case "gettoptrack":
                             var sql2 = SQLResource.SQL063;
@@ -340,12 +344,16 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             }
                             sql2 = sql2.Replace(":Condition", where2);
                             var topTracks = SQLiteManager.Instance.executeQueryNormal(sql2, new SQLiteParameter("Limit", request.limit));
-                            double maxcount2 = topTracks.Max(o => (long)o[2]);
-                            response.topLists =
-                                topTracks.Select(
-                                    o =>
-                                        new TrackInfo(o[0].ToString() + " - " + o[1].ToString(), (long)o[2],
-                                            (int)((int.Parse(o[2].ToString()) / maxcount2) * 100), o[3].ToString(), int.Parse(o[4].ToString()))).ToArray();
+                            if (topTracks.Length > 0)
+                            {
+                                double maxcount2 = topTracks.Max(o => (long) o[2]);
+                                response.topLists =
+                                    topTracks.Select(
+                                        o =>
+                                            new TrackInfo(o[0].ToString() + " - " + o[1].ToString(), (long) o[2],
+                                                (int) ((int.Parse(o[2].ToString())/maxcount2)*100), o[3].ToString(),
+                                                int.Parse(o[4].ToString()))).ToArray();
+                            }
                             break;
                         case "ratingon":
                         case "ratingoff":

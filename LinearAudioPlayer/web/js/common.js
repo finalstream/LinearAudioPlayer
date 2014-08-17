@@ -279,7 +279,7 @@ $(document).ready(function() {
 						.append(artwork)
 					)
 					.append($("<td>")
-                        .text(this.Title)
+                        .html(this.Title)
 						.append(rating)
 					)
 					.append($("<td>")
