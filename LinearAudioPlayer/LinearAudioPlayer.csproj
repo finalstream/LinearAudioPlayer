@@ -119,7 +119,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MessageResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\SQLResource.Designer.cs">
+    <Compile Include="Resources\SQLResource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SQLResource.resx</DependentUpon>
@@ -188,12 +188,14 @@
     <Compile Include="src\GUI\option\StyleEditDialog.Designer.cs">
       <DependentUpon>StyleEditDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\Info\AnalyzeInfo.cs" />
     <Compile Include="src\Info\AudioFileRegistInfo.cs" />
     <Compile Include="src\Info\ConditionGridItemInfo.cs" />
     <Compile Include="src\Info\MedleyInfo.cs" />
     <Compile Include="src\Info\PlayItemInfo.cs" />
     <Compile Include="src\Info\TagEditFileInfo.cs" />
     <Compile Include="src\Info\AnyGridItemInfo.cs" />
+    <Compile Include="src\Info\TrackInfo.cs" />
     <Compile Include="src\Info\UpdateInfo.cs" />
     <Compile Include="src\Info\WebServiceRequestInfo.cs" />
     <Compile Include="src\Info\WebServiceResponseInfo.cs" />
@@ -247,6 +249,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <CustomToolNamespace>FINALSTREAM.LinearAudioPlayer.Resources</CustomToolNamespace>
+      <LastGenOutput>SQLResource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="src\GUI\list\ListForm.resx">
       <DependentUpon>ListForm.cs</DependentUpon>
@@ -760,13 +763,16 @@
     <Content Include="style\Lyrids\volume_switch.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="web\css\bootstrap-drak.min.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="web\css\bootstrap-theme.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="web\css\bootstrap.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web\css\bootstrap-dark.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web\css\lightbox.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="web\fonts\glyphicons-halflings-regular.svg">
@@ -775,7 +781,22 @@
     <Content Include="web\img\blank.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="web\img\close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="web\img\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web\img\fav_dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web\img\fav_light.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web\img\loading.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web\img\nocover.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="web\js\bootstrap.min.js">
@@ -785,6 +806,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="web\js\jquery.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web\js\lightbox.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="web\ui\dark.html">

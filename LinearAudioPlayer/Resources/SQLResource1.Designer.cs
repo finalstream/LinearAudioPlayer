@@ -610,11 +610,135 @@ namespace FINALSTREAM.LinearAudioPlayer.Resources {
         }
         
         /// <summary>
-        ///   DELETE PLAYHISTORY WHERE ID =:Id に類似しているローカライズされた文字列を検索します。
+        ///   DELETE FROM PLAYHISTORY WHERE ID =:Id に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string SQL055 {
             get {
                 return ResourceManager.GetString("SQL055", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SELECT MIN(ADDDATE) FROM PLAYLIST に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SQL056 {
+            get {
+                return ResourceManager.GetString("SQL056", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SELECT COUNT(*) FROM PLAYLIST に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SQL057 {
+            get {
+                return ResourceManager.GetString("SQL057", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SELECT COUNT(*) FROM PLAYLIST WHERE RATING = 9 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SQL058 {
+            get {
+                return ResourceManager.GetString("SQL058", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SELECT SUM(PLAYCOUNT) FROM PLAYLIST に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SQL059 {
+            get {
+                return ResourceManager.GetString("SQL059", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SELECT COUNT(*) FROM PLAYHISTORY に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SQL060 {
+            get {
+                return ResourceManager.GetString("SQL060", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SELECT PH.ID, TITLE, ARTIST, PLAYTIME, PLAYDATETIME, RATING 
+        ///FROM PLAYHISTORY PH 
+        ///INNER JOIN PLAYLIST PL 
+        ///ON PH.ID = PL.ID 
+        ///ORDER BY PH.PLAYDATETIME DESC, PH.ROWID DESC 
+        ///LIMIT :Limit OFFSET :Offset に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SQL061 {
+            get {
+                return ResourceManager.GetString("SQL061", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SELECT ifnull(ARTIST,&apos;&apos;), COUNT(*) AS CNT , CAST(SUM(PH.PLAYTIME) as int) AS PT
+        ///FROM PLAYHISTORY PH 
+        ///INNER JOIN PLAYLIST PL 
+        ///ON PH.ID = PL.ID :Condition 
+        ///GROUP BY ARTIST
+        ///ORDER BY CNT DESC, PT DESC
+        ///LIMIT :Limit; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SQL062 {
+            get {
+                return ResourceManager.GetString("SQL062", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SELECT ifnull(PL.TITLE,&apos;&apos;), ifnull(PL.ARTIST,&apos;&apos;), TT.CNT, TT.PT, PL.RATING FROM(
+        ///SELECT PH.ID, COUNT(*) AS CNT, CAST(SUM(PH.PLAYTIME) as int) AS PT
+        ///FROM PLAYHISTORY PH 
+        ///INNER JOIN PLAYLIST PL 
+        ///ON PH.ID = PL.ID :Condition
+        ///GROUP BY PH.ID
+        ///ORDER BY CNT DESC, PT DESC
+        ///LIMIT :Limit
+        ///) TT
+        ///INNER JOIN PLAYLIST PL 
+        ///ON TT.ID = PL.ID; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SQL063 {
+            get {
+                return ResourceManager.GetString("SQL063", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SELECT ifnull(ARTIST,&apos;&apos;), SUM(PLAYCOUNT) AS CNT, &apos;&apos;
+        ///FROM PLAYLIST PL
+        ///WHERE ARTIST &lt;&gt; &apos;&apos;
+        ///GROUP BY ARTIST
+        ///ORDER BY CNT DESC
+        ///LIMIT :Limit に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SQL064 {
+            get {
+                return ResourceManager.GetString("SQL064", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SELECT ifnull(PL.TITLE,&apos;&apos;), ifnull(PL.ARTIST,&apos;&apos;), TT.CNT, &apos;&apos;, PL.RATING FROM(
+        ///SELECT ID, SUM(PLAYCOUNT) AS CNT
+        ///FROM PLAYLIST PL
+        ///GROUP BY ID
+        ///ORDER BY CNT DESC
+        ///LIMIT :Limit
+        ///) TT
+        ///INNER JOIN PLAYLIST PL 
+        ///ON TT.ID = PL.ID に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SQL065 {
+            get {
+                return ResourceManager.GetString("SQL065", resourceCulture);
             }
         }
     }

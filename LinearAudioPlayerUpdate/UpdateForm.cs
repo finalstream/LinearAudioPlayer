@@ -157,7 +157,7 @@ namespace LinearAudioPlayerUpdate
             }
 
 
-            MessageUtils.showMessage(MessageBoxIcon.Information, "アップデートが完了しました。再起動します。");
+            MessageUtils.showMessage(MessageBoxIcon.Information, "アップデートが完了しました。Linear Audio Playerを再起動します。");
 
             Process p = Process.Start(LINEAR_DIR + "\\LinearAudioPlayer.exe");
 

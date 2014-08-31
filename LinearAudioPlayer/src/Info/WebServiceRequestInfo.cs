@@ -7,6 +7,7 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
 {
     public class WebServiceRequestInfo
     {
+        public string rangeType { get; set; }
         public long id { get; set; }
 
         /// <summary>
@@ -38,5 +39,10 @@ namespace FINALSTREAM.LinearAudioPlayer.Info
         /// theme
         /// </summary>
         public string theme { get; set; }
+
+        public int offset { get; set; }
+
+        public int limit { get; set; }
+
     }
 }

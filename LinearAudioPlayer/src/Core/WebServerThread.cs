@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -16,12 +18,33 @@ using FINALSTREAM.LinearAudioPlayer.Database;
 using FINALSTREAM.LinearAudioPlayer.Grid;
 using FINALSTREAM.LinearAudioPlayer.Info;
 using FINALSTREAM.LinearAudioPlayer.Resources;
+using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
+using SearchOption = System.IO.SearchOption;
 
 namespace FINALSTREAM.LinearAudioPlayer.Core
 {
     public class WebServerThread
     {
+
+        enum RangeType
+        {
+            WEEKLY,
+            MONTHLY,
+            LAST3MONTHS,
+            LAST6MONTHS,
+            LAST12MONTHS,
+            ALL
+        }
+        private Dictionary<RangeType, string> _rangeDictionary = new Dictionary<RangeType, string>()
+        {
+            {RangeType.WEEKLY, "-7 days"},
+            {RangeType.MONTHLY, "-1 months"},
+            {RangeType.LAST3MONTHS, "-3 months"},
+            {RangeType.LAST6MONTHS, "-6 months"},
+            {RangeType.LAST12MONTHS, "-1 years"}
+        }; 
+
         string docRoot = ""; // ドキュメント・ルート
         string prefix = ""; // 受け付けるURL
         private HttpListener listener = null;
@@ -231,16 +254,106 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             {
                                 themelist.Add(Path.GetFileNameWithoutExtension(path));
                             }
-                            response.themeList = themelist.ToArray();
+                            response.themeList = themelist.ToArray().Reverse().ToArray();
+                            response.nowThemeName = LinearGlobal.LinearConfig.ViewConfig.WebInterfaceTheme;
                             break;
                         case "switchtheme":
                             LinearGlobal.LinearConfig.ViewConfig.WebInterfaceTheme = request.theme;
                             break;
                         case "getnowplaying":
-                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(10).Select(gi=> new object[] { gi.Id, gi.Title, gi.Artist }).ToArray();
+                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(10).Select(gi=> new TrackInfo( gi.Id, gi.Title, gi.Artist, gi.Rating )).ToArray();
                             break;
                         case "addnowplaying":
-                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(request.skip, request.take).Select(gi => new object[] { gi.Id, gi.Title, gi.Artist }).ToArray();
+                            response.nowPlaying = LinearAudioPlayer.PlayController.getNowPlayingList(request.skip, request.take).Select(gi => new TrackInfo(gi.Id, gi.Title, gi.Artist, gi.Rating)).ToArray();
+                            break;
+                        case "getanalyzeinfo":
+                            var ai = new AnalyzeInfo();
+                            var startDate = SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL056);
+                            if (startDate != null)
+                            {
+                                ai.StartDate = startDate.ToString().Substring(0,10);
+                                ai.StartDateRelative = DateTimeUtils.getRelativeTimeString(startDate.ToString());
+                            }
+                            ai.TotalTracksCount = (long) SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL057);
+                            ai.TotalFavoriteTracksCount = (long) SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL058);
+                            ai.TotalPlayCount = (long) SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL059);
+                            ai.TotalPalyHistoryCount = (long) SQLiteManager.Instance.executeQueryOnlyOne(SQLResource.SQL060);
+                            response.analyzeOverview = ai;
+                            break;
+                        case "getrecentlist":
+                            var paramList = new List<DbParameter>();
+                            var recentlist = new List<TrackInfo>();
+                            var limit = request.limit;
+                            if (LinearGlobal.CurrentPlayItemInfo != null && request.offset == 0)
+                            {
+                                var ci = LinearGlobal.CurrentPlayItemInfo;
+                                recentlist.Add(new TrackInfo(ci.Id, ci.Title, ci.Artist, "", "", ci.Rating)); // NowPlaying
+                                limit--;
+                            }
+                            paramList.Add(new SQLiteParameter("Limit", limit));
+                            paramList.Add(new SQLiteParameter("Offset", request.offset));
+                            recentlist.AddRange(SQLiteManager.Instance.executeQueryNormal(SQLResource.SQL061, paramList).Select(o=> new TrackInfo((long)o[0], o[1].ToString(), o[2].ToString(), o[3].ToString(), o[4].ToString(), int.Parse(o[5].ToString()))));
+                            response.recentListen = recentlist.ToArray();
+
+                            var offset = request.offset - limit < 0 ? 0 : request.offset - limit;
+                            response.pagerPrevious = request.offset == 0 ? -1 : offset;
+                            response.pagerNext = response.recentListen.Length < limit ? -1 : request.offset + limit;
+                            break;
+                        case "gettopartist":
+                            var sql = SQLResource.SQL062;
+                            var rangeType = (RangeType) Enum.Parse(typeof (RangeType), request.rangeType);
+                            var where = "";
+                            if (rangeType != RangeType.ALL)
+                            {
+                                where =
+                                    string.Format(
+                                        "WHERE PH.PLAYDATETIME >= DATETIME(DATETIME('NOW','LOCALTIME'), '{0}','LOCALTIME')",
+                                        _rangeDictionary[rangeType]);
+                            }
+                            else
+                            {
+                                sql = SQLResource.SQL064;
+                            }
+                            sql = sql.Replace(":Condition", where);
+                            var topArtists = SQLiteManager.Instance.executeQueryNormal(sql, new SQLiteParameter("Limit", request.limit));
+                            if (topArtists.Length > 0)
+                            {
+                                double maxcount = topArtists.Max(o => (long) o[1]);
+                                response.topLists =
+                                    topArtists.Select(
+                                        o =>
+                                            new TrackInfo(o[0].ToString(), (long) o[1],
+                                                (int) ((int.Parse(o[1].ToString())/maxcount)*100), o[2].ToString()))
+                                        .ToArray();
+                            }
+                            break;
+                        case "gettoptrack":
+                            var sql2 = SQLResource.SQL063;
+                            var rangeType2 = (RangeType)Enum.Parse(typeof(RangeType), request.rangeType);
+                            var where2 = "";
+                            if (rangeType2 != RangeType.ALL)
+                            {
+                                where2 =
+                                    string.Format(
+                                        "WHERE PH.PLAYDATETIME >= DATETIME(DATETIME('NOW','LOCALTIME'), '{0}','LOCALTIME')",
+                                        _rangeDictionary[rangeType2]);
+                            }
+                            else
+                            {
+                                sql2 = SQLResource.SQL065;
+                            }
+                            sql2 = sql2.Replace(":Condition", where2);
+                            var topTracks = SQLiteManager.Instance.executeQueryNormal(sql2, new SQLiteParameter("Limit", request.limit));
+                            if (topTracks.Length > 0)
+                            {
+                                double maxcount2 = topTracks.Max(o => (long) o[2]);
+                                response.topLists =
+                                    topTracks.Select(
+                                        o =>
+                                            new TrackInfo(o[0].ToString() + " - " + o[1].ToString(), (long) o[2],
+                                                (int) ((int.Parse(o[2].ToString())/maxcount2)*100), o[3].ToString(),
+                                                int.Parse(o[4].ToString()))).ToArray();
+                            }
                             break;
                         case "ratingon":
                         case "ratingoff":
@@ -279,6 +392,8 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                             {
                                 try
                                 {
+                                    
+                                    if (request.artworkSize == 0) request.artworkSize = 150;
                                     Bitmap thumbnail = new Bitmap(request.artworkSize, request.artworkSize);
                                     using (Graphics g = Graphics.FromImage(thumbnail))
                                     {
@@ -286,12 +401,27 @@ namespace FINALSTREAM.LinearAudioPlayer.Core
                                             System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                                         g.DrawImage(LinearGlobal.CurrentPlayItemInfo.Artwork, 0, 0, request.artworkSize, request.artworkSize);
                                     }
-                                    thumbnail.Save(
-                                        Application.StartupPath +
-                                        Path.Combine(LinearConst.WEB_DIRECTORY_NAME, "img\\artwork.png"),
+                                    var artworkDirectoy = Application.StartupPath +
+                                                          Path.Combine(Path.Combine(LinearConst.WEB_DIRECTORY_NAME, "img"), "artwork");
+                                    Directory.CreateDirectory(artworkDirectoy);
+                                    var artworkFileName = string.Format("{0}.png",
+                                        LinearGlobal.CurrentPlayItemInfo.Id);
+                                    var artworkThumbFileName = string.Format("{0}-thumb.png",
+                                        LinearGlobal.CurrentPlayItemInfo.Id);
+                                    LinearGlobal.CurrentPlayItemInfo.Artwork.Save(artworkDirectoy + "\\" + artworkFileName,
+                                        System.Drawing.Imaging.ImageFormat.Png);
+                                    thumbnail.Save(artworkDirectoy + "\\" + artworkThumbFileName,
                                         System.Drawing.Imaging.ImageFormat.Png);
                                     thumbnail.Dispose();
-                                    response.artworkUrl = "../img/artwork.png";
+                                    var oldfiles =
+                                        Directory.GetFiles(artworkDirectoy, "*.png")
+                                            .Where(a => Path.GetFileName(a).IndexOf(LinearGlobal.CurrentPlayItemInfo.Id.ToString()) == -1);
+                                    foreach (var file in oldfiles)
+                                    {
+                                        File.Delete(file);
+                                    }
+                                    response.artworkUrl = "../img/artwork/" + artworkFileName;
+                                    response.artworkThumbUrl = "../img/artwork/" + artworkThumbFileName;
                                 }
                                 catch (Exception)
                                 {
